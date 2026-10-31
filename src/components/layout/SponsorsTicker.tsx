@@ -20,14 +20,14 @@ const SPONSORS_DATA: Sponsor[] = [
   { id: '4', name: 'Sebrae MS', category: 'Parceiro Estratégico', logoText: 'SEBRAE MS', url: '#' },
   { id: '5', name: 'Sistema FIEEMS', category: 'Indústria', logoText: 'FIEEMS', url: '#' },
 
-  // Patrocinadores de Naviraí (IBGE: 5005707) - Com nomes e links reais
+  // Patrocinadores de Naviraí (IBGE: 5005707) - Apontando para a pasta correta public/assets/aistudio/
   { 
     id: 'nav-1', 
     name: 'GG Engenharia & Projetos', 
     category: 'Engenharia Civil', 
     cidadeIbge: 5005707, 
     logoText: 'GG Engenharia', 
-    imageUrl: '/sponsors/gg-engenharia.png', 
+    imageUrl: '/assets/aistudio/gg-engenharia.png', 
     url: 'https://www.instagram.com/eng_giovanegabriel/' 
   },
   { 
@@ -36,7 +36,7 @@ const SPONSORS_DATA: Sponsor[] = [
     category: 'Comércio e Manutenção', 
     cidadeIbge: 5005707, 
     logoText: 'Renatinho Válvulas', 
-    imageUrl: '/sponsors/renatinho-valvulas.png', 
+    imageUrl: '/assets/aistudio/renatinho-valvulas.png', 
     url: '#' 
   },
   { 
@@ -45,7 +45,7 @@ const SPONSORS_DATA: Sponsor[] = [
     category: 'Jurídico & Compliance', 
     cidadeIbge: 5005707, 
     logoText: 'LA Advogados', 
-    imageUrl: '/sponsors/la-advocacia.png', 
+    imageUrl: '/assets/aistudio/la-advocacia.png', 
     url: 'https://www.instagram.com/la_advogadosassociados/' 
   },
 ];
