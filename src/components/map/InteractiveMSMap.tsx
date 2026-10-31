@@ -203,7 +203,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, []);
 
   useEffect(() => {
-    meshesRef.current.forEach((val, ibge) => {
+    meshesRef.current?.forEach((val, ibge) => {
       const municipio = municipiosMap.get(ibge);
       if (!municipio) return;
 
@@ -230,7 +230,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, [metricMode, selectedRegiao, municipiosMap, getMetricAttributes]);
 
   useEffect(() => {
-    meshesRef.current.forEach((val, ibge) => {
+    meshesRef.current?.forEach((val, ibge) => {
       const mat = val.mesh.material as THREE.MeshStandardMaterial;
       if (selectedMunicipio?.ibge === ibge) {
         mat.emissive.setHex(0x06b6d4);
@@ -455,7 +455,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           visible: boolean;
         }> = [];
 
-        meshesRef.current.forEach((val, ibge) => {
+        meshesRef.current?.forEach((val, ibge) => {
           const municipio = municipiosMap.get(ibge);
           if (!municipio) return;
 
@@ -518,7 +518,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     raycaster.setFromCamera(mouse, cameraRef.current);
 
     const meshes: THREE.Mesh[] = [];
-    meshesRef.current.forEach(item => meshes.push(item.mesh));
+    meshesRef.current?.forEach(item => meshes.push(item.mesh));
 
     const intersects = raycaster.intersectObjects(meshes, false);
     if (intersects.length > 0) return intersects[0].object as THREE.Mesh;
@@ -556,7 +556,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     if (hitMesh !== hoveredMeshRef.current) {
       if (hoveredMeshRef.current) {
         const prevIbge = hoveredMeshRef.current.userData.ibge;
-        const prevMeta = meshesRef.current.get(prevIbge);
+        const prevMeta = meshesRef.current?.get(prevIbge);
         if (prevMeta && prevIbge !== selectedMunicipio?.ibge) {
           const mat = hoveredMeshRef.current.material as THREE.MeshStandardMaterial;
           mat.emissive.setHex(0x000000);
