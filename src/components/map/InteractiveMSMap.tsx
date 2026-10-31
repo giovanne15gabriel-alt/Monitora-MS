@@ -116,7 +116,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegiao, setSelectedRegiao] = useState<string>('todas');
   const [showAllLabels, setShowAllLabels] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Menu retrátil apenas para a Legenda das 10 Regiões
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [screenLabels, setScreenLabels] = useState<Array<{
     ibge: number;
     nome: string;
@@ -660,7 +660,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* BARRA SUPERIOR ÚNICA E LIMPA COM LOGO, BUSCA E MENU HAMBÚRGUER (LEGENDA DAS 10 REGIÕES) */}
+      {/* BARRA SUPERIOR (Sem carrossel no PC, apenas logo, busca e menu de regiões no mobile) */}
       <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-3 py-2 flex items-center justify-between gap-2 z-30 shadow-lg shrink-0">
         
         {/* LOGO / TÍTULO "MONITORA MS" */}
@@ -706,7 +706,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           )}
         </div>
 
-        {/* Botão Menu Hambúrguer Mobile para abrir a Legenda das 10 Regiões */}
+        {/* Botão Menu Hambúrguer Mobile para Legenda das 10 Regiões */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="sm:hidden p-2 bg-slate-800 text-cyan-400 rounded-xl border border-slate-700 shadow-md flex items-center justify-center"
@@ -762,12 +762,12 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
       </div>
 
-      {/* CARROSSEL AUTOMÁTICO NO TOPO PARA MOBILE (Mostra parceiros estaduais ou específicos da cidade selecionada) */}
+      {/* CARROSSEL AUTOMÁTICO NO TOPO EXCLUSIVO PARA MOBILE (Na tela inicial do mapa) */}
       <div className="block sm:hidden w-full z-25 px-2 pt-1.5">
         <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={true} />
       </div>
 
-      {/* MENU RETRÁTIL MOBILE (Exibe exclusivamente a Legenda das 10 Regiões) */}
+      {/* MENU RETRÁTIL MOBILE (Legenda das 10 Regiões) */}
       {mobileMenuOpen && (
         <div className="sm:hidden absolute top-14 left-2 right-2 bg-slate-950/98 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl z-40 space-y-2.5">
           <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
@@ -897,7 +897,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           </div>
         </div>
 
-        {/* BOTTOM LEFT: LATERAL ESQUERDA (EXCLUSIVO PARA PC) */}
+        {/* BOTTOM LEFT: LATERAL ESQUERDA (EXCLUSIVO PARA PC - Carrossel em cima da legenda das regiões) */}
         <div className="hidden sm:flex absolute bottom-6 left-4 flex-col gap-3 pointer-events-none z-20">
           
           <div className="pointer-events-auto">
