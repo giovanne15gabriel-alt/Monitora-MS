@@ -276,14 +276,23 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     }
   }, []);
 
+  // AJUSTE DE FOCO SUAVE: Mantém o zoom equilibrado e impede que cidades das bordas saiam da tela
   const focusOnMunicipio = useCallback((municipio: MunicipioMS) => {
-    const x = (municipio.lng - CENTER_LNG) * SCALE;
-    const z = -(municipio.lat - CENTER_LAT) * SCALE;
+    const rawX = (municipio.lng - CENTER_LNG) * SCALE;
+    const rawZ = -(municipio.lat - CENTER_LAT) * SCALE;
 
-    targetLookAt.current.set(x, 1.2, z);
+    // Aplica um fator de amortecimento (clamp) para puxar um pouco o foco em direção ao centro do estado
+    const targetX = rawX * 0.65;
+    const targetZ = rawZ * 0.65;
+
+    targetLookAt.current.set(targetX, 0.8, targetZ);
+
+    // Raio orbital maior (95) para garantir que o estado inteiro continue visível na tela
+    sphericalRef.current.radius = 95;
     const r = sphericalRef.current.radius;
     const theta = sphericalRef.current.theta;
     const phi = sphericalRef.current.phi;
+
     targetCameraPos.current.x = targetLookAt.current.x + r * Math.sin(phi) * Math.sin(theta);
     targetCameraPos.current.y = targetLookAt.current.y + r * Math.cos(phi);
     targetCameraPos.current.z = targetLookAt.current.z + r * Math.sin(phi) * Math.cos(theta);
