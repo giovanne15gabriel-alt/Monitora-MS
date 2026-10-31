@@ -542,7 +542,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     isDraggingRef.current = true;
-    dragButtonRef.current = e.button; // 0 = esquerdo (rotacionar), 2 = direito (mover/pan)
+    dragButtonRef.current = e.button; 
     previousMousePosRef.current = { x: e.clientX, y: e.clientY };
   };
 
@@ -553,7 +553,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       previousMousePosRef.current = { x: e.clientX, y: e.clientY };
 
       if (dragButtonRef.current === 0) {
-        // Botão esquerdo: Rotacionar
         sphericalRef.current.theta -= deltaX * 0.008;
         sphericalRef.current.phi = Math.max(0.08, Math.min(Math.PI / 2.1, sphericalRef.current.phi + deltaY * 0.008));
 
@@ -565,7 +564,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
         targetCameraPos.current.y = targetLookAt.current.y + r * Math.cos(phi);
         targetCameraPos.current.z = targetLookAt.current.z + r * Math.sin(phi) * Math.cos(theta);
       } else if (dragButtonRef.current === 2) {
-        // Botão direito: Mover / Pan
         const panSpeed = 0.18;
         const theta = sphericalRef.current.theta;
         const cosT = Math.cos(theta);
@@ -656,8 +654,24 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* FULL-WIDTH TOP HEADER BAR (FIXED, NON-FLOATING, EDGE-TO-EDGE) */}
-      <div className="w-full bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-col xl:flex-row items-center justify-between gap-3 z-30 shadow-2xl shrink-0">
+      {/* SEÇÃO 1: BARRA SUPERIOR PRINCIPAL (MS TRANSPARÊNCIA CÍVICA) */}
+      <div className="w-full bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 px-4 py-3 flex items-center justify-between z-30 shadow-2xl shrink-0">
+        <div className="flex items-center gap-2.5">
+          <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+          <span className="text-sm font-black tracking-wider text-white uppercase">MS Transparência Cívica</span>
+        </div>
+        <div className="text-xs text-slate-400 font-mono hidden sm:block">
+          Painel Geospacial de Controle Público e Orçamento
+        </div>
+      </div>
+
+      {/* SEÇÃO 2: CARROSSEL DE PATROCINADORES (TAMANHO 176X176 PIXELS) */}
+      <div className="w-full bg-slate-950/90 border-b border-slate-800/80 py-3 px-4 flex items-center justify-center z-20 shrink-0">
+        <SponsorsTicker selectedMunicipio={selectedMunicipio} />
+      </div>
+
+      {/* SEÇÃO 3: BARRA DE BUSCA E BOTÕES DE VISUALIZAÇÃO DO MAPA */}
+      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-20 shadow-lg shrink-0">
         
         {/* Quick Search Bar */}
         <div className="relative w-full sm:w-80 shadow-xl">
@@ -696,17 +710,12 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           )}
         </div>
 
-        {/* SPONSORS TICKER SPANNING FULL WIDTH IN THE CENTER (PASSANDO A CIDADE SELECIONADA) */}
-        <div className="flex-1 w-full max-w-2xl mx-auto px-2">
-          <SponsorsTicker selectedMunicipio={selectedMunicipio} />
-        </div>
-
         {/* Camera View Presets & Labels Toggle */}
-        <div className="flex items-center gap-2 flex-wrap justify-end">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center p-1 bg-slate-950/90 border border-slate-800 rounded-xl shadow-inner">
             <button
               onClick={() => applyViewPreset('perspective')}
-              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold rounded-lg transition-all ${
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 viewPreset === 'perspective' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -716,7 +725,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
             <button
               onClick={() => applyViewPreset('top')}
-              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold rounded-lg transition-all ${
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 viewPreset === 'top' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -726,7 +735,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
             <button
               onClick={() => applyViewPreset('isometric')}
-              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold rounded-lg transition-all ${
+              className={`flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
                 viewPreset === 'isometric' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -737,12 +746,12 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
           <button
             onClick={() => setShowAllLabels(!showAllLabels)}
-            className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border transition-all shadow-md ${
+            className={`flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium rounded-xl border transition-all shadow-md ${
               showAllLabels ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-slate-950/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
             }`}
           >
             <Eye className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{showAllLabels ? 'Ocultar' : 'Todos os 79'}</span>
+            <span>{showAllLabels ? 'Ocultar Nomes' : 'Todos os 79'}</span>
           </button>
         </div>
 
