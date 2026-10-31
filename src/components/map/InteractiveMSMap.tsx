@@ -654,20 +654,15 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* SEÇÃO 1: BARRA SUPERIOR PRINCIPAL (MONITORA MS) */}
-      <div className="w-full bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 px-4 py-3 flex items-center justify-between z-30 shadow-2xl shrink-0">
+      {/* BARRA SUPERIOR LIMPA COM "MONITORA MS" E FERRAMENTAS */}
+      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-20 shadow-lg shrink-0">
+        
+        {/* LOGO / TÍTULO "MONITORA MS" */}
         <div className="flex items-center gap-2.5">
           <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
           <span className="text-sm font-black tracking-wider text-white uppercase">Monitora MS</span>
         </div>
-        <div className="text-xs text-slate-400 font-mono hidden sm:block">
-          Painel Geospacial de Controle Público e Orçamento
-        </div>
-      </div>
 
-      {/* SEÇÃO 2: BARRA DE BUSCA E BOTÕES DE VISUALIZAÇÃO DO MAPA */}
-      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-20 shadow-lg shrink-0">
-        
         {/* Quick Search Bar */}
         <div className="relative w-full sm:w-80 shadow-xl">
           <div className="relative">
@@ -848,48 +843,48 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           </div>
         </div>
 
-        {/* BOTTOM LEFT: CARROSSEL DE PATROCINADORES LOGO ACIMA DA LEGENDA */}
-        <div className="absolute bottom-36 left-4 pointer-events-none z-20">
+        {/* BOTTOM LEFT: PILHA ORGANIZADA NA LATERAL ESQUERDA (CARROSSEL EM CIMA DA LEGENDA) */}
+        <div className="absolute bottom-6 left-4 flex flex-col gap-3 pointer-events-none z-20">
+          
+          {/* 1. Carrossel Flutuante de Patrocinadores (Em cima) */}
           <div className="pointer-events-auto">
             <SponsorsTicker selectedMunicipio={selectedMunicipio} />
           </div>
-        </div>
 
-        {/* BOTTOM LEFT: REGIONS LEGEND & METRIC SELECTOR */}
-        <div className="absolute bottom-6 left-4 pointer-events-none z-20 max-w-sm">
-          <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3.5 shadow-2xl space-y-3">
+          {/* 2. Legenda das 10 Regiões Oficiais e Métricas (Abaixo) */}
+          <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl space-y-2.5 max-w-xs">
             
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
                 <span className="text-xs font-bold text-white tracking-wide">10 Regiões Oficiais de MS</span>
               </div>
               {selectedRegiao !== 'todas' && (
                 <button onClick={() => setSelectedRegiao('todas')} className="text-[10px] text-cyan-400 hover:underline">
-                  Limpar Filtro
+                  Limpar
                 </button>
               )}
             </div>
 
-            <div className="grid grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
+            <div className="grid grid-cols-2 gap-1 max-h-36 overflow-y-auto pr-1">
               {REGIOES_OFICIAIS.map((reg) => {
                 const isSelected = selectedRegiao === reg.nome;
                 return (
                   <button
                     key={reg.nome}
                     onClick={() => setSelectedRegiao(isSelected ? 'todas' : reg.nome)}
-                    className={`flex items-center gap-2 px-2 py-1 rounded-lg text-[10px] text-left transition-all ${
+                    className={`flex items-center gap-1.5 px-2 py-1 rounded-lg text-[10px] text-left transition-all ${
                       isSelected ? 'bg-slate-800 text-white font-bold ring-1 ring-cyan-400' : 'text-slate-300 hover:text-white hover:bg-slate-900/80'
                     }`}
                   >
-                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: reg.cor }} />
+                    <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: reg.cor }} />
                     <span className="truncate">{reg.nome}</span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+            <div className="pt-1.5 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
               <span className="text-slate-400 text-[10px]">Extrusão 3D:</span>
               <div className="flex gap-1">
                 {(['regioes', 'divida', 'legislativo'] as MetricMode[]).map((mode) => (
@@ -907,6 +902,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
             </div>
 
           </div>
+
         </div>
 
         {/* BOTTOM RIGHT: ZOOM CONTROLS, VISITOR STATS & AUTHOR CREDIT */}
