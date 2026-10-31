@@ -1,65 +1,118 @@
 import React, { useState, useEffect } from 'react';
-import { Eye, TrendingUp } from 'lucide-react';
+import { Eye } from 'lucide-react';
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, onValue, onDisconnect, set, push, increment } from 'firebase/database';
 
-export const VisitorStats: React.FC = () => {
-  const [online, setOnline] = useState<number>(1);
-  const [monthly, setMonthly] = useState<number>(0);
-  const [total, setTotal] = useState<number>(0);
+// ⚠️ IMPORTANTE: Substitua os valores abaixo pelas chaves que você gerar no Console do Firebase!
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
+  projectId: "SEU_PROJETO",
+};
+
+// Inicializa a conexão com o Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// Hook contendo toda a lógica de contagem e presença em tempo real
+function useVisitorStats() {
+  const [stats, setStats] = useState({ online: 0, last30Days: 0, total: 0 });
 
   useEffect(() => {
-    // Busca e incrementa a contagem total através de API pública
-    fetch('https://api.counterapi.dev/v1/monitora-ms-transparencia/visitas/up')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data && data.count) {
-          setTotal(data.count);
-          setMonthly(Math.round(data.count * 0.35) + 12);
-        }
-      })
-      .catch(() => {
-        setTotal(154);
-        setMonthly(42);
-      });
+    const monthKey = new Date().toISOString().slice(0, 7); // Ex: "2026-10"
+    const totalRef = ref(db, 'stats/total');
+    const monthRef = ref(db, `stats/months/${monthKey}`);
+    const onlineUsersRef = ref(db, 'online/users');
+    const connectedRef = ref(db, '.info/connected');
 
-    // Simulação discreta de usuários simultâneos no mapa
-    const baseOnline = Math.floor(Math.random() * 3) + 1;
-    setOnline(baseOnline);
-    const interval = setInterval(() => {
-      setOnline(Math.floor(Math.random() * 3) + 1);
-    }, 20000);
+    // Incrementa visita única por sessão no total e no mês
+    if (!sessionStorage.getItem('visit_counted')) {
+      set(totalRef, increment(1));
+      set(monthRef, increment(1));
+      sessionStorage.setItem('visit_counted', 'true');
+    }
 
-    return () => clearInterval(interval);
+    // Gerencia conexão "Online"
+    let sessionRef: any = null;
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        sessionRef = push(onlineUsersRef);
+        set(sessionRef, true);
+        onDisconnect(sessionRef).remove(); // Remove quando o usuário fechar a aba
+      }
+    });
+
+    // Escuta mudanças de usuários online
+    const unsubOnline = onValue(onlineUsersRef, (snap) => {
+      const data = snap.val() || {};
+      setStats((prev) => ({ ...prev, online: Object.keys(data).length }));
+    });
+
+    // Escuta mudanças do total
+    const unsubTotal = onValue(totalRef, (snap) => {
+      setStats((prev) => ({ ...prev, total: snap.val() || 0 }));
+    });
+
+    // Escuta mudanças do mês
+    const unsubMonth = onValue(monthRef, (snap) => {
+      setStats((prev) => ({ ...prev, last30Days: snap.val() || 0 }));
+    });
+
+    return () => {
+      if (sessionRef) set(sessionRef, null);
+      unsubOnline();
+      unsubTotal();
+      unsubMonth();
+    };
   }, []);
 
+  return stats;
+}
+
+// Componente Visual Principal
+export const VisitorStats: React.FC = () => {
+  const { online, last30Days, total } = useVisitorStats();
+
   return (
-    <div className="fixed bottom-3 right-72 z-50 flex items-center gap-2.5 px-3 py-1.5 bg-slate-900/85 backdrop-blur-md border border-slate-700/60 rounded-lg text-slate-300 text-xs shadow-xl select-none">
-      {/* Pessoas Online */}
-      <div className="flex items-center gap-1.5" title="Usuários ativos agora">
-        <span className="relative flex h-2 w-2">
+    <div className="fixed bottom-3 right-72 z-50 flex items-center bg-[#0f172a] border border-slate-800 rounded-2xl px-5 py-3 shadow-lg font-sans select-none w-max">
+      
+      {/* Indicador Online (Tempo Real) */}
+      <div className="flex items-center gap-2 pr-4" title="Usuários online agora">
+        <span className="relative flex h-3 w-3">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
         </span>
-        <span className="font-semibold text-emerald-400">{online}</span>
-        <span className="text-[10px] text-slate-400 hidden sm:inline">online</span>
+        <Eye className="w-5 h-5 text-cyan-400 ml-1" strokeWidth={2} />
+        <span className="text-emerald-400 font-bold text-sm ml-1">
+          {online > 0 ? online : 1}
+        </span>
       </div>
 
-      <div className="h-3 w-[1px] bg-slate-700/80"></div>
+      <div className="w-px h-8 bg-slate-700/50 mx-2"></div>
 
-      {/* Acessos no Mês */}
-      <div className="flex items-center gap-1" title="Acessos nos últimos 30 dias">
-        <TrendingUp className="w-3.5 h-3.5 text-blue-400" />
-        <span className="font-medium text-slate-200">{monthly}</span>
-        <span className="text-[10px] text-slate-400 hidden sm:inline">mês</span>
+      {/* Últimos 30 Dias */}
+      <div className="px-4">
+        <p className="text-[10px] text-slate-400 font-semibold tracking-wide">
+          ÚLTIMOS 30 DIAS
+        </p>
+        <p className="text-cyan-400 font-bold text-[15px] leading-tight mt-0.5">
+          {last30Days.toLocaleString('pt-BR')}
+        </p>
       </div>
 
-      <div className="h-3 w-[1px] bg-slate-700/80"></div>
+      <div className="w-px h-8 bg-slate-700/50 mx-2"></div>
 
       {/* Total de Acessos */}
-      <div className="flex items-center gap-1" title="Total acumulado de visualizações">
-        <Eye className="w-3.5 h-3.5 text-purple-400" />
-        <span className="font-medium text-slate-200">{total}</span>
-        <span className="text-[10px] text-slate-400 hidden sm:inline">total</span>
+      <div className="pl-4">
+        <p className="text-[10px] text-slate-400 font-semibold tracking-wide">
+          TOTAL DE ACESSOS
+        </p>
+        <p className="text-white font-bold text-[15px] leading-tight mt-0.5">
+          {total.toLocaleString('pt-BR')}
+        </p>
       </div>
+
     </div>
   );
 };
