@@ -8,7 +8,7 @@ import * as THREE from 'three';
 import { MS_GEOJSON } from '../../data/msGeoJson.ts';
 import { MunicipioMS, MUNICIPIOS_DATA, MUNICIPIOS_MS } from '../../data/municipiosData.ts';
 import { formatCurrency, formatNumber } from '../../utils/formatters.ts';
-import { VisitorCounter } from '../layout/VisitorCounter.tsx';
+import { VisitorStats } from '../../VisitorStats.tsx';
 import { 
   Rotate3d, 
   Layers, 
@@ -1038,7 +1038,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
         {/* ROW: VISITOR COUNTER & AUTHOR CREDIT */}
         <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
           {/* Visitor Counter */}
-          <VisitorCounter />
+     <VisitorStats />
 
           {/* AUTHOR CREDIT - GIOVANE GABRIEL */}
           <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-3 py-2 shadow-2xl flex items-center gap-2.5">
