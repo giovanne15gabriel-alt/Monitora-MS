@@ -15,12 +15,14 @@ interface Sponsor {
 const BASE_URL = import.meta.env.BASE_URL || './';
 
 const SPONSORS_DATA: Sponsor[] = [
+  // Patrocinadores Gerais / Estado / Governo
   { id: '1', name: 'Governo Federal · Brasil', category: 'Governo Federal', logoText: 'GOV. FEDERAL', url: '#' },
   { id: '2', name: 'Banco do Brasil', category: 'Institucional', logoText: 'BANCO DO BRASIL', url: '#' },
   { id: '3', name: 'Energisa Mato Grosso do Sul', category: 'Infraestrutura', logoText: 'ENERGISA MS', url: '#' },
   { id: '4', name: 'Sebrae MS', category: 'Parceiro Estratégico', logoText: 'SEBRAE MS', url: '#' },
   { id: '5', name: 'Sistema FIEEMS', category: 'Indústria', logoText: 'FIEEMS', url: '#' },
 
+  // Patrocinadores de Naviraí (IBGE: 5005707)
   { 
     id: 'nav-1', 
     name: 'GG Engenharia & Projetos', 
@@ -52,7 +54,7 @@ const SPONSORS_DATA: Sponsor[] = [
 
 interface SponsorsTickerProps {
   selectedMunicipio: MunicipioMS | null;
-  isMobile?: boolean; // Flag para alternar layout mobile em linha ou PC vertical
+  isMobile?: boolean;
 }
 
 export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipio, isMobile = false }) => {
@@ -91,21 +93,21 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
     setCurrentIndex((prev) => (prev - 1 + activeSponsors.length) % activeSponsors.length);
   };
 
-  // LAYOUT SIMPLIFICADO EM LINHA PARA O MOBILE (Fica no topo)
+  // LAYOUT SIMPLIFICADO EM LINHA (Usado no topo mobile e dentro do painel da cidade)
   if (isMobile) {
     return (
-      <div className="w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 py-1.5 flex items-center justify-between gap-2 shadow-md">
+      <div className="w-full bg-slate-900/95 backdrop-blur-md border border-slate-800 rounded-xl px-3 py-2 flex items-center justify-between gap-2 shadow-lg">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="w-6 h-6 rounded bg-slate-950 border border-slate-800 flex items-center justify-center p-0.5 shrink-0">
+          <div className="w-7 h-7 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center p-0.5 shrink-0 shadow-inner">
             {currentSponsor.imageUrl ? (
               <img src={currentSponsor.imageUrl} alt="" className="w-full h-full object-contain" />
             ) : (
               <Building2 className="w-3.5 h-3.5 text-cyan-400" />
             )}
           </div>
-          <div className="min-w-0 flex items-center gap-1.5">
+          <div className="min-w-0 flex flex-col">
             <span className="text-[10px] text-cyan-400 font-bold uppercase truncate">{currentSponsor.logoText}</span>
-            <span className="text-[10px] text-slate-400 truncate hidden xs:inline">· {currentSponsor.category}</span>
+            <span className="text-[9px] text-slate-400 truncate">{selectedMunicipio ? `Patrocinador · ${selectedMunicipio.nome}` : currentSponsor.category}</span>
           </div>
         </div>
 
@@ -115,13 +117,13 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
               href={currentSponsor.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded text-[10px] font-semibold flex items-center gap-1"
+              className="px-2 py-1 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded-lg text-[10px] font-semibold flex items-center gap-1 hover:bg-cyan-500/30 transition-colors"
             >
               <span>Visitar</span>
               <ExternalLink className="w-2.5 h-2.5" />
             </a>
           )}
-          <div className="flex items-center gap-0.5 bg-slate-950/80 rounded border border-slate-800 p-0.5">
+          <div className="flex items-center gap-0.5 bg-slate-950/80 rounded-lg border border-slate-800 p-1">
             <button onClick={handlePrev} className="p-0.5 text-slate-400 hover:text-white">
               <ChevronLeft className="w-3 h-3" />
             </button>
