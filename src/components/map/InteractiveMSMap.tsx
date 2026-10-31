@@ -120,7 +120,10 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  
+  // Garantido que o Map é sempre inicializado corretamente
   const meshesRef = useRef>(new Map());
+  
   const hoveredMeshRef = useRef<THREE.Mesh | null>(null);
   const animFrameRef = useRef<number | null>(null);
 
@@ -203,7 +206,8 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, []);
 
   useEffect(() => {
-    meshesRef.current?.forEach((val, ibge) => {
+    if (!meshesRef.current) return;
+    meshesRef.current.forEach((val, ibge) => {
       const municipio = municipiosMap.get(ibge);
       if (!municipio) return;
 
@@ -230,7 +234,8 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, [metricMode, selectedRegiao, municipiosMap, getMetricAttributes]);
 
   useEffect(() => {
-    meshesRef.current?.forEach((val, ibge) => {
+    if (!meshesRef.current) return;
+    meshesRef.current.forEach((val, ibge) => {
       const mat = val.mesh.material as THREE.MeshStandardMaterial;
       if (selectedMunicipio?.ibge === ibge) {
         mat.emissive.setHex(0x06b6d4);
@@ -289,6 +294,13 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
+
+    // Garante que o Map está limpo ao iniciar
+    if (!meshesRef.current) {
+      meshesRef.current = new Map();
+    } else {
+      meshesRef.current.clear();
+    }
 
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -455,28 +467,30 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           visible: boolean;
         }> = [];
 
-        meshesRef.current?.forEach((val, ibge) => {
-          const municipio = municipiosMap.get(ibge);
-          if (!municipio) return;
+        if (meshesRef.current) {
+          meshesRef.current.forEach((val, ibge) => {
+            const municipio = municipiosMap.get(ibge);
+            if (!municipio) return;
 
-          const isHub = HUB_CITY_IBGES.has(ibge);
-          const isSelected = selectedMunicipioRef.current?.ibge === ibge;
-          const isHovered = hoveredMunicipioRef.current?.ibge === ibge;
+            const isHub = HUB_CITY_IBGES.has(ibge);
+            const isSelected = selectedMunicipioRef.current?.ibge === ibge;
+            const isHovered = hoveredMunicipioRef.current?.ibge === ibge;
 
-          if (!showAllLabelsRef.current && !isHub && !isSelected && !isHovered) return;
+            if (!showAllLabelsRef.current && !isHub && !isSelected && !isHovered) return;
 
-          const pos = val.center.clone();
-          pos.project(camera);
+            const pos = val.center.clone();
+            pos.project(camera);
 
-          if (pos.z < 1) {
-            const screenX = (pos.x * 0.5 + 0.5) * w;
-            const screenY = (-(pos.y * 0.5) + 0.5) * h;
+            if (pos.z < 1) {
+              const screenX = (pos.x * 0.5 + 0.5) * w;
+              const screenY = (-(pos.y * 0.5) + 0.5) * h;
 
-            if (screenX >= 20 && screenX <= w - 20 && screenY >= 20 && screenY <= h - 20) {
-              newLabels.push({ ibge, nome: municipio.nome, x: screenX, y: screenY, isHub, municipio, visible: true });
+              if (screenX >= 20 && screenX <= w - 20 && screenY >= 20 && screenY <= h - 20) {
+                newLabels.push({ ibge, nome: municipio.nome, x: screenX, y: screenY, isHub, municipio, visible: true });
+              }
             }
-          }
-        });
+          });
+        }
 
         setScreenLabels(newLabels);
       }
@@ -506,7 +520,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, [municipiosMap, getMetricAttributes]);
 
   const raycast = useCallback((clientX: number, clientY: number) => {
-    if (!rendererRef.current || !cameraRef.current || !sceneRef.current || !mountRef.current) return null;
+    if (!rendererRef.current || !cameraRef.current || !sceneRef.current || !mountRef.current || !meshesRef.current) return null;
 
     const rect = mountRef.current.getBoundingClientRect();
     const mouse = new THREE.Vector2(
@@ -518,7 +532,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     raycaster.setFromCamera(mouse, cameraRef.current);
 
     const meshes: THREE.Mesh[] = [];
-    meshesRef.current?.forEach(item => meshes.push(item.mesh));
+    meshesRef.current.forEach(item => meshes.push(item.mesh));
 
     const intersects = raycaster.intersectObjects(meshes, false);
     if (intersects.length > 0) return intersects[0].object as THREE.Mesh;
@@ -554,9 +568,9 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
     const hitMesh = raycast(e.clientX, e.clientY);
     if (hitMesh !== hoveredMeshRef.current) {
-      if (hoveredMeshRef.current) {
+      if (hoveredMeshRef.current && meshesRef.current) {
         const prevIbge = hoveredMeshRef.current.userData.ibge;
-        const prevMeta = meshesRef.current?.get(prevIbge);
+        const prevMeta = meshesRef.current.get(prevIbge);
         if (prevMeta && prevIbge !== selectedMunicipio?.ibge) {
           const mat = hoveredMeshRef.current.material as THREE.MeshStandardMaterial;
           mat.emissive.setHex(0x000000);
