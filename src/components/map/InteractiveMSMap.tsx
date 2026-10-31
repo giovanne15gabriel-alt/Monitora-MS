@@ -654,13 +654,13 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* BARRA SUPERIOR LIMPA COM "MONITORA MS" E FERRAMENTAS */}
+      {/* BARRA SUPERIOR ÚNICA E LIMPA COM O LOGO "MONITORA MS" E FERRAMENTAS */}
       <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-20 shadow-lg shrink-0">
         
         {/* LOGO / TÍTULO "MONITORA MS" */}
         <div className="flex items-center gap-2.5">
           <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
-          <span className="text-sm font-black tracking-wider text-white uppercase">Monitora MS</span>
+          <span className="text-sm font-black tracking-wider text-white uppercase">MONITORA MS</span>
         </div>
 
         {/* Quick Search Bar */}
