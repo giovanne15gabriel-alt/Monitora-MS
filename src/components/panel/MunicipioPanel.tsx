@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import { MunicipioMS, Vereador } from '../../data/municipiosData.ts';
+import { SponsorsTicker } from '../layout/SponsorsTicker.tsx';
 import { 
   formatCurrency, 
   formatCompactCurrency, 
@@ -52,7 +53,7 @@ const getSebraeMetrics = (m: MunicipioMS) => {
     capag: (m.financas.situacaoFiscal === 'Regular' ? 'A' : 'B') as 'A' | 'B' | 'C',
     pibPerCapita: Math.max(34000, pibEst),
     taxaSobrevivenciaEmpresas: +(79.2 + (m.ibge % 6) * 0.7).toFixed(1),
-    dataSebraeUrl: '[http://datasebrae.com.br/ms-data-cidade/](http://datasebrae.com.br/ms-data-cidade/)'
+    dataSebraeUrl: 'http://datasebrae.com.br/ms-data-cidade/'
   };
 };
 
@@ -86,6 +87,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
 
   return (
     <aside className="fixed top-0 sm:top-[53px] right-0 h-full sm:h-[calc(100%-53px)] w-full sm:w-[540px] lg:w-[600px] bg-slate-900/98 backdrop-blur-2xl border-l border-slate-800 shadow-2xl z-40 flex flex-col text-slate-100 transition-all duration-300">
+      
       {/* Panel Header */}
       <header className="px-6 py-5 border-b border-slate-800 shrink-0 flex items-start justify-between gap-4 bg-slate-950/50">
         <div>
@@ -120,8 +122,13 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
         </button>
       </header>
 
+      {/* Carrossel de Patrocinadores inserido exatamente na posição solicitada (logo abaixo do cabeçalho) */}
+      <div className="px-6 pt-3 pb-1 bg-slate-950/30 shrink-0">
+        <SponsorsTicker selectedMunicipio={municipio} isMobile={true} />
+      </div>
+
       {/* Segmented Tab Navigation (Redistribuído em Grid 2x2 com Nome Câmara Municipal) */}
-      <nav className="grid grid-cols-2 gap-2.5 px-6 py-4 border-b border-slate-800/80 bg-slate-950/30 shrink-0">
+      <nav className="grid grid-cols-2 gap-2.5 px-6 py-3 border-b border-slate-800/80 bg-slate-950/30 shrink-0">
         <button
           onClick={() => setActiveTab('resumo')}
           className={`flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg transition-all border ${
@@ -502,7 +509,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                 <div className="text-[11px] text-slate-400">Acesse tabelas completas, gráficos setoriais e CNAE de {municipio.nome}.</div>
               </div>
               <a
-                href="[http://datasebrae.com.br/ms-data-cidade/](http://datasebrae.com.br/ms-data-cidade/)"
+                href="http://datasebrae.com.br/ms-data-cidade/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-all shadow-md shrink-0"
