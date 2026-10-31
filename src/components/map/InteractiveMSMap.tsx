@@ -25,7 +25,8 @@ import {
   ZoomIn,
   ZoomOut,
   RotateCcw,
-  Eye
+  Eye,
+  Menu
 } from 'lucide-react';
 
 export type MetricMode = 'regioes' | 'divida' | 'legislativo' | 'transparencia';
@@ -115,6 +116,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegiao, setSelectedRegiao] = useState<string>('todas');
   const [showAllLabels, setShowAllLabels] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Estado para abrir/fechar menu no celular
   const [screenLabels, setScreenLabels] = useState<Array<{
     ibge: number;
     nome: string;
@@ -276,18 +278,13 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     }
   }, []);
 
-  // AJUSTE DE FOCO SUAVE: Mantém o zoom equilibrado e impede que cidades das bordas saiam da tela
   const focusOnMunicipio = useCallback((municipio: MunicipioMS) => {
     const rawX = (municipio.lng - CENTER_LNG) * SCALE;
     const rawZ = -(municipio.lat - CENTER_LAT) * SCALE;
-
-    // Aplica um fator de amortecimento (clamp) para puxar um pouco o foco em direção ao centro do estado
     const targetX = rawX * 0.65;
     const targetZ = rawZ * 0.65;
 
     targetLookAt.current.set(targetX, 0.8, targetZ);
-
-    // Raio orbital maior (95) para garantir que o estado inteiro continue visível na tela
     sphericalRef.current.radius = 95;
     const r = sphericalRef.current.radius;
     const theta = sphericalRef.current.theta;
@@ -664,28 +661,28 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
       {/* BARRA SUPERIOR ÚNICA E LIMPA COM O LOGO "MONITORA MS" E FERRAMENTAS */}
-      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-20 shadow-lg shrink-0">
+      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-3 py-2 flex items-center justify-between gap-2 z-30 shadow-lg shrink-0">
         
         {/* LOGO / TÍTULO "MONITORA MS" */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
-          <span className="text-sm font-black tracking-wider text-white uppercase">MONITORA MS</span>
+        <div className="flex items-center gap-2">
+          <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
+          <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase">MONITORA MS</span>
         </div>
 
-        {/* Quick Search Bar */}
-        <div className="relative w-full sm:w-80 shadow-xl">
+        {/* Quick Search Bar (Otimizado para mobile ocupar menos espaço) */}
+        <div className="relative flex-1 max-w-xs sm:w-80 shadow-xl">
           <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar município ou prefeito..."
-              className="w-full pl-9 pr-8 py-2 text-xs bg-slate-950/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all shadow-inner"
+              placeholder="Buscar município..."
+              className="w-full pl-8 pr-7 py-1.5 text-xs bg-slate-950/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 transition-all shadow-inner"
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                <X className="w-3.5 h-3.5" />
+              <button onClick={() => setSearchQuery('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+                <X className="w-3 h-3" />
               </button>
             )}
           </div>
@@ -700,7 +697,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
                 >
                   <div>
                     <div className="text-xs font-semibold text-slate-100 group-hover:text-cyan-400">{m.nome}</div>
-                    <div className="text-[10px] text-slate-400">Prefeito: {m.prefeito.nome} · {m.regiao}</div>
+                    <div className="text-[10px] text-slate-400">{m.regiao}</div>
                   </div>
                   <span className="text-[10px] text-slate-500 font-mono">{formatNumber(m.populacao)} hab.</span>
                 </button>
@@ -709,8 +706,17 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           )}
         </div>
 
-        {/* Camera View Presets & Labels Toggle */}
-        <div className="flex items-center gap-2 flex-wrap">
+        {/* Botão de Menu Retrátil para Mobile (Aparece apenas em telas pequenas) */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="sm:hidden p-2 bg-slate-800 text-cyan-400 rounded-xl border border-slate-700 shadow-md flex items-center justify-center"
+          title="Abrir Painel e Legendas"
+        >
+          <Menu className="w-4 h-4" />
+        </button>
+
+        {/* Camera View Presets & Labels Toggle (Visível apenas em Desktop/Tablet) */}
+        <div className="hidden sm:flex items-center gap-2">
           <div className="flex items-center p-1 bg-slate-950/90 border border-slate-800 rounded-xl shadow-inner">
             <button
               onClick={() => applyViewPreset('perspective')}
@@ -756,7 +762,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
       </div>
 
-      {/* MAP VIEW CONTAINER (FLEX-1 TAKING REMAINING HEIGHT) */}
+      {/* MAP VIEW CONTAINER */}
       <div className="relative w-full flex-1 overflow-hidden">
         
         {/* 3D WebGL Canvas Container */}
@@ -806,61 +812,74 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           })}
         </div>
 
-        {/* QUICK CIVIC HUBS BAR */}
-        <div className="absolute top-4 right-4 flex flex-col items-end gap-2 pointer-events-none z-10">
+        {/* QUICK CIVIC HUBS BAR (Compacto no mobile, completo no desktop) */}
+        <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 pointer-events-none z-10">
           <div className="pointer-events-auto flex flex-col gap-1.5">
             {onOpenEleicoes && (
               <button
                 onClick={onOpenEleicoes}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl shadow-lg border border-cyan-400/40 transition-all transform hover:scale-105"
+                className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] sm:text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl shadow-lg border border-cyan-400/40 transition-all"
               >
                 <Vote className="w-3.5 h-3.5" />
-                <span>Eleições 2026 · Novos Eleitos</span>
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                <span>Eleições 2026</span>
               </button>
             )}
 
-            {onOpenGoverno && (
-              <button
-                onClick={onOpenGoverno}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-blue-300 rounded-xl shadow-md border border-slate-800 hover:border-blue-500/40 transition-colors"
-              >
-                <Building2 className="w-3.5 h-3.5 text-blue-400" />
-                <span>Governo MS · Orçamento LRF</span>
-              </button>
-            )}
+            <div className="hidden sm:flex flex-col gap-1.5">
+              {onOpenGoverno && (
+                <button
+                  onClick={onOpenGoverno}
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-blue-300 rounded-xl shadow-md border border-slate-800"
+                >
+                  <Building2 className="w-3.5 h-3.5 text-blue-400" />
+                  <span>Governo MS · Orçamento LRF</span>
+                </button>
+              )}
 
-            {onOpenLegislativo && (
-              <button
-                onClick={onOpenLegislativo}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-amber-300 rounded-xl shadow-md border border-slate-800 hover:border-amber-500/40 transition-colors"
-              >
-                <Landmark className="w-3.5 h-3.5 text-amber-400" />
-                <span>ALEMS · Deputados Estaduais</span>
-              </button>
-            )}
+              {onOpenLegislativo && (
+                <button
+                  onClick={onOpenLegislativo}
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-amber-300 rounded-xl shadow-md border border-slate-800"
+                >
+                  <Landmark className="w-3.5 h-3.5 text-amber-400" />
+                  <span>ALEMS · Deputados Estaduais</span>
+                </button>
+              )}
 
-            {onOpenTce && (
-              <button
-                onClick={onOpenTce}
-                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-purple-300 rounded-xl shadow-md border border-slate-800 hover:border-purple-500/40 transition-colors"
-              >
-                <Scale className="w-3.5 h-3.5 text-purple-400" />
-                <span>TCE-MS · Gastos e Auditoria</span>
-              </button>
-            )}
+              {onOpenTce && (
+                <button
+                  onClick={onOpenTce}
+                  className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-purple-300 rounded-xl shadow-md border border-slate-800"
+                >
+                  <Scale className="w-3.5 h-3.5 text-purple-400" />
+                  <span>TCE-MS · Gastos e Auditoria</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* BOTTOM LEFT: PILHA ORGANIZADA NA LATERAL ESQUERDA (CARROSSEL EM CIMA DA LEGENDA) */}
-        <div className="absolute bottom-6 left-4 flex flex-col gap-3 pointer-events-none z-20">
+        {/* BOTTOM LEFT: LATERAL ESQUERDA (Sempre visível no PC, retrátil no Mobile via menu) */}
+        <div className={`absolute bottom-6 left-3 sm:left-4 flex-col gap-3 z-25 transition-all duration-300 ${
+          mobileMenuOpen ? 'flex bg-slate-950/95 p-3 rounded-2xl border border-slate-800 shadow-2xl max-h-[75vh] overflow-y-auto' : 'hidden sm:flex'
+        }`}>
           
-          {/* 1. Carrossel Flutuante de Patrocinadores (Em cima) */}
+          {/* Botão fechar menu no mobile */}
+          {mobileMenuOpen && (
+            <div className="flex sm:hidden items-center justify-between pb-2 border-b border-slate-800">
+              <span className="text-xs font-bold text-white">Menu e Patrocinadores</span>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-1 text-slate-400 hover:text-white">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          {/* 1. Carrossel Flutuante de Patrocinadores */}
           <div className="pointer-events-auto">
             <SponsorsTicker selectedMunicipio={selectedMunicipio} />
           </div>
 
-          {/* 2. Legenda das 10 Regiões Oficiais e Métricas (Abaixo) */}
+          {/* 2. Legenda das 10 Regiões Oficiais e Métricas */}
           <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl space-y-2.5 max-w-xs">
             
             <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
@@ -915,36 +934,38 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
         </div>
 
         {/* BOTTOM RIGHT: ZOOM CONTROLS, VISITOR STATS & AUTHOR CREDIT */}
-        <div className="absolute bottom-6 right-4 flex flex-col items-end gap-2.5 pointer-events-none z-20">
+        <div className="absolute bottom-4 right-3 sm:right-4 flex flex-col items-end gap-2 pointer-events-none z-20">
           
           <div className="pointer-events-auto flex flex-col bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-            <button onClick={() => handleZoomBtn(-1)} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom In">
-              <ZoomIn className="w-4 h-4" />
+            <button onClick={() => handleZoomBtn(-1)} className="p-1.5 sm:p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom In">
+              <ZoomIn className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
-            <button onClick={() => handleZoomBtn(1)} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom Out">
-              <ZoomOut className="w-4 h-4" />
+            <button onClick={() => handleZoomBtn(1)} className="p-1.5 sm:p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom Out">
+              <ZoomOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
-            <button onClick={resetCamera} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" title="Reset View">
-              <RotateCcw className="w-4 h-4" />
+            <button onClick={resetCamera} className="p-1.5 sm:p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" title="Reset View">
+              <RotateCcw className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </button>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
-            <VisitorStats />
+          <div className="flex flex-col items-end gap-2">
+            <div className="hidden sm:block">
+              <VisitorStats />
+            </div>
 
-            <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-3 py-2 shadow-2xl flex items-center gap-2.5">
+            <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-2.5 py-1.5 shadow-2xl flex items-center gap-2">
               <a
                 href="https://www.instagram.com/eng_giovanegabriel/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-2 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
+                className="group flex items-center gap-1.5 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
               >
-                <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
-                  <Instagram className="w-3.5 h-3.5" />
+                <div className="w-5 h-5 rounded-md bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
+                  <Instagram className="w-3 h-3" />
                 </div>
                 <div>
-                  <div className="text-[11px] font-bold text-slate-100 group-hover:text-cyan-300">Giovane Gabriel · Engenheiro Civil</div>
-                  <div className="text-[10px] text-slate-400 group-hover:text-slate-300 font-mono">@eng_giovanegabriel</div>
+                  <div className="text-[10px] font-bold text-slate-100 group-hover:text-cyan-300">Giovane Gabriel</div>
+                  <div className="text-[9px] text-slate-400 font-mono">@eng_giovanegabriel</div>
                 </div>
               </a>
             </div>
