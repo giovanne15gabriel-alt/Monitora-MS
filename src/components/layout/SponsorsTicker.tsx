@@ -12,22 +12,25 @@ interface Sponsor {
   url?: string;
 }
 
+// Utiliza o base URL do Vite para suportar perfeitamente o GitHub Pages (/Monitora-MS/)
+const BASE_URL = import.meta.env.BASE_URL || './';
+
 const SPONSORS_DATA: Sponsor[] = [
   // Patrocinadores Gerais / Estado / Governo (Aparecem no mapa geral de MS)
   { id: '1', name: 'Governo Federal · Brasil', category: 'Governo Federal', logoText: 'GOV. FEDERAL', url: '#' },
-  { id: '2', name: 'Banco do Brasil', category: 'Institucional', logoText: 'BANCO DO BRASIL', url: '#' },
+  { id: '2', name: 'Banco do Brasil', category: 'Institucional', logoText: 'BANCO DOBRASIL', url: '#' },
   { id: '3', name: 'Energisa Mato Grosso do Sul', category: 'Infraestrutura', logoText: 'ENERGISA MS', url: '#' },
   { id: '4', name: 'Sebrae MS', category: 'Parceiro Estratégico', logoText: 'SEBRAE MS', url: '#' },
   { id: '5', name: 'Sistema FIEEMS', category: 'Indústria', logoText: 'FIEEMS', url: '#' },
 
-  // Patrocinadores de Naviraí (IBGE: 5005707) - Usando a pasta dedicada public/sponsors/
+  // Patrocinadores de Naviraí (IBGE: 5005707) - Usando caminho dinâmico compativel com GitHub Pages
   { 
     id: 'nav-1', 
     name: 'GG Engenharia & Projetos', 
     category: 'Engenharia Civil', 
     cidadeIbge: 5005707, 
     logoText: 'GG Engenharia', 
-    imageUrl: '/sponsors/gg-engenharia.png', 
+    imageUrl: `${BASE_URL}sponsors/gg-engenharia.png`, 
     url: 'https://www.instagram.com/eng_giovanegabriel/' 
   },
   { 
@@ -36,7 +39,7 @@ const SPONSORS_DATA: Sponsor[] = [
     category: 'Comércio e Manutenção', 
     cidadeIbge: 5005707, 
     logoText: 'Renatinho Válvulas', 
-    imageUrl: '/sponsors/renatinho-valvulas.png', 
+    imageUrl: `${BASE_URL}sponsors/renatinho-valvulas.png`, 
     url: '#' 
   },
   { 
@@ -45,7 +48,7 @@ const SPONSORS_DATA: Sponsor[] = [
     category: 'Jurídico & Compliance', 
     cidadeIbge: 5005707, 
     logoText: 'LA Advogados', 
-    imageUrl: '/sponsors/la-advocacia.png', 
+    imageUrl: `${BASE_URL}sponsors/la-advocacia.png`, 
     url: 'https://www.instagram.com/la_advogadosassociados/' 
   },
 ];
@@ -121,6 +124,10 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
               src={currentSponsor.imageUrl} 
               alt={currentSponsor.name} 
               className="w-full h-full object-contain filter drop-shadow"
+              onError={(e) => {
+                // Fallback caso ocorra erro ao carregar a imagem
+                (e.target as HTMLElement).style.display = 'none';
+              }}
             />
           ) : (
             <Building2 className="w-5 h-5 text-cyan-400" />
