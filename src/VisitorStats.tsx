@@ -3,15 +3,18 @@ import { Eye } from 'lucide-react';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, onValue, onDisconnect, set, push, increment } from 'firebase/database';
 
-// ⚠️ IMPORTANTE: Substitua os valores abaixo pelas chaves que você gerar no Console do Firebase!
+// As tuas chaves reais do Firebase inseridas aqui
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  databaseURL: "https://SEU_PROJETO-default-rtdb.firebaseio.com",
-  projectId: "SEU_PROJETO",
+  apiKey: "AIzaSyDbIMwOxn9RqShC3eWFMfAF0RKhkXXZcTI",
+  authDomain: "monitora-ms.firebaseapp.com",
+  databaseURL: "https://monitora-ms-default-rtdb.firebaseio.com",
+  projectId: "monitora-ms",
+  storageBucket: "monitora-ms.firebasestorage.app",
+  messagingSenderId: "272641354626",
+  appId: "1:272641354626:web:b702688c220d7b0f25fd9b"
 };
 
-// Inicializa a conexão com o Firebase
+// Inicializa a ligação com o Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
@@ -33,28 +36,28 @@ function useVisitorStats() {
       sessionStorage.setItem('visit_counted', 'true');
     }
 
-    // Gerencia conexão "Online"
+    // Gere a ligação "Online"
     let sessionRef: any = null;
     onValue(connectedRef, (snap) => {
       if (snap.val() === true) {
         sessionRef = push(onlineUsersRef);
         set(sessionRef, true);
-        onDisconnect(sessionRef).remove(); // Remove quando o usuário fechar a aba
+        onDisconnect(sessionRef).remove(); // Remove quando o utilizador fechar o separador
       }
     });
 
-    // Escuta mudanças de usuários online
+    // Ouve as mudanças de utilizadores online
     const unsubOnline = onValue(onlineUsersRef, (snap) => {
       const data = snap.val() || {};
       setStats((prev) => ({ ...prev, online: Object.keys(data).length }));
     });
 
-    // Escuta mudanças do total
+    // Ouve as mudanças do total
     const unsubTotal = onValue(totalRef, (snap) => {
       setStats((prev) => ({ ...prev, total: snap.val() || 0 }));
     });
 
-    // Escuta mudanças do mês
+    // Ouve as mudanças do mês
     const unsubMonth = onValue(monthRef, (snap) => {
       setStats((prev) => ({ ...prev, last30Days: snap.val() || 0 }));
     });
@@ -78,7 +81,7 @@ export const VisitorStats: React.FC = () => {
     <div className="fixed bottom-3 right-72 z-50 flex items-center bg-[#0f172a] border border-slate-800 rounded-2xl px-5 py-3 shadow-lg font-sans select-none w-max">
       
       {/* Indicador Online (Tempo Real) */}
-      <div className="flex items-center gap-2 pr-4" title="Usuários online agora">
+      <div className="flex items-center gap-2 pr-4" title="Utilizadores online agora">
         <span className="relative flex h-3 w-3">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
