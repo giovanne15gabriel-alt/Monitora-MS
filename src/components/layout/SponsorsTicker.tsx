@@ -20,10 +20,34 @@ const SPONSORS_DATA: Sponsor[] = [
   { id: '4', name: 'Sebrae MS', category: 'Parceiro Estratégico', logoText: 'SEBRAE MS', url: '#' },
   { id: '5', name: 'Sistema FIEEMS', category: 'Indústria', logoText: 'FIEEMS', url: '#' },
 
-  // Patrocinadores de Naviraí (IBGE: 5005707)
-  { id: 'nav-1', name: 'GG Engenharia & Projetos', category: 'Engenharia Civil', cidadeIbge: 5005707, logoText: 'GG Engenharia', imageUrl: '/sponsors/gg-engenharia.png', url: 'https://www.instagram.com/eng_giovanegabriel/' },
-  { id: 'nav-2', name: 'Renatinho Válvulas Industriais', category: 'Comércio e Manutenção', cidadeIbge: 5005707, logoText: 'Renatinho Válvulas', imageUrl: '/sponsors/renatinho-valvulas.png', url: '#' },
-  { id: 'nav-3', name: 'LA Advocacia', category: 'Jurídico & Compliance', cidadeIbge: 5005707, logoText: 'LA Advocacia', imageUrl: '/sponsors/la-advocacia.png', url: '#' },
+  // Patrocinadores de Naviraí (IBGE: 5005707) - Com nomes e links reais
+  { 
+    id: 'nav-1', 
+    name: 'GG Engenharia & Projetos', 
+    category: 'Engenharia Civil', 
+    cidadeIbge: 5005707, 
+    logoText: 'GG Engenharia', 
+    imageUrl: '/sponsors/gg-engenharia.png', 
+    url: 'https://www.instagram.com/eng_giovanegabriel/' 
+  },
+  { 
+    id: 'nav-2', 
+    name: 'Renatinho Válvulas Industriais', 
+    category: 'Comércio e Manutenção', 
+    cidadeIbge: 5005707, 
+    logoText: 'Renatinho Válvulas', 
+    imageUrl: '/sponsors/renatinho-valvulas.png', 
+    url: '#' 
+  },
+  { 
+    id: 'nav-3', 
+    name: 'LA Advogados Associados', 
+    category: 'Jurídico & Compliance', 
+    cidadeIbge: 5005707, 
+    logoText: 'LA Advogados', 
+    imageUrl: '/sponsors/la-advocacia.png', 
+    url: 'https://www.instagram.com/la_advogadosassociados/' 
+  },
 ];
 
 interface SponsorsTickerProps {
@@ -90,7 +114,7 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
       {/* Card com efeito de transição vertical */}
       <div className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 flex items-center gap-3 shadow-inner relative overflow-hidden group">
         
-        {/* Imagem / Logo */}
+        {/* Imagem / Logo da Empresa */}
         <div className="w-16 h-16 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden p-1 shrink-0 shadow-inner">
           {currentSponsor.imageUrl ? (
             <img 
