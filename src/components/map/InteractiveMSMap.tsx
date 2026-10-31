@@ -9,6 +9,7 @@ import { MS_GEOJSON } from '../../data/msGeoJson.ts';
 import { MunicipioMS, MUNICIPIOS_DATA, MUNICIPIOS_MS } from '../../data/municipiosData.ts';
 import { formatCurrency, formatNumber } from '../../utils/formatters.ts';
 import { VisitorStats } from '../../VisitorStats.tsx';
+import { SponsorsTicker } from '../layout/SponsorsTicker.tsx';
 import { 
   Rotate3d, 
   Layers, 
@@ -137,7 +138,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const meshesRef = useRef<Map<number, { mesh: THREE.Mesh; baseElevation: number; defaultColor: number; center: THREE.Vector3 }>>(new Map());
+  const meshesRef = useRef>(new Map());
   const hoveredMeshRef = useRef<THREE.Mesh | null>(null);
   const animFrameRef = useRef<number | null>(null);
 
@@ -311,7 +312,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     const x = (municipio.lng - CENTER_LNG) * SCALE;
     const z = -(municipio.lat - CENTER_LAT) * SCALE;
 
-    // Smoothly pan camera center to city without sudden radius shrink
     targetLookAt.current.set(x, 1.2, z);
     const r = sphericalRef.current.radius;
     const theta = sphericalRef.current.theta;
@@ -440,7 +440,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       mesh.receiveShadow = true;
       mesh.userData = { ibge, nome: municipio.nome, municipio };
 
-      // Calculate center 3D position
       const centerX = (municipio.lng - CENTER_LNG) * SCALE;
       const centerZ = -(municipio.lat - CENTER_LAT) * SCALE;
       const centerVec = new THREE.Vector3(centerX, elevHeight + 0.6, centerZ);
@@ -493,7 +492,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
       renderer.render(scene, camera);
 
-      // Recalculate 2D screen positions for city labels every 2 frames
       frameCount++;
       if (frameCount % 2 === 0 && container) {
         const w = container.clientWidth;
@@ -523,12 +521,10 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           const pos = val.center.clone();
           pos.project(camera);
 
-          // Only keep if in front of camera
           if (pos.z < 1) {
             const screenX = (pos.x * 0.5 + 0.5) * w;
             const screenY = (-(pos.y * 0.5) + 0.5) * h;
 
-            // Bounds check
             if (screenX >= 20 && screenX <= w - 20 && screenY >= 20 && screenY <= h - 20) {
               newLabels.push({
                 ibge,
@@ -593,7 +589,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     return null;
   }, []);
 
-  // Pointer interactions
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     isDraggingRef.current = true;
     dragButtonRef.current = e.button;
@@ -765,124 +760,134 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       </div>
 
       {/* TOP FLOATING CONTROLS: SEARCH, VIEWS & METRICS */}
-      <div className={`absolute top-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 pointer-events-none z-20 transition-all duration-300 ${
+      <div className={`absolute top-4 left-4 right-4 flex flex-col gap-2.5 pointer-events-none z-20 transition-all duration-300 ${
         selectedMunicipio ? 'sm:right-[560px] lg:right-[620px]' : ''
       }`}>
         
-        {/* Left: Quick Search Bar */}
-        <div className="pointer-events-auto relative w-72 sm:w-80 shadow-2xl">
-          <div className="relative">
-            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar município ou prefeito..."
-              className="w-full pl-9 pr-8 py-2 text-xs bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all shadow-xl"
-            />
-            {searchQuery && (
-              <button 
-                onClick={() => setSearchQuery('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
+        {/* Row 1: Search and Camera Presets */}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          
+          {/* Left: Quick Search Bar */}
+          <div className="pointer-events-auto relative w-72 sm:w-80 shadow-2xl">
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Buscar município ou prefeito..."
+                className="w-full pl-9 pr-8 py-2 text-xs bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all shadow-xl"
+              />
+              {searchQuery && (
+                <button 
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            {/* Autocomplete Dropdown */}
+            {filteredSearchList.length > 0 && (
+              <div className="absolute left-0 right-0 mt-1.5 bg-slate-900/98 backdrop-blur-xl border border-slate-700/80 rounded-xl overflow-hidden shadow-2xl z-50 divide-y divide-slate-800">
+                {filteredSearchList.map(m => (
+                  <button
+                    key={m.ibge}
+                    onClick={() => {
+                      handleSelectCity(m);
+                      setSearchQuery('');
+                    }}
+                    className="w-full px-3 py-2 text-left hover:bg-slate-800/80 flex items-center justify-between transition-colors group"
+                  >
+                    <div>
+                      <div className="text-xs font-semibold text-slate-100 group-hover:text-cyan-400">
+                        {m.nome}
+                      </div>
+                      <div className="text-[10px] text-slate-400">
+                        Prefeito: {m.prefeito.nome} · {m.regiao}
+                      </div>
+                    </div>
+                    <span className="text-[10px] text-slate-500 font-mono">
+                      {formatNumber(m.populacao)} hab.
+                    </span>
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 
-          {/* Autocomplete Dropdown */}
-          {filteredSearchList.length > 0 && (
-            <div className="absolute left-0 right-0 mt-1.5 bg-slate-900/98 backdrop-blur-xl border border-slate-700/80 rounded-xl overflow-hidden shadow-2xl z-50 divide-y divide-slate-800">
-              {filteredSearchList.map(m => (
-                <button
-                  key={m.ibge}
-                  onClick={() => {
-                    handleSelectCity(m);
-                    setSearchQuery('');
-                  }}
-                  className="w-full px-3 py-2 text-left hover:bg-slate-800/80 flex items-center justify-between transition-colors group"
-                >
-                  <div>
-                    <div className="text-xs font-semibold text-slate-100 group-hover:text-cyan-400">
-                      {m.nome}
-                    </div>
-                    <div className="text-[10px] text-slate-400">
-                      Prefeito: {m.prefeito.nome} · {m.regiao}
-                    </div>
-                  </div>
-                  <span className="text-[10px] text-slate-500 font-mono">
-                    {formatNumber(m.populacao)} hab.
-                  </span>
-                </button>
-              ))}
+          {/* Center / Right: Camera View Presets & Labels Toggle */}
+          <div className="pointer-events-auto flex items-center gap-2">
+            <div className="flex items-center p-1 bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-xl shadow-xl">
+              <button
+                onClick={() => applyViewPreset('perspective')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                  viewPreset === 'perspective'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md font-bold'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+                title="Visão 3D Orbital com Perspectiva"
+              >
+                <Rotate3d className="w-3.5 h-3.5" />
+                <span>Perspectiva 3D</span>
+              </button>
+
+              <button
+                onClick={() => applyViewPreset('top')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                  viewPreset === 'top'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md font-bold'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+                title="Vista Superior Cartográfica (Top-Down)"
+              >
+                <Compass className="w-3.5 h-3.5" />
+                <span>Vista Aérea</span>
+              </button>
+
+              <button
+                onClick={() => applyViewPreset('isometric')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
+                  viewPreset === 'isometric'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md font-bold'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                }`}
+                title="Projeção Isométrica Arquitetônica"
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Isométrica</span>
+              </button>
             </div>
-          )}
-        </div>
 
-        {/* Center / Right: Camera View Presets (Perspectiva, Top-Down, Isométrica) */}
-        <div className="pointer-events-auto flex items-center gap-2">
-          <div className="flex items-center p-1 bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-xl shadow-xl">
+            {/* Toggle All 79 Names */}
             <button
-              onClick={() => applyViewPreset('perspective')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                viewPreset === 'perspective'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              onClick={() => setShowAllLabels(!showAllLabels)}
+              className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border transition-all shadow-xl ${
+                showAllLabels
+                  ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                  : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
               }`}
-              title="Visão 3D Orbital com Perspectiva"
+              title="Exibir os nomes de todos os 79 municípios simultaneamente no mapa"
             >
-              <Rotate3d className="w-3.5 h-3.5" />
-              <span>Perspectiva 3D</span>
-            </button>
-
-            <button
-              onClick={() => applyViewPreset('top')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                viewPreset === 'top'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-              title="Vista Superior Cartográfica (Top-Down)"
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span>Vista Aérea</span>
-            </button>
-
-            <button
-              onClick={() => applyViewPreset('isometric')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                viewPreset === 'isometric'
-                  ? 'bg-cyan-500 text-slate-950 shadow-md font-bold'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800'
-              }`}
-              title="Projeção Isométrica Arquitetônica"
-            >
-              <Layers className="w-3.5 h-3.5" />
-              <span>Isométrica</span>
+              <Eye className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">
+                {showAllLabels ? 'Ocultar Nomes Secundários' : 'Mostrar Todos os 79 Nomes'}
+              </span>
             </button>
           </div>
 
-          {/* Toggle All 79 Names */}
-          <button
-            onClick={() => setShowAllLabels(!showAllLabels)}
-            className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border transition-all shadow-xl ${
-              showAllLabels
-                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
-                : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
-            }`}
-            title="Exibir os nomes de todos os 79 municípios simultaneamente no mapa"
-          >
-            <Eye className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">
-              {showAllLabels ? 'Ocultar Nomes Secundários' : 'Mostrar Todos os 79 Nomes'}
-            </span>
-          </button>
+        </div>
+
+        {/* Row 2: FAIXA ROTATIVA DE PATROCINADORES (176x176px) */}
+        <div className="pointer-events-auto w-full max-w-4xl mx-auto">
+          <SponsorsTicker />
         </div>
 
       </div>
 
       {/* QUICK CIVIC HUBS BAR (ALEMS, GOVERNO, TCE, ELEIÇÕES 2026) */}
-      <div className="absolute top-16 right-4 flex flex-col items-end gap-2 pointer-events-none z-10">
+      <div className="absolute top-28 right-4 flex flex-col items-end gap-2 pointer-events-none z-10">
         <div className="pointer-events-auto flex flex-col gap-1.5">
           {onOpenEleicoes && (
             <button
@@ -1007,7 +1012,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
         </div>
       </div>
 
-      {/* BOTTOM RIGHT: CREATOR SIGNATURE (REQUIRED BY USER) & ZOOM CONTROLS */}
+      {/* BOTTOM RIGHT: CREATOR SIGNATURE & ZOOM CONTROLS */}
       <div className="absolute bottom-6 right-4 flex flex-col items-end gap-2.5 pointer-events-none z-20">
         
         {/* Zoom & Reset Buttons */}
@@ -1038,7 +1043,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
         {/* ROW: VISITOR COUNTER & AUTHOR CREDIT */}
         <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
           {/* Visitor Counter */}
-     <VisitorStats />
+          <VisitorStats />
 
           {/* AUTHOR CREDIT - GIOVANE GABRIEL */}
           <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-3 py-2 shadow-2xl flex items-center gap-2.5">
