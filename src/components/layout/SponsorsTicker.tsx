@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Building2, ChevronDown, ChevronUp } from 'lucide-react';
+import { ExternalLink, Building2, ChevronDown, ChevronUp, ChevronRight, ChevronLeft } from 'lucide-react';
 import { MunicipioMS } from '../../data/municipiosData';
 
 interface Sponsor {
@@ -12,18 +12,15 @@ interface Sponsor {
   url?: string;
 }
 
-// Utiliza o base URL do Vite para suportar perfeitamente o GitHub Pages (/Monitora-MS/)
 const BASE_URL = import.meta.env.BASE_URL || './';
 
 const SPONSORS_DATA: Sponsor[] = [
-  // Patrocinadores Gerais / Estado / Governo (Aparecem no mapa geral de MS)
   { id: '1', name: 'Governo Federal · Brasil', category: 'Governo Federal', logoText: 'GOV. FEDERAL', url: '#' },
-  { id: '2', name: 'Banco do Brasil', category: 'Institucional', logoText: 'BANCO DOBRASIL', url: '#' },
+  { id: '2', name: 'Banco do Brasil', category: 'Institucional', logoText: 'BANCO DO BRASIL', url: '#' },
   { id: '3', name: 'Energisa Mato Grosso do Sul', category: 'Infraestrutura', logoText: 'ENERGISA MS', url: '#' },
   { id: '4', name: 'Sebrae MS', category: 'Parceiro Estratégico', logoText: 'SEBRAE MS', url: '#' },
   { id: '5', name: 'Sistema FIEEMS', category: 'Indústria', logoText: 'FIEEMS', url: '#' },
 
-  // Patrocinadores de Naviraí (IBGE: 5005707) - Usando caminho dinâmico compativel com GitHub Pages
   { 
     id: 'nav-1', 
     name: 'GG Engenharia & Projetos', 
@@ -55,9 +52,10 @@ const SPONSORS_DATA: Sponsor[] = [
 
 interface SponsorsTickerProps {
   selectedMunicipio: MunicipioMS | null;
+  isMobile?: boolean; // Flag para alternar layout mobile em linha ou PC vertical
 }
 
-export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipio }) => {
+export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipio, isMobile = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const activeSponsors = React.useMemo(() => {
@@ -93,10 +91,53 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
     setCurrentIndex((prev) => (prev - 1 + activeSponsors.length) % activeSponsors.length);
   };
 
+  // LAYOUT SIMPLIFICADO EM LINHA PARA O MOBILE (Fica no topo)
+  if (isMobile) {
+    return (
+      <div className="w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-3 py-1.5 flex items-center justify-between gap-2 shadow-md">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="w-6 h-6 rounded bg-slate-950 border border-slate-800 flex items-center justify-center p-0.5 shrink-0">
+            {currentSponsor.imageUrl ? (
+              <img src={currentSponsor.imageUrl} alt="" className="w-full h-full object-contain" />
+            ) : (
+              <Building2 className="w-3.5 h-3.5 text-cyan-400" />
+            )}
+          </div>
+          <div className="min-w-0 flex items-center gap-1.5">
+            <span className="text-[10px] text-cyan-400 font-bold uppercase truncate">{currentSponsor.logoText}</span>
+            <span className="text-[10px] text-slate-400 truncate hidden xs:inline">· {currentSponsor.category}</span>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          {currentSponsor.url && currentSponsor.url !== '#' && (
+            <a
+              href={currentSponsor.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-2 py-0.5 bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded text-[10px] font-semibold flex items-center gap-1"
+            >
+              <span>Visitar</span>
+              <ExternalLink className="w-2.5 h-2.5" />
+            </a>
+          )}
+          <div className="flex items-center gap-0.5 bg-slate-950/80 rounded border border-slate-800 p-0.5">
+            <button onClick={handlePrev} className="p-0.5 text-slate-400 hover:text-white">
+              <ChevronLeft className="w-3 h-3" />
+            </button>
+            <span className="text-[9px] text-slate-400 px-1 font-mono">{currentIndex + 1}/{activeSponsors.length}</span>
+            <button onClick={handleNext} className="p-0.5 text-slate-400 hover:text-white">
+              <ChevronRight className="w-3 h-3" />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // LAYOUT ORIGINAL FLUTUANTE VERTICAL PARA O PC
   return (
     <div className="bg-slate-950/95 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col gap-2 w-72">
-      
-      {/* Cabeçalho do Bloco */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-1.5 px-1">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
@@ -114,27 +155,19 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
         </div>
       </div>
 
-      {/* Card com efeito de transição vertical */}
       <div className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 flex items-center gap-3 shadow-inner relative overflow-hidden group">
-        
-        {/* Imagem / Logo da Empresa */}
         <div className="w-16 h-16 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden p-1 shrink-0 shadow-inner">
           {currentSponsor.imageUrl ? (
             <img 
               src={currentSponsor.imageUrl} 
               alt={currentSponsor.name} 
               className="w-full h-full object-contain filter drop-shadow"
-              onError={(e) => {
-                // Fallback caso ocorra erro ao carregar a imagem
-                (e.target as HTMLElement).style.display = 'none';
-              }}
             />
           ) : (
             <Building2 className="w-5 h-5 text-cyan-400" />
           )}
         </div>
 
-        {/* Informações */}
         <div className="flex-1 min-w-0 space-y-1">
           <div className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider truncate">
             {currentSponsor.category}
@@ -153,7 +186,6 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
           </a>
         </div>
 
-        {/* Indicadores de posição na vertical */}
         <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex flex-col gap-1">
           {activeSponsors.map((_, idx) => (
             <span
