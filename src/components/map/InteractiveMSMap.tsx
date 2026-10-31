@@ -73,6 +73,14 @@ const HUB_CITY_IBGES = new Set([
   5007901, 5001102, 5006309, 5007109, 5006903
 ]);
 
+interface MeshItem {
+  ibge: number;
+  mesh: THREE.Mesh;
+  baseElevation: number;
+  defaultColor: number;
+  center: THREE.Vector3;
+}
+
 function createTextSprite(text: string, color: string = '#64748b') {
   const canvas = document.createElement('canvas');
   canvas.width = 340;
@@ -121,7 +129,8 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   
-  const meshesRef = useRef>(new Map());
+  // Usando Array simples inicializado para evitar qualquer erro de Map/undefined
+  const meshesRef = useRef<MeshItem[]>([]);
   
   const hoveredMeshRef = useRef<THREE.Mesh | null>(null);
   const animFrameRef = useRef<number | null>(null);
@@ -205,8 +214,8 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, []);
 
   useEffect(() => {
-    meshesRef.current.forEach((val, ibge) => {
-      const municipio = municipiosMap.get(ibge);
+    (meshesRef.current || []).forEach((val) => {
+      const municipio = municipiosMap.get(val.ibge);
       if (!municipio) return;
 
       const { color, height } = getMetricAttributes(municipio, metricMode);
@@ -216,7 +225,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       const mat = val.mesh.material as THREE.MeshStandardMaterial;
       const matchesRegion = selectedRegiao === 'todas' || municipio.regiao === selectedRegiao;
 
-      if (hoveredMunicipioRef.current?.ibge !== ibge && selectedMunicipioRef.current?.ibge !== ibge) {
+      if (hoveredMunicipioRef.current?.ibge !== val.ibge && selectedMunicipioRef.current?.ibge !== val.ibge) {
         if (matchesRegion) {
           mat.color.setHex(color);
           mat.opacity = 1.0;
@@ -232,12 +241,12 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, [metricMode, selectedRegiao, municipiosMap, getMetricAttributes]);
 
   useEffect(() => {
-    meshesRef.current.forEach((val, ibge) => {
+    (meshesRef.current || []).forEach((val) => {
       const mat = val.mesh.material as THREE.MeshStandardMaterial;
-      if (selectedMunicipio?.ibge === ibge) {
+      if (selectedMunicipio?.ibge === val.ibge) {
         mat.emissive.setHex(0x06b6d4);
         mat.emissiveIntensity = 0.55;
-      } else if (hoveredMunicipio?.ibge === ibge) {
+      } else if (hoveredMunicipio?.ibge === val.ibge) {
         mat.emissive.setHex(0x38bdf8);
         mat.emissiveIntensity = 0.35;
       } else {
@@ -292,7 +301,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     const container = mountRef.current;
     if (!container) return;
 
-    meshesRef.current.clear();
+    meshesRef.current = [];
 
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -352,6 +361,8 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     const group = new THREE.Group();
     scene.add(group);
 
+    const newMeshes: MeshItem[] = [];
+
     MS_GEOJSON.features.forEach((feature) => {
       const ibge = feature.properties.id;
       const municipio = municipiosMap.get(ibge);
@@ -398,13 +409,16 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       const centerVec = new THREE.Vector3(centerX, elevHeight + 0.6, centerZ);
 
       group.add(mesh);
-      meshesRef.current.set(ibge, {
+      newMeshes.push({
+        ibge,
         mesh,
         baseElevation: elevHeight,
         defaultColor: initialColor,
         center: centerVec
       });
     });
+
+    meshesRef.current = newMeshes;
 
     MUNICIPIOS_DATA.filter(m => HUB_CITY_IBGES.has(m.ibge)).forEach((city) => {
       const pinX = (city.lng - CENTER_LNG) * SCALE;
@@ -459,13 +473,13 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           visible: boolean;
         }> = [];
 
-        meshesRef.current.forEach((val, ibge) => {
-          const municipio = municipiosMap.get(ibge);
+        (meshesRef.current || []).forEach((val) => {
+          const municipio = municipiosMap.get(val.ibge);
           if (!municipio) return;
 
-          const isHub = HUB_CITY_IBGES.has(ibge);
-          const isSelected = selectedMunicipioRef.current?.ibge === ibge;
-          const isHovered = hoveredMunicipioRef.current?.ibge === ibge;
+          const isHub = HUB_CITY_IBGES.has(val.ibge);
+          const isSelected = selectedMunicipioRef.current?.ibge === val.ibge;
+          const isHovered = hoveredMunicipioRef.current?.ibge === val.ibge;
 
           if (!showAllLabelsRef.current && !isHub && !isSelected && !isHovered) return;
 
@@ -477,7 +491,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
             const screenY = (-(pos.y * 0.5) + 0.5) * h;
 
             if (screenX >= 20 && screenX <= w - 20 && screenY >= 20 && screenY <= h - 20) {
-              newLabels.push({ ibge, nome: municipio.nome, x: screenX, y: screenY, isHub, municipio, visible: true });
+              newLabels.push({ ibge: val.ibge, nome: municipio.nome, x: screenX, y: screenY, isHub, municipio, visible: true });
             }
           }
         });
@@ -522,7 +536,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     raycaster.setFromCamera(mouse, cameraRef.current);
 
     const meshes: THREE.Mesh[] = [];
-    meshesRef.current.forEach(item => meshes.push(item.mesh));
+    (meshesRef.current || []).forEach(item => meshes.push(item.mesh));
 
     const intersects = raycaster.intersectObjects(meshes, false);
     if (intersects.length > 0) return intersects[0].object as THREE.Mesh;
@@ -560,7 +574,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     if (hitMesh !== hoveredMeshRef.current) {
       if (hoveredMeshRef.current) {
         const prevIbge = hoveredMeshRef.current.userData.ibge;
-        const prevMeta = meshesRef.current.get(prevIbge);
+        const prevMeta = (meshesRef.current || []).find(m => m.ibge === prevIbge);
         if (prevMeta && prevIbge !== selectedMunicipio?.ibge) {
           const mat = hoveredMeshRef.current.material as THREE.MeshStandardMaterial;
           mat.emissive.setHex(0x000000);
