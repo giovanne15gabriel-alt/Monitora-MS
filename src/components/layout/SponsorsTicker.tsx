@@ -50,6 +50,15 @@ const SPONSORS_DATA: Sponsor[] = [
     imageUrl: `${BASE_URL}sponsors/la-advocacia.png`, 
     url: 'https://www.instagram.com/la_advogadosassociados/' 
   },
+  { 
+    id: 'nav-4', 
+    name: 'Agência Valete', 
+    category: 'Marketing Digital & Automação', 
+    cidadeIbge: 5005707,
+    logoText: 'Agência Valete', 
+    imageUrl: `${BASE_URL}sponsors/agencia-valete.png`, 
+    url: 'https://www.instagram.com/agenciavalete6/'
+  },
 ];
 
 interface SponsorsTickerProps {
