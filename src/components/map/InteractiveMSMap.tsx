@@ -696,9 +696,9 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           )}
         </div>
 
-        {/* SPONSORS TICKER SPANNING FULL WIDTH IN THE CENTER */}
+        {/* SPONSORS TICKER SPANNING FULL WIDTH IN THE CENTER (PASSANDO A CIDADE SELECIONADA) */}
         <div className="flex-1 w-full max-w-2xl mx-auto px-2">
-          <SponsorsTicker />
+          <SponsorsTicker selectedMunicipio={selectedMunicipio} />
         </div>
 
         {/* Camera View Presets & Labels Toggle */}
