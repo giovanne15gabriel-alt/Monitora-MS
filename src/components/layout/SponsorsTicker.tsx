@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ExternalLink, Building2 } from 'lucide-react';
+import { ExternalLink, Building2, ChevronDown, ChevronUp } from 'lucide-react';
 import { MunicipioMS } from '../../data/municipiosData';
 
 interface Sponsor {
@@ -39,7 +39,7 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
     }
     const citySponsors = SPONSORS_DATA.filter(s => s.cidadeIbge === selectedMunicipio.ibge);
     if (citySponsors.length === 0) {
-      return SPONSORS_DATA.filter(s => !s.cidadeIbge); // Fallback para o Estado
+      return SPONSORS_DATA.filter(s => !s.cidadeIbge);
     }
     return citySponsors;
   }, [selectedMunicipio]);
@@ -58,24 +58,40 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
 
   const currentSponsor = activeSponsors[currentIndex] || activeSponsors[0];
 
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % activeSponsors.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + activeSponsors.length) % activeSponsors.length);
+  };
+
   return (
-    <div className="bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3.5 shadow-2xl flex flex-col items-center gap-2 w-64">
+    <div className="bg-slate-950/95 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl flex flex-col gap-2 w-72">
       
-      {/* Título do Card Lateral */}
-      <div className="flex items-center justify-between w-full border-b border-slate-800 pb-2">
+      {/* Cabeçalho do Bloco */}
+      <div className="flex items-center justify-between border-b border-slate-800 pb-1.5 px-1">
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
           <span className="text-[11px] font-bold text-white tracking-wide">
             {selectedMunicipio ? `Patrocinadores · ${selectedMunicipio.nome}` : 'Parceiros & Governo'}
           </span>
         </div>
+        <div className="flex items-center gap-1">
+          <button onClick={handlePrev} className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="Anterior">
+            <ChevronUp className="w-3.5 h-3.5" />
+          </button>
+          <button onClick={handleNext} className="p-1 rounded hover:bg-slate-800 text-slate-400 hover:text-white transition-colors" title="Próximo">
+            <ChevronDown className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
 
-      {/* Card Principal de Exibição */}
-      <div className="w-full h-36 bg-slate-900/95 border border-slate-700/80 rounded-xl p-3 flex flex-col items-center justify-between shadow-inner relative group overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 pointer-events-none" />
+      {/* Card com efeito de transição vertical */}
+      <div className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl p-2.5 flex items-center gap-3 shadow-inner relative overflow-hidden group">
         
-        <div className="w-full h-14 rounded-lg bg-slate-950/80 border border-slate-800 flex items-center justify-center overflow-hidden p-1 shrink-0">
+        {/* Imagem / Logo */}
+        <div className="w-16 h-16 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center overflow-hidden p-1 shrink-0 shadow-inner">
           {currentSponsor.imageUrl ? (
             <img 
               src={currentSponsor.imageUrl} 
@@ -87,32 +103,32 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
           )}
         </div>
 
-        <div className="text-center space-y-0.5 z-10 w-full">
+        {/* Informações */}
+        <div className="flex-1 min-w-0 space-y-1">
+          <div className="text-[10px] text-cyan-400 font-bold uppercase tracking-wider truncate">
+            {currentSponsor.category}
+          </div>
           <div className="text-xs font-bold text-white tracking-wide truncate">
             {currentSponsor.logoText}
           </div>
-          <div className="text-[9px] text-slate-400 px-2 py-0.5 bg-slate-950/80 rounded-full border border-slate-800 inline-block truncate max-w-full">
-            {currentSponsor.category}
-          </div>
+          <a
+            href={currentSponsor.url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 text-[10px] text-slate-300 hover:text-cyan-300 font-semibold transition-colors"
+          >
+            <span>Visitar</span>
+            <ExternalLink className="w-2.5 h-2.5" />
+          </a>
         </div>
 
-        <a
-          href={currentSponsor.url || '#'}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="w-full py-1 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 rounded-lg text-[10px] font-bold transition-all flex items-center justify-center gap-1 border border-slate-700/60 shadow-md"
-        >
-          <span>Visitar Anúncio</span>
-          <ExternalLink className="w-3 h-3" />
-        </a>
-
-        {/* Indicadores de paginação */}
-        <div className="absolute bottom-1 right-2 flex gap-1 z-20">
+        {/* Indicadores de posição na vertical */}
+        <div className="absolute right-1.5 top-1/2 -translate-y-1/2 flex flex-col gap-1">
           {activeSponsors.map((_, idx) => (
             <span
               key={idx}
               className={`block rounded-full transition-all ${
-                idx === currentIndex ? 'w-2 h-1 bg-cyan-400' : 'w-1 h-1 bg-slate-700'
+                idx === currentIndex ? 'h-3 w-1 bg-cyan-400' : 'h-1 w-1 bg-slate-700'
               }`}
             />
           ))}
