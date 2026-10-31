@@ -25,7 +25,8 @@ import {
   ZoomIn,
   ZoomOut,
   RotateCcw,
-  Eye
+  Eye,
+  Menu
 } from 'lucide-react';
 
 export type MetricMode = 'regioes' | 'divida' | 'legislativo' | 'transparencia';
@@ -115,6 +116,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegiao, setSelectedRegiao] = useState<string>('todas');
   const [showAllLabels, setShowAllLabels] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Menu retrátil apenas para a Legenda das 10 Regiões
   const [screenLabels, setScreenLabels] = useState<Array<{
     ibge: number;
     nome: string;
@@ -658,7 +660,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* BARRA SUPERIOR ÚNICA E LIMPA COM O LOGO "MONITORA MS" E FERRAMENTAS */}
+      {/* BARRA SUPERIOR ÚNICA E LIMPA COM LOGO, BUSCA E MENU HAMBÚRGUER (LEGENDA DAS 10 REGIÕES) */}
       <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-3 py-2 flex items-center justify-between gap-2 z-30 shadow-lg shrink-0">
         
         {/* LOGO / TÍTULO "MONITORA MS" */}
@@ -704,7 +706,16 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           )}
         </div>
 
-        {/* Camera View Presets & Labels Toggle (Visível apenas em Desktop/Tablet) */}
+        {/* Botão Menu Hambúrguer Mobile para abrir a Legenda das 10 Regiões */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="sm:hidden p-2 bg-slate-800 text-cyan-400 rounded-xl border border-slate-700 shadow-md flex items-center justify-center"
+          title="Legenda das 10 Regiões"
+        >
+          <Menu className="w-4 h-4" />
+        </button>
+
+        {/* Camera View Presets & Labels Toggle (Desktop) */}
         <div className="hidden sm:flex items-center gap-2">
           <div className="flex items-center p-1 bg-slate-950/90 border border-slate-800 rounded-xl shadow-inner">
             <button
@@ -751,10 +762,43 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
       </div>
 
-      {/* CARROSSEL SIMPLIFICADO EM LINHA EXCLUSIVO PARA MOBILE (Logo abaixo da barra superior) */}
-      <div className="block sm:hidden w-full z-25">
+      {/* CARROSSEL AUTOMÁTICO NO TOPO PARA MOBILE (Mostra parceiros estaduais ou específicos da cidade selecionada) */}
+      <div className="block sm:hidden w-full z-25 px-2 pt-1.5">
         <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={true} />
       </div>
+
+      {/* MENU RETRÁTIL MOBILE (Exibe exclusivamente a Legenda das 10 Regiões) */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden absolute top-14 left-2 right-2 bg-slate-950/98 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl z-40 space-y-2.5">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+              <span className="text-xs font-bold text-white tracking-wide">10 Regiões Oficiais de MS</span>
+            </div>
+            <button onClick={() => setMobileMenuOpen(false)} className="p-1 text-slate-400 hover:text-white">
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 gap-1 max-h-48 overflow-y-auto pr-1">
+            {REGIOES_OFICIAIS.map((reg) => {
+              const isSelected = selectedRegiao === reg.nome;
+              return (
+                <button
+                  key={reg.nome}
+                  onClick={() => { setSelectedRegiao(isSelected ? 'todas' : reg.nome); setMobileMenuOpen(false); }}
+                  className={`flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[11px] text-left transition-all ${
+                    isSelected ? 'bg-slate-800 text-white font-bold ring-1 ring-cyan-400' : 'text-slate-300 hover:text-white hover:bg-slate-900/80'
+                  }`}
+                >
+                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: reg.cor }} />
+                  <span className="truncate">{reg.nome}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* MAP VIEW CONTAINER */}
       <div className="relative w-full flex-1 overflow-hidden">
