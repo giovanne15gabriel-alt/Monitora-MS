@@ -128,10 +128,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  
-  // Usando Array simples inicializado para evitar qualquer erro de Map/undefined
   const meshesRef = useRef<MeshItem[]>([]);
-  
   const hoveredMeshRef = useRef<THREE.Mesh | null>(null);
   const animFrameRef = useRef<number | null>(null);
 
@@ -545,7 +542,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     isDraggingRef.current = true;
-    dragButtonRef.current = e.button;
+    dragButtonRef.current = e.button; // 0 = esquerdo (rotacionar), 2 = direito (mover/pan)
     previousMousePosRef.current = { x: e.clientX, y: e.clientY };
   };
 
@@ -556,11 +553,28 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       previousMousePosRef.current = { x: e.clientX, y: e.clientY };
 
       if (dragButtonRef.current === 0) {
+        // Botão esquerdo: Rotacionar
         sphericalRef.current.theta -= deltaX * 0.008;
         sphericalRef.current.phi = Math.max(0.08, Math.min(Math.PI / 2.1, sphericalRef.current.phi + deltaY * 0.008));
 
         const r = sphericalRef.current.radius;
         const theta = sphericalRef.current.theta;
+        const phi = sphericalRef.current.phi;
+
+        targetCameraPos.current.x = targetLookAt.current.x + r * Math.sin(phi) * Math.sin(theta);
+        targetCameraPos.current.y = targetLookAt.current.y + r * Math.cos(phi);
+        targetCameraPos.current.z = targetLookAt.current.z + r * Math.sin(phi) * Math.cos(theta);
+      } else if (dragButtonRef.current === 2) {
+        // Botão direito: Mover / Pan
+        const panSpeed = 0.18;
+        const theta = sphericalRef.current.theta;
+        const cosT = Math.cos(theta);
+        const sinT = Math.sin(theta);
+
+        targetLookAt.current.x -= deltaX * panSpeed * cosT + deltaY * panSpeed * sinT;
+        targetLookAt.current.z += deltaX * panSpeed * sinT - deltaY * panSpeed * cosT;
+
+        const r = sphericalRef.current.radius;
         const phi = sphericalRef.current.phi;
 
         targetCameraPos.current.x = targetLookAt.current.x + r * Math.sin(phi) * Math.sin(theta);
@@ -640,287 +654,286 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   };
 
   return (
-    <div className="relative w-full h-full overflow-hidden select-none bg-slate-950 font-sans">
+    <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* 3D WebGL Canvas Container */}
-      <div
-        ref={mountRef}
-        className="w-full h-full cursor-grab active:cursor-grabbing"
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
-        onClick={handleClick}
-        onWheel={handleWheel}
-        onContextMenu={(e) => e.preventDefault()}
-      />
-
-      {/* Floating 2D HTML City Names */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {screenLabels.map((lbl) => {
-          const isSelected = selectedMunicipio?.ibge === lbl.ibge;
-          const isHovered = hoveredMunicipio?.ibge === lbl.ibge;
-
-          return (
-            <div
-              key={lbl.ibge}
-              style={{ left: `${lbl.x}px`, top: `${lbl.y}px`, transform: 'translate(-50%, -100%)' }}
-              className="absolute pointer-events-auto transition-transform duration-75"
-            >
-              <button
-                onClick={(e) => { e.stopPropagation(); handleSelectCity(lbl.municipio); }}
-                onMouseEnter={() => setHoveredMunicipio(lbl.municipio)}
-                onMouseLeave={() => setHoveredMunicipio(null)}
-                className={`group flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-bold shadow-lg transition-all duration-150 backdrop-blur-md ${
-                  isSelected
-                    ? 'bg-cyan-500 text-slate-950 scale-110 ring-2 ring-white ring-offset-2 ring-offset-slate-950 z-30'
-                    : isHovered
-                    ? 'bg-white text-slate-950 scale-105 ring-2 ring-cyan-400 z-20'
-                    : lbl.isHub
-                    ? 'bg-slate-900/90 text-slate-100 border border-slate-700/80 hover:bg-slate-800 hover:border-cyan-400 z-10'
-                    : 'bg-slate-950/80 text-slate-300 border border-slate-800/80 text-[10px] hover:text-white hover:bg-slate-900'
-                }`}
-              >
-                <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: lbl.municipio.regiaoCor }} />
-                <span className="whitespace-nowrap">{lbl.nome}</span>
-                {isSelected && <ChevronRight className="w-3 h-3 shrink-0" />}
+      {/* FULL-WIDTH TOP HEADER BAR (FIXED, NON-FLOATING, EDGE-TO-EDGE) */}
+      <div className="w-full bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-col xl:flex-row items-center justify-between gap-3 z-30 shadow-2xl shrink-0">
+        
+        {/* Quick Search Bar */}
+        <div className="relative w-full sm:w-80 shadow-xl">
+          <div className="relative">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Buscar município ou prefeito..."
+              className="w-full pl-9 pr-8 py-2 text-xs bg-slate-950/90 border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all shadow-inner"
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
+                <X className="w-3.5 h-3.5" />
               </button>
+            )}
+          </div>
+
+          {filteredSearchList.length > 0 && (
+            <div className="absolute left-0 right-0 mt-1.5 bg-slate-900/98 backdrop-blur-xl border border-slate-700/80 rounded-xl overflow-hidden shadow-2xl z-50 divide-y divide-slate-800">
+              {filteredSearchList.map(m => (
+                <button
+                  key={m.ibge}
+                  onClick={() => { handleSelectCity(m); setSearchQuery(''); }}
+                  className="w-full px-3 py-2 text-left hover:bg-slate-800/80 flex items-center justify-between transition-colors group"
+                >
+                  <div>
+                    <div className="text-xs font-semibold text-slate-100 group-hover:text-cyan-400">{m.nome}</div>
+                    <div className="text-[10px] text-slate-400">Prefeito: {m.prefeito.nome} · {m.regiao}</div>
+                  </div>
+                  <span className="text-[10px] text-slate-500 font-mono">{formatNumber(m.populacao)} hab.</span>
+                </button>
+              ))}
             </div>
-          );
-        })}
+          )}
+        </div>
+
+        {/* SPONSORS TICKER SPANNING FULL WIDTH IN THE CENTER */}
+        <div className="flex-1 w-full max-w-2xl mx-auto px-2">
+          <SponsorsTicker />
+        </div>
+
+        {/* Camera View Presets & Labels Toggle */}
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          <div className="flex items-center p-1 bg-slate-950/90 border border-slate-800 rounded-xl shadow-inner">
+            <button
+              onClick={() => applyViewPreset('perspective')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold rounded-lg transition-all ${
+                viewPreset === 'perspective' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Rotate3d className="w-3.5 h-3.5" />
+              <span>3D</span>
+            </button>
+
+            <button
+              onClick={() => applyViewPreset('top')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold rounded-lg transition-all ${
+                viewPreset === 'top' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Compass className="w-3.5 h-3.5" />
+              <span>Aérea</span>
+            </button>
+
+            <button
+              onClick={() => applyViewPreset('isometric')}
+              className={`flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold rounded-lg transition-all ${
+                viewPreset === 'isometric' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>Isométrica</span>
+            </button>
+          </div>
+
+          <button
+            onClick={() => setShowAllLabels(!showAllLabels)}
+            className={`flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border transition-all shadow-md ${
+              showAllLabels ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-slate-950/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
+            }`}
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">{showAllLabels ? 'Ocultar' : 'Todos os 79'}</span>
+          </button>
+        </div>
+
       </div>
 
-      {/* TOP FLOATING CONTROLS & SPONSORS TICKER */}
-      <div className={`absolute top-4 left-4 right-4 flex flex-col gap-2.5 pointer-events-none z-20 transition-all duration-300 ${
-        selectedMunicipio ? 'sm:right-[560px] lg:right-[620px]' : ''
-      }`}>
+      {/* MAP VIEW CONTAINER (FLEX-1 TAKING REMAINING HEIGHT) */}
+      <div className="relative w-full flex-1 overflow-hidden">
         
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          
-          {/* Quick Search Bar */}
-          <div className="pointer-events-auto relative w-72 sm:w-80 shadow-2xl">
-            <div className="relative">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Buscar município ou prefeito..."
-                className="w-full pl-9 pr-8 py-2 text-xs bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-xl text-slate-100 placeholder-slate-400 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all shadow-xl"
-              />
-              {searchQuery && (
-                <button onClick={() => setSearchQuery('')} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">
-                  <X className="w-3.5 h-3.5" />
+        {/* 3D WebGL Canvas Container */}
+        <div
+          ref={mountRef}
+          className="w-full h-full cursor-grab active:cursor-grabbing"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onClick={handleClick}
+          onWheel={handleWheel}
+          onContextMenu={(e) => e.preventDefault()}
+        />
+
+        {/* Floating 2D HTML City Names */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {screenLabels.map((lbl) => {
+            const isSelected = selectedMunicipio?.ibge === lbl.ibge;
+            const isHovered = hoveredMunicipio?.ibge === lbl.ibge;
+
+            return (
+              <div
+                key={lbl.ibge}
+                style={{ left: `${lbl.x}px`, top: `${lbl.y}px`, transform: 'translate(-50%, -100%)' }}
+                className="absolute pointer-events-auto transition-transform duration-75"
+              >
+                <button
+                  onClick={(e) => { e.stopPropagation(); handleSelectCity(lbl.municipio); }}
+                  onMouseEnter={() => setHoveredMunicipio(lbl.municipio)}
+                  onMouseLeave={() => setHoveredMunicipio(null)}
+                  className={`group flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-bold shadow-lg transition-all duration-150 backdrop-blur-md ${
+                    isSelected
+                      ? 'bg-cyan-500 text-slate-950 scale-110 ring-2 ring-white ring-offset-2 ring-offset-slate-950 z-30'
+                      : isHovered
+                      ? 'bg-white text-slate-950 scale-105 ring-2 ring-cyan-400 z-20'
+                      : lbl.isHub
+                      ? 'bg-slate-900/90 text-slate-100 border border-slate-700/80 hover:bg-slate-800 hover:border-cyan-400 z-10'
+                      : 'bg-slate-950/80 text-slate-300 border border-slate-800/80 text-[10px] hover:text-white hover:bg-slate-900'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: lbl.municipio.regiaoCor }} />
+                  <span className="whitespace-nowrap">{lbl.nome}</span>
+                  {isSelected && <ChevronRight className="w-3 h-3 shrink-0" />}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* QUICK CIVIC HUBS BAR */}
+        <div className="absolute top-4 right-4 flex flex-col items-end gap-2 pointer-events-none z-10">
+          <div className="pointer-events-auto flex flex-col gap-1.5">
+            {onOpenEleicoes && (
+              <button
+                onClick={onOpenEleicoes}
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl shadow-lg border border-cyan-400/40 transition-all transform hover:scale-105"
+              >
+                <Vote className="w-3.5 h-3.5" />
+                <span>Eleições 2026 · Novos Eleitos</span>
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              </button>
+            )}
+
+            {onOpenGoverno && (
+              <button
+                onClick={onOpenGoverno}
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-blue-300 rounded-xl shadow-md border border-slate-800 hover:border-blue-500/40 transition-colors"
+              >
+                <Building2 className="w-3.5 h-3.5 text-blue-400" />
+                <span>Governo MS · Orçamento LRF</span>
+              </button>
+            )}
+
+            {onOpenLegislativo && (
+              <button
+                onClick={onOpenLegislativo}
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-amber-300 rounded-xl shadow-md border border-slate-800 hover:border-amber-500/40 transition-colors"
+              >
+                <Landmark className="w-3.5 h-3.5 text-amber-400" />
+                <span>ALEMS · Deputados Estaduais</span>
+              </button>
+            )}
+
+            {onOpenTce && (
+              <button
+                onClick={onOpenTce}
+                className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-purple-300 rounded-xl shadow-md border border-slate-800 hover:border-purple-500/40 transition-colors"
+              >
+                <Scale className="w-3.5 h-3.5 text-purple-400" />
+                <span>TCE-MS · Gastos e Auditoria</span>
+              </button>
+            )}
+          </div>
+        </div>
+
+        {/* BOTTOM LEFT: REGIONS LEGEND & METRIC SELECTOR */}
+        <div className="absolute bottom-6 left-4 pointer-events-none z-20 max-w-sm">
+          <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3.5 shadow-2xl space-y-3">
+            
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
+                <span className="text-xs font-bold text-white tracking-wide">10 Regiões Oficiais de MS</span>
+              </div>
+              {selectedRegiao !== 'todas' && (
+                <button onClick={() => setSelectedRegiao('todas')} className="text-[10px] text-cyan-400 hover:underline">
+                  Limpar Filtro
                 </button>
               )}
             </div>
 
-            {filteredSearchList.length > 0 && (
-              <div className="absolute left-0 right-0 mt-1.5 bg-slate-900/98 backdrop-blur-xl border border-slate-700/80 rounded-xl overflow-hidden shadow-2xl z-50 divide-y divide-slate-800">
-                {filteredSearchList.map(m => (
+            <div className="grid grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
+              {REGIOES_OFICIAIS.map((reg) => {
+                const isSelected = selectedRegiao === reg.nome;
+                return (
                   <button
-                    key={m.ibge}
-                    onClick={() => { handleSelectCity(m); setSearchQuery(''); }}
-                    className="w-full px-3 py-2 text-left hover:bg-slate-800/80 flex items-center justify-between transition-colors group"
+                    key={reg.nome}
+                    onClick={() => setSelectedRegiao(isSelected ? 'todas' : reg.nome)}
+                    className={`flex items-center gap-2 px-2 py-1 rounded-lg text-[10px] text-left transition-all ${
+                      isSelected ? 'bg-slate-800 text-white font-bold ring-1 ring-cyan-400' : 'text-slate-300 hover:text-white hover:bg-slate-900/80'
+                    }`}
                   >
-                    <div>
-                      <div className="text-xs font-semibold text-slate-100 group-hover:text-cyan-400">{m.nome}</div>
-                      <div className="text-[10px] text-slate-400">Prefeito: {m.prefeito.nome} · {m.regiao}</div>
-                    </div>
-                    <span className="text-[10px] text-slate-500 font-mono">{formatNumber(m.populacao)} hab.</span>
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: reg.cor }} />
+                    <span className="truncate">{reg.nome}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+              <span className="text-slate-400 text-[10px]">Extrusão 3D:</span>
+              <div className="flex gap-1">
+                {(['regioes', 'divida', 'legislativo'] as MetricMode[]).map((mode) => (
+                  <button
+                    key={mode}
+                    onClick={() => setMetricMode(mode)}
+                    className={`px-2 py-0.5 rounded text-[10px] font-semibold transition-colors capitalize ${
+                      metricMode === mode ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    {mode}
                   </button>
                 ))}
               </div>
-            )}
-          </div>
-
-          {/* Camera View Presets */}
-          <div className="pointer-events-auto flex items-center gap-2">
-            <div className="flex items-center p-1 bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-xl shadow-xl">
-              <button
-                onClick={() => applyViewPreset('perspective')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                  viewPreset === 'perspective' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-                }`}
-              >
-                <Rotate3d className="w-3.5 h-3.5" />
-                <span>Perspectiva 3D</span>
-              </button>
-
-              <button
-                onClick={() => applyViewPreset('top')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                  viewPreset === 'top' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-                }`}
-              >
-                <Compass className="w-3.5 h-3.5" />
-                <span>Vista Aérea</span>
-              </button>
-
-              <button
-                onClick={() => applyViewPreset('isometric')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg transition-all ${
-                  viewPreset === 'isometric' ? 'bg-cyan-500 text-slate-950 shadow-md font-bold' : 'text-slate-300 hover:text-white hover:bg-slate-800'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Isométrica</span>
-              </button>
             </div>
 
-            <button
-              onClick={() => setShowAllLabels(!showAllLabels)}
-              className={`pointer-events-auto flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border transition-all shadow-xl ${
-                showAllLabels ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40' : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:bg-slate-800 hover:text-white'
-              }`}
-            >
-              <Eye className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">{showAllLabels ? 'Ocultar Nomes' : 'Mostrar Todos os 79'}</span>
-            </button>
           </div>
-
         </div>
 
-        {/* SPONSORS TICKER TICKING CAROUSEL (176x176px) */}
-        <div className="pointer-events-auto w-full max-w-4xl mx-auto">
-          <SponsorsTicker />
-        </div>
-
-      </div>
-
-      {/* QUICK CIVIC HUBS BAR */}
-      <div className="absolute top-28 right-4 flex flex-col items-end gap-2 pointer-events-none z-10">
-        <div className="pointer-events-auto flex flex-col gap-1.5">
-          {onOpenEleicoes && (
-            <button
-              onClick={onOpenEleicoes}
-              className="flex items-center gap-2 px-3 py-1.5 text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl shadow-lg border border-cyan-400/40 transition-all transform hover:scale-105"
-            >
-              <Vote className="w-3.5 h-3.5" />
-              <span>Eleições 2026 · Novos Eleitos</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            </button>
-          )}
-
-          {onOpenGoverno && (
-            <button
-              onClick={onOpenGoverno}
-              className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-blue-300 rounded-xl shadow-md border border-slate-800 hover:border-blue-500/40 transition-colors"
-            >
-              <Building2 className="w-3.5 h-3.5 text-blue-400" />
-              <span>Governo MS · Orçamento LRF</span>
-            </button>
-          )}
-
-          {onOpenLegislativo && (
-            <button
-              onClick={onOpenLegislativo}
-              className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-amber-300 rounded-xl shadow-md border border-slate-800 hover:border-amber-500/40 transition-colors"
-            >
-              <Landmark className="w-3.5 h-3.5 text-amber-400" />
-              <span>ALEMS · Deputados Estaduais</span>
-            </button>
-          )}
-
-          {onOpenTce && (
-            <button
-              onClick={onOpenTce}
-              className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium bg-slate-900/90 hover:bg-slate-800 text-purple-300 rounded-xl shadow-md border border-slate-800 hover:border-purple-500/40 transition-colors"
-            >
-              <Scale className="w-3.5 h-3.5 text-purple-400" />
-              <span>TCE-MS · Gastos e Auditoria</span>
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* BOTTOM LEFT: REGIONS LEGEND & METRIC SELECTOR */}
-      <div className="absolute bottom-6 left-4 pointer-events-none z-20 max-w-sm">
-        <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3.5 shadow-2xl space-y-3">
+        {/* BOTTOM RIGHT: ZOOM CONTROLS, VISITOR STATS & AUTHOR CREDIT */}
+        <div className="absolute bottom-6 right-4 flex flex-col items-end gap-2.5 pointer-events-none z-20">
           
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-              <span className="text-xs font-bold text-white tracking-wide">10 Regiões Oficiais de MS</span>
-            </div>
-            {selectedRegiao !== 'todas' && (
-              <button onClick={() => setSelectedRegiao('todas')} className="text-[10px] text-cyan-400 hover:underline">
-                Limpar Filtro
-              </button>
-            )}
+          <div className="pointer-events-auto flex flex-col bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
+            <button onClick={() => handleZoomBtn(-1)} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom In">
+              <ZoomIn className="w-4 h-4" />
+            </button>
+            <button onClick={() => handleZoomBtn(1)} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom Out">
+              <ZoomOut className="w-4 h-4" />
+            </button>
+            <button onClick={resetCamera} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" title="Reset View">
+              <RotateCcw className="w-4 h-4" />
+            </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-1.5 max-h-44 overflow-y-auto pr-1">
-            {REGIOES_OFICIAIS.map((reg) => {
-              const isSelected = selectedRegiao === reg.nome;
-              return (
-                <button
-                  key={reg.nome}
-                  onClick={() => setSelectedRegiao(isSelected ? 'todas' : reg.nome)}
-                  className={`flex items-center gap-2 px-2 py-1 rounded-lg text-[10px] text-left transition-all ${
-                    isSelected ? 'bg-slate-800 text-white font-bold ring-1 ring-cyan-400' : 'text-slate-300 hover:text-white hover:bg-slate-900/80'
-                  }`}
-                >
-                  <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: reg.cor }} />
-                  <span className="truncate">{reg.nome}</span>
-                </button>
-              );
-            })}
-          </div>
+          <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
+            <VisitorStats />
 
-          <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-            <span className="text-slate-400 text-[10px]">Extrusão 3D:</span>
-            <div className="flex gap-1">
-              {(['regioes', 'divida', 'legislativo'] as MetricMode[]).map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setMetricMode(mode)}
-                  className={`px-2 py-0.5 rounded text-[10px] font-semibold transition-colors capitalize ${
-                    metricMode === mode ? 'bg-cyan-500 text-slate-950' : 'bg-slate-800 text-slate-300 hover:text-white'
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
+            <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-3 py-2 shadow-2xl flex items-center gap-2.5">
+              <a
+                href="https://www.instagram.com/eng_giovanegabriel/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
+              >
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
+                  <Instagram className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold text-slate-100 group-hover:text-cyan-300">Giovane Gabriel · Engenheiro Civil</div>
+                  <div className="text-[10px] text-slate-400 group-hover:text-slate-300 font-mono">@eng_giovanegabriel</div>
+                </div>
+              </a>
             </div>
           </div>
 
-        </div>
-      </div>
-
-      {/* BOTTOM RIGHT: ZOOM CONTROLS, VISITOR STATS & AUTHOR CREDIT */}
-      <div className="absolute bottom-6 right-4 flex flex-col items-end gap-2.5 pointer-events-none z-20">
-        
-        <div className="pointer-events-auto flex flex-col bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-xl overflow-hidden shadow-2xl">
-          <button onClick={() => handleZoomBtn(-1)} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom In">
-            <ZoomIn className="w-4 h-4" />
-          </button>
-          <button onClick={() => handleZoomBtn(1)} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border-b border-slate-800" title="Zoom Out">
-            <ZoomOut className="w-4 h-4" />
-          </button>
-          <button onClick={resetCamera} className="p-2 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors" title="Reset View">
-            <RotateCcw className="w-4 h-4" />
-          </button>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2">
-          <VisitorStats />
-
-          <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-3 py-2 shadow-2xl flex items-center gap-2.5">
-            <a
-              href="https://www.instagram.com/eng_giovanegabriel/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
-            >
-              <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
-                <Instagram className="w-3.5 h-3.5" />
-              </div>
-              <div>
-                <div className="text-[11px] font-bold text-slate-100 group-hover:text-cyan-300">Giovane Gabriel · Engenheiro Civil</div>
-                <div className="text-[10px] text-slate-400 group-hover:text-slate-300 font-mono">@eng_giovanegabriel</div>
-              </div>
-            </a>
-          </div>
         </div>
 
       </div>
