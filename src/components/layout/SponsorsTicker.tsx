@@ -6,14 +6,13 @@ interface Sponsor {
   id: string;
   name: string;
   category: string;
-  cidadeIbge?: number; // Se preenchido, é patrocinador específico daquele município
+  cidadeIbge?: number;
   logoText: string;
   url?: string;
 }
 
-// Base de dados de patrocinadores (Estaduais e Municipais)
 const SPONSORS_DATA: Sponsor[] = [
-  // Patrocinadores Gerais / Estado / Governo (Exibidos quando nenhuma cidade está selecionada)
+  // Patrocinadores Gerais / Estado / Governo (Aparecem quando nenhuma cidade está selecionada)
   { id: '1', name: 'Governo Federal · Brasil', category: 'Governo Federal', logoText: 'GOV. FEDERAL', url: '#' },
   { id: '2', name: 'Banco do Brasil', category: 'Institucional', logoText: 'BANCO DO BRASIL', url: '#' },
   { id: '3', name: 'Energisa Mato Grosso do Sul', category: 'Infraestrutura', logoText: 'ENERGISA MS', url: '#' },
@@ -28,9 +27,6 @@ const SPONSORS_DATA: Sponsor[] = [
   // Patrocinadores de Dourados (IBGE: 5003702)
   { id: 'dou-1', name: 'Construtora Grande Dourados', category: 'Construção Civil', cidadeIbge: 5003702, logoText: 'CONSTRUTORA DOURADOS', url: '#' },
   { id: 'dou-2', name: 'Hospital Regional de Dourados', category: 'Saúde', cidadeIbge: 5003702, logoText: 'HOSPITAL DOURADOS', url: '#' },
-
-  // Patrocinadores de Caarapó (IBGE: 5002704 - Exemplo ou ajuste conforme IBGE)
-  { id: 'caa-1', name: 'Cooperativa Agroindustrial Caarapó', category: 'Agronegócio', cidadeIbge: 5002654, logoText: 'COOP CAARAPÓ', url: '#' },
 ];
 
 interface SponsorsTickerProps {
@@ -40,34 +36,25 @@ interface SponsorsTickerProps {
 export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipio }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Filtra os patrocinadores com base na cidade selecionada
   const activeSponsors = React.useMemo(() => {
     if (!selectedMunicipio) {
-      // Nenhum município selecionado: mostra apenas os estaduais/gerais (sem cidadeIbge)
       return SPONSORS_DATA.filter(s => !s.cidadeIbge);
     }
-
-    // Município selecionado: busca os patrocinadores específicos da cidade
     const citySponsors = SPONSORS_DATA.filter(s => s.cidadeIbge === selectedMunicipio.ibge);
-
-    // Se a cidade não tiver patrocinadores cadastrados, faz o fallback para os estaduais
     if (citySponsors.length === 0) {
-      return SPONSORS_DATA.filter(s => !s.cidadeIbge);
+      return SPONSORS_DATA.filter(s => !s.cidadeIbge); // Fallback para o Estado
     }
-
     return citySponsors;
   }, [selectedMunicipio]);
 
-  // Efeito de rotação automática do carrossel
   useEffect(() => {
     if (activeSponsors.length <= 1) return;
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % activeSponsors.length);
-    }, 4000);
+    }, 4500);
     return () => clearInterval(interval);
   }, [activeSponsors.length]);
 
-  // Reseta o índice se a lista mudar
   useEffect(() => {
     setCurrentIndex(0);
   }, [selectedMunicipio]);
@@ -75,48 +62,51 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
   const currentSponsor = activeSponsors[currentIndex] || activeSponsors[0];
 
   return (
-    <div className="w-full bg-slate-950/80 backdrop-blur-md border border-slate-800/80 rounded-xl px-4 py-2 flex items-center justify-between shadow-lg">
-      
-      {/* Título dinâmico indicando o contexto do patrocínio */}
-      <div className="flex items-center gap-2 shrink-0">
+    <div className="flex flex-col items-center gap-1.5 w-full">
+      <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
         <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-          {selectedMunicipio ? `Patrocinadores · ${selectedMunicipio.nome}` : 'Parceiros & Governo · Estado de MS'}
-        </span>
+        <span>{selectedMunicipio ? `Patrocinadores · ${selectedMunicipio.nome}` : 'Parceiros & Governo · Estado de MS'}</span>
       </div>
 
-      {/* Card do Anúncio Atual em Destaque */}
-      <div className="flex-1 mx-4 overflow-hidden text-center">
+      {/* Card no padrão exato de 176x176 pixels */}
+      <div className="w-[176px] h-[176px] bg-slate-900/95 backdrop-blur-xl border border-slate-700/80 rounded-2xl p-4 flex flex-col items-center justify-between shadow-2xl relative group overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-purple-500/10 pointer-events-none" />
+        
+        <div className="w-8 h-8 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-cyan-400 shadow-inner shrink-0">
+          <Building2 className="w-4 h-4" />
+        </div>
+
+        <div className="text-center space-y-1 z-10 my-auto">
+          <div className="text-xs font-bold text-white tracking-wide line-clamp-2">
+            {currentSponsor.logoText}
+          </div>
+          <div className="text-[10px] text-slate-400 px-2 py-0.5 bg-slate-950/80 rounded-full border border-slate-800 inline-block">
+            {currentSponsor.category}
+          </div>
+        </div>
+
         <a
           href={currentSponsor.url || '#'}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-slate-200 hover:text-cyan-300 transition-colors group truncate"
+          className="w-full py-1.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-slate-200 rounded-xl text-[10px] font-bold transition-all flex items-center justify-center gap-1.5 border border-slate-700/60 shadow-md group-hover:border-cyan-400"
         >
-          <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-          <span className="bg-gradient-to-r from-white via-slate-200 to-cyan-300 bg-clip-text text-transparent font-bold">
-            {currentSponsor.logoText}
-          </span>
-          <span className="text-[10px] text-slate-400 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
-            {currentSponsor.category}
-          </span>
-          <ExternalLink className="w-3 h-3 text-slate-500 group-hover:text-cyan-400 shrink-0" />
+          <span>Visitar</span>
+          <ExternalLink className="w-3 h-3" />
         </a>
-      </div>
 
-      {/* Indicadores de Paginação do Carrossel */}
-      <div className="flex items-center gap-1 shrink-0">
-        {activeSponsors.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => setCurrentIndex(idx)}
-            className={`transition-all rounded-full ${
-              idx === currentIndex ? 'w-4 h-1.5 bg-cyan-400' : 'w-1.5 h-1.5 bg-slate-700 hover:bg-slate-600'
-            }`}
-          />
-        ))}
+        {/* Indicadores de paginação */}
+        <div className="absolute bottom-1 right-2 flex gap-1">
+          {activeSponsors.map((_, idx) => (
+            <span
+              key={idx}
+              className={`block rounded-full transition-all ${
+                idx === currentIndex ? 'w-2 h-1 bg-cyan-400' : 'w-1 h-1 bg-slate-700'
+              }`}
+            />
+          ))}
+        </div>
       </div>
-
     </div>
   );
 };
