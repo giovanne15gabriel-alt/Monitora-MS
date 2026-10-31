@@ -654,23 +654,18 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* SEÇÃO 1: BARRA SUPERIOR PRINCIPAL (MS TRANSPARÊNCIA CÍVICA) */}
+      {/* SEÇÃO 1: BARRA SUPERIOR PRINCIPAL (MONITORA MS) */}
       <div className="w-full bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 px-4 py-3 flex items-center justify-between z-30 shadow-2xl shrink-0">
         <div className="flex items-center gap-2.5">
           <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
-          <span className="text-sm font-black tracking-wider text-white uppercase">MS Transparência Cívica</span>
+          <span className="text-sm font-black tracking-wider text-white uppercase">Monitora MS</span>
         </div>
         <div className="text-xs text-slate-400 font-mono hidden sm:block">
           Painel Geospacial de Controle Público e Orçamento
         </div>
       </div>
 
-      {/* SEÇÃO 2: CARROSSEL DE PATROCINADORES (TAMANHO 176X176 PIXELS) */}
-      <div className="w-full bg-slate-950/90 border-b border-slate-800/80 py-3 px-4 flex items-center justify-center z-20 shrink-0">
-        <SponsorsTicker selectedMunicipio={selectedMunicipio} />
-      </div>
-
-      {/* SEÇÃO 3: BARRA DE BUSCA E BOTÕES DE VISUALIZAÇÃO DO MAPA */}
+      {/* SEÇÃO 2: BARRA DE BUSCA E BOTÕES DE VISUALIZAÇÃO DO MAPA */}
       <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 z-20 shadow-lg shrink-0">
         
         {/* Quick Search Bar */}
@@ -850,6 +845,13 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
                 <span>TCE-MS · Gastos e Auditoria</span>
               </button>
             )}
+          </div>
+        </div>
+
+        {/* BOTTOM LEFT: CARROSSEL DE PATROCINADORES LOGO ACIMA DA LEGENDA */}
+        <div className="absolute bottom-36 left-4 pointer-events-none z-20">
+          <div className="pointer-events-auto">
+            <SponsorsTicker selectedMunicipio={selectedMunicipio} />
           </div>
         </div>
 
