@@ -52,7 +52,7 @@ const getSebraeMetrics = (m: MunicipioMS) => {
     capag: (m.financas.situacaoFiscal === 'Regular' ? 'A' : 'B') as 'A' | 'B' | 'C',
     pibPerCapita: Math.max(34000, pibEst),
     taxaSobrevivenciaEmpresas: +(79.2 + (m.ibge % 6) * 0.7).toFixed(1),
-    dataSebraeUrl: 'http://datasebrae.com.br/ms-data-cidade/'
+    dataSebraeUrl: '[http://datasebrae.com.br/ms-data-cidade/](http://datasebrae.com.br/ms-data-cidade/)'
   };
 };
 
@@ -116,11 +116,11 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
           className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors shadow-sm"
           title="Fechar painel"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5"/>
         </button>
       </header>
 
-      {/* Segmented Tab Navigation (Redistribuído em Grid 2x2) */}
+      {/* Segmented Tab Navigation (Redistribuído em Grid 2x2 com Nome Câmara Municipal) */}
       <nav className="grid grid-cols-2 gap-2.5 px-6 py-4 border-b border-slate-800/80 bg-slate-950/30 shrink-0">
         <button
           onClick={() => setActiveTab('resumo')}
@@ -130,7 +130,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
-          <User className="w-3.5 h-3.5 shrink-0" />
+          <User className="w-3.5 h-3.5 shrink-0"/>
           <span className="truncate">Prefeito & Gestão</span>
         </button>
 
@@ -142,7 +142,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
-          <TrendingUp className="w-3.5 h-3.5 shrink-0" />
+          <TrendingUp className="w-3.5 h-3.5 shrink-0"/>
           <span className="truncate">Dívida & Orçamento</span>
         </button>
 
@@ -154,7 +154,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
-          <Building2 className="w-3.5 h-3.5 shrink-0" />
+          <Building2 className="w-3.5 h-3.5 shrink-0"/>
           <span className="truncate">DataSebrae & Negócios</span>
         </button>
 
@@ -166,23 +166,19 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
-          <Users className="w-3.5 h-3.5 shrink-0" />
+          <Users className="w-3.5 h-3.5 shrink-0"/>
           <span className="truncate">Câmara Municipal ({vereadores.length})</span>
         </button>
       </nav>
 
       {/* Scrollable Content Viewport */}
       <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
-        {/* ========================================================================= */}
-        {/* TAB 1: RESUMO & GESTÃO DO EXECUTIVO (ATUALIZADO 2026) */}
-        {/* ========================================================================= */}
         {activeTab === 'resumo' && (
           <div className="space-y-6">
-            {/* Mayor Card */}
             <div className="p-5 bg-slate-950/70 rounded-xl border border-slate-800">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400"/>
                   Poder Executivo Municipal (Gestão Atual 2025–2028)
                 </span>
                 <span className="px-2.5 py-1 text-xs font-bold rounded-lg bg-cyan-950/80 text-cyan-300 border border-cyan-800/80">
@@ -216,7 +212,6 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </div>
             </div>
 
-            {/* Quick KPI Financial Grid */}
             <div>
               <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
                 Indicadores Fiscais Consolidados (TCE-MS 2026)
@@ -258,7 +253,6 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </div>
             </div>
 
-            {/* Official Primary Sources Links (100% Active) */}
             <div className="p-5 bg-slate-950/70 rounded-xl border border-slate-800 space-y-3">
               <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider block">
                 Fontes Primárias Oficiais (Links Ativos)
@@ -272,10 +266,10 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                   className="flex items-center justify-between px-3.5 py-2.5 bg-slate-800/90 hover:bg-slate-700 text-xs font-medium text-slate-100 rounded-lg transition-colors border border-slate-700 shadow-sm group"
                 >
                   <div className="flex items-center gap-2">
-                    <Database className="w-4 h-4 text-cyan-400" />
+                    <Database className="w-4 h-4 text-cyan-400"/>
                     <span>Portal do Cidadão TCE-MS</span>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-300" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-cyan-300"/>
                 </a>
 
                 <a
@@ -285,10 +279,10 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                   className="flex items-center justify-between px-3.5 py-2.5 bg-slate-800/90 hover:bg-slate-700 text-xs font-medium text-slate-100 rounded-lg transition-colors border border-slate-700 shadow-sm group"
                 >
                   <div className="flex items-center gap-2">
-                    <Globe className="w-4 h-4 text-emerald-400" />
+                    <Globe className="w-4 h-4 text-emerald-400"/>
                     <span>IBGE Cidades ({municipio.nome})</span>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-300" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-emerald-300"/>
                 </a>
 
                 <a
@@ -298,10 +292,10 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                   className="flex items-center justify-between px-3.5 py-2.5 bg-slate-800/90 hover:bg-slate-700 text-xs font-medium text-slate-100 rounded-lg transition-colors border border-slate-700 shadow-sm group"
                 >
                   <div className="flex items-center gap-2">
-                    <Landmark className="w-4 h-4 text-amber-400" />
+                    <Landmark className="w-4 h-4 text-amber-400"/>
                     <span>Transparência da Prefeitura</span>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-300" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-amber-300"/>
                 </a>
 
                 <a
@@ -311,25 +305,22 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                   className="flex items-center justify-between px-3.5 py-2.5 bg-slate-800/90 hover:bg-slate-700 text-xs font-medium text-slate-100 rounded-lg transition-colors border border-slate-700 shadow-sm group"
                 >
                   <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-pink-400" />
+                    <Users className="w-4 h-4 text-pink-400"/>
                     <span>Transparência da Câmara</span>
                   </div>
-                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-300" />
+                  <ExternalLink className="w-3.5 h-3.5 text-slate-400 group-hover:text-pink-300"/>
                 </a>
               </div>
             </div>
           </div>
         )}
 
-        {/* ========================================================================= */}
-        {/* TAB 2: DÍVIDA PÚBLICA & FINANÇAS DETALHADAS (TCE-MS) */}
-        {/* ========================================================================= */}
         {activeTab === 'financas' && (
           <div className="space-y-6">
             <div className="p-5 bg-gradient-to-br from-slate-950 to-slate-900 rounded-xl border border-slate-800">
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
-                  <Landmark className="w-5 h-5 text-amber-400" />
+                  <Landmark className="w-5 h-5 text-amber-400"/>
                   <h4 className="text-sm font-bold text-white">Raio-X da Dívida Pública</h4>
                 </div>
                 <span className="text-xs text-slate-400">Fonte: e-Contas TCE-MS</span>
@@ -383,7 +374,6 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </div>
             </div>
 
-            {/* Budget Execution Comparison */}
             <div className="p-5 bg-slate-950/60 rounded-xl border border-slate-800">
               <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">
                 Execução Orçamentária Anual
@@ -430,16 +420,12 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
           </div>
         )}
 
-        {/* ========================================================================= */}
-        {/* TAB 3: DATASEBRAE & INDICADORES ECONÔMICOS */}
-        {/* ========================================================================= */}
         {activeTab === 'sebrae' && (
           <div className="space-y-6">
-            {/* Header banner */}
             <div className="p-5 bg-gradient-to-br from-blue-950/70 via-slate-900 to-slate-950 border border-blue-900/60 rounded-xl space-y-2.5 shadow-lg">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Building2 className="w-5 h-5 text-cyan-400" />
+                  <Building2 className="w-5 h-5 text-cyan-400"/>
                   <h4 className="text-sm font-bold text-white">DataSebrae MS · Perfil Econômico Municipal</h4>
                 </div>
                 <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-900/80 text-blue-200 border border-blue-700">
@@ -451,7 +437,6 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </p>
             </div>
 
-            {/* KPI Cards Grid */}
             <div className="grid grid-cols-2 gap-3">
               <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-800">
                 <span className="text-[11px] text-slate-400 block mb-1">Empresas Ativas</span>
@@ -471,7 +456,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
 
               <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-800">
                 <span className="text-[11px] text-slate-400 block mb-1 flex items-center gap-1">
-                  <Clock className="w-3 h-3 text-amber-400" />
+                  <Clock className="w-3 h-3 text-amber-400"/>
                   Tempo de Abertura
                 </span>
                 <div className="text-xl font-mono font-bold text-amber-300">
@@ -482,7 +467,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
 
               <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-800">
                 <span className="text-[11px] text-slate-400 block mb-1 flex items-center gap-1">
-                  <Award className="w-3 h-3 text-emerald-400" />
+                  <Award className="w-3 h-3 text-emerald-400"/>
                   CAPAG Fiscal
                 </span>
                 <div className="text-xl font-mono font-bold text-emerald-300 flex items-center gap-1.5">
@@ -511,28 +496,24 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </div>
             </div>
 
-            {/* Direct Official Link to DataSebrae */}
             <div className="p-4 bg-slate-950/80 rounded-xl border border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
               <div>
                 <div className="text-xs font-bold text-white">Consulta Completa DataSebrae MS</div>
                 <div className="text-[11px] text-slate-400">Acesse tabelas completas, gráficos setoriais e CNAE de {municipio.nome}.</div>
               </div>
               <a
-                href="http://datasebrae.com.br/ms-data-cidade/"
+                href="[http://datasebrae.com.br/ms-data-cidade/](http://datasebrae.com.br/ms-data-cidade/)"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-xs font-semibold text-white transition-all shadow-md shrink-0"
               >
                 <span>Acessar DataSebrae</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3.5 h-3.5"/>
               </a>
             </div>
           </div>
         )}
 
-        {/* ========================================================================= */}
-        {/* TAB 4: VEREADORES, SALÁRIOS E VERBAS INDENIZATÓRIAS */}
-        {/* ========================================================================= */}
         {activeTab === 'vereadores' && (
           <div className="space-y-5">
             <div className="p-4 bg-slate-950/60 rounded-xl border border-slate-800 grid grid-cols-3 gap-3 text-center">
@@ -555,10 +536,9 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </div>
             </div>
 
-            {/* Filter and Search Bar */}
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+                <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5"/>
                 <input
                   type="text"
                   placeholder="Filtrar vereador por nome..."
@@ -592,7 +572,6 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
               </div>
             </div>
 
-            {/* Councilors Detailed List */}
             <div className="space-y-3">
               {filteredVereadores.map((v) => {
                 const isExpanded = expandedVereadorId === v.id;
@@ -661,10 +640,10 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                           {v.principaisGastos.map((g, i) => (
                             <div key={i} className="flex items-center justify-between text-[11px]">
                               <div className="flex items-center gap-1.5 text-slate-400">
-                                {g.categoria.includes('Combustíveis') && <Fuel className="w-3 h-3 text-amber-400" />}
-                                {g.categoria.includes('Divulgação') && <Megaphone className="w-3 h-3 text-cyan-400" />}
-                                {g.categoria.includes('Consultoria') && <Briefcase className="w-3 h-3 text-purple-400" />}
-                                {g.categoria.includes('Telefonia') && <Phone className="w-3 h-3 text-emerald-400" />}
+                                {g.categoria.includes('Combustíveis') && <Fuel className="w-3 h-3 text-amber-400"/>}
+                                {g.categoria.includes('Divulgação') && <Megaphone className="w-3 h-3 text-cyan-400"/>}
+                                {g.categoria.includes('Consultoria') && <Briefcase className="w-3 h-3 text-purple-400"/>}
+                                {g.categoria.includes('Telefonia') && <Phone className="w-3 h-3 text-emerald-400"/>}
                                 <span>{g.categoria}</span>
                               </div>
                               <span className="font-mono text-slate-200">{formatCurrency(g.valor)}</span>
@@ -680,7 +659,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                             className="inline-flex items-center gap-1 text-[11px] text-cyan-400 hover:text-cyan-300 font-medium"
                           >
                             <span>Consultar comprovantes fiscais no Portal da Câmara</span>
-                            <ExternalLink className="w-3 h-3" />
+                            <ExternalLink className="w-3 h-3"/>
                           </a>
                         </div>
                       </div>
@@ -699,10 +678,9 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
         )}
       </div>
 
-      {/* Panel Footer: Direct Official Sources Links */}
       <footer className="px-6 py-4 border-t border-slate-800 bg-slate-950/90 shrink-0 flex flex-wrap items-center justify-between gap-3">
         <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-400"/>
           <span>Fontes Oficiais: TCE-MS · DataSebrae · IBGE</span>
         </div>
 
@@ -714,9 +692,9 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 transition-colors border border-slate-700"
             title="Acessar portal da câmara e consultar vereadores e gastos"
           >
-            <Users className="w-3.5 h-3.5 text-pink-400" />
+            <Users className="w-3.5 h-3.5 text-pink-400"/>
             <span>Câmara Municipal</span>
-            <ExternalLink className="w-3 h-3 text-slate-400" />
+            <ExternalLink className="w-3 h-3 text-slate-400"/>
           </a>
           <a
             href={camara.tceUrl}
@@ -725,14 +703,12 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 text-xs font-semibold text-cyan-300 transition-colors border border-cyan-800/80 shadow-md"
             title="Consultar auditoria no TCE-MS"
           >
-            <Database className="w-3.5 h-3.5 text-cyan-400" />
+            <Database className="w-3.5 h-3.5 text-cyan-400"/>
             <span>Auditoria TCE-MS</span>
-            <ExternalLink className="w-3 h-3" />
+            <ExternalLink className="w-3 h-3"/>
           </a>
         </div>
       </footer>
     </aside>
   );
 };
-
-```
