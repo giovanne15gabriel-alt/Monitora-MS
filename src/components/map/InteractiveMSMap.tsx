@@ -25,8 +25,7 @@ import {
   ZoomIn,
   ZoomOut,
   RotateCcw,
-  Eye,
-  Menu
+  Eye
 } from 'lucide-react';
 
 export type MetricMode = 'regioes' | 'divida' | 'legislativo' | 'transparencia';
@@ -116,7 +115,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegiao, setSelectedRegiao] = useState<string>('todas');
   const [showAllLabels, setShowAllLabels] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Estado para abrir/fechar menu no celular
   const [screenLabels, setScreenLabels] = useState<Array<{
     ibge: number;
     nome: string;
@@ -669,7 +667,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase">MONITORA MS</span>
         </div>
 
-        {/* Quick Search Bar (Otimizado para mobile ocupar menos espaço) */}
+        {/* Quick Search Bar */}
         <div className="relative flex-1 max-w-xs sm:w-80 shadow-xl">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -705,15 +703,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
             </div>
           )}
         </div>
-
-        {/* Botão de Menu Retrátil para Mobile (Aparece apenas em telas pequenas) */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="sm:hidden p-2 bg-slate-800 text-cyan-400 rounded-xl border border-slate-700 shadow-md flex items-center justify-center"
-          title="Abrir Painel e Legendas"
-        >
-          <Menu className="w-4 h-4" />
-        </button>
 
         {/* Camera View Presets & Labels Toggle (Visível apenas em Desktop/Tablet) */}
         <div className="hidden sm:flex items-center gap-2">
@@ -760,6 +749,11 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           </button>
         </div>
 
+      </div>
+
+      {/* CARROSSEL SIMPLIFICADO EM LINHA EXCLUSIVO PARA MOBILE (Logo abaixo da barra superior) */}
+      <div className="block sm:hidden w-full z-25">
+        <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={true} />
       </div>
 
       {/* MAP VIEW CONTAINER */}
@@ -812,7 +806,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           })}
         </div>
 
-        {/* QUICK CIVIC HUBS BAR (Compacto no mobile, completo no desktop) */}
+        {/* QUICK CIVIC HUBS BAR */}
         <div className="absolute top-3 right-3 flex flex-col items-end gap-1.5 pointer-events-none z-10">
           <div className="pointer-events-auto flex flex-col gap-1.5">
             {onOpenEleicoes && (
@@ -859,27 +853,13 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           </div>
         </div>
 
-        {/* BOTTOM LEFT: LATERAL ESQUERDA (Sempre visível no PC, retrátil no Mobile via menu) */}
-        <div className={`absolute bottom-6 left-3 sm:left-4 flex-col gap-3 z-25 transition-all duration-300 ${
-          mobileMenuOpen ? 'flex bg-slate-950/95 p-3 rounded-2xl border border-slate-800 shadow-2xl max-h-[75vh] overflow-y-auto' : 'hidden sm:flex'
-        }`}>
+        {/* BOTTOM LEFT: LATERAL ESQUERDA (EXCLUSIVO PARA PC) */}
+        <div className="hidden sm:flex absolute bottom-6 left-4 flex-col gap-3 pointer-events-none z-20">
           
-          {/* Botão fechar menu no mobile */}
-          {mobileMenuOpen && (
-            <div className="flex sm:hidden items-center justify-between pb-2 border-b border-slate-800">
-              <span className="text-xs font-bold text-white">Menu e Patrocinadores</span>
-              <button onClick={() => setMobileMenuOpen(false)} className="p-1 text-slate-400 hover:text-white">
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-
-          {/* 1. Carrossel Flutuante de Patrocinadores */}
           <div className="pointer-events-auto">
-            <SponsorsTicker selectedMunicipio={selectedMunicipio} />
+            <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={false} />
           </div>
 
-          {/* 2. Legenda das 10 Regiões Oficiais e Métricas */}
           <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl space-y-2.5 max-w-xs">
             
             <div className="flex items-center justify-between border-b border-slate-800 pb-1.5">
