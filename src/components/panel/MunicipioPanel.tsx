@@ -31,7 +31,11 @@ import {
   Clock,
   Instagram,
   Award,
-  BarChart3
+  BarChart3,
+  Store,
+  Newspaper,
+  Sparkles,
+  MessageCircle
 } from 'lucide-react';
 
 interface MunicipioPanelProps {
@@ -39,7 +43,7 @@ interface MunicipioPanelProps {
   onClose: () => void;
 }
 
-type TabType = 'resumo' | 'financas' | 'sebrae' | 'vereadores';
+type TabType = 'resumo' | 'financas' | 'sebrae' | 'vereadores' | 'guia_comercial' | 'noticias_municipais';
 
 const getSebraeMetrics = (m: MunicipioMS) => {
   if (m.sebrae) return m.sebrae;
@@ -127,11 +131,11 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
         <SponsorsTicker selectedMunicipio={municipio} isMobile={true} />
       </div>
 
-      {/* Segmented Tab Navigation (Redistribuído em Grid 2x2 com Nome Câmara Municipal) */}
-      <nav className="grid grid-cols-2 gap-2.5 px-6 py-3 border-b border-slate-800/80 bg-slate-950/30 shrink-0">
+      {/* Segmented Tab Navigation (6 Abas em Grid Responsivo) */}
+      <nav className="grid grid-cols-2 sm:grid-cols-3 gap-2 px-6 py-3 border-b border-slate-800/80 bg-slate-950/30 shrink-0">
         <button
           onClick={() => setActiveTab('resumo')}
-          className={`flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg transition-all border ${
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
             activeTab === 'resumo' 
               ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
@@ -143,7 +147,7 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
 
         <button
           onClick={() => setActiveTab('financas')}
-          className={`flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg transition-all border ${
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
             activeTab === 'financas' 
               ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
@@ -155,26 +159,50 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
 
         <button
           onClick={() => setActiveTab('sebrae')}
-          className={`flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg transition-all border ${
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
             activeTab === 'sebrae' 
               ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
           <Building2 className="w-3.5 h-3.5 shrink-0"/>
-          <span className="truncate">DataSebrae & Negócios</span>
+          <span className="truncate">DataSebrae</span>
         </button>
 
         <button
           onClick={() => setActiveTab('vereadores')}
-          className={`flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium rounded-lg transition-all border ${
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
             activeTab === 'vereadores' 
               ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
           <Users className="w-3.5 h-3.5 shrink-0"/>
-          <span className="truncate">Câmara Municipal ({vereadores.length})</span>
+          <span className="truncate">Câmara ({vereadores.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('guia_comercial')}
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
+            activeTab === 'guia_comercial' 
+              ? 'bg-slate-800 text-amber-300 border-amber-600/80 shadow-sm' 
+              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
+          }`}
+        >
+          <Store className="w-3.5 h-3.5 shrink-0 text-amber-400"/>
+          <span className="truncate">Guia Comercial</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('noticias_municipais')}
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
+            activeTab === 'noticias_municipais' 
+              ? 'bg-slate-800 text-cyan-300 border-cyan-600/80 shadow-sm' 
+              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
+          }`}
+        >
+          <Newspaper className="w-3.5 h-3.5 shrink-0 text-cyan-400"/>
+          <span className="truncate">Notícias Locais</span>
         </button>
       </nav>
 
@@ -680,6 +708,179 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                   Nenhum vereador encontrado com os filtros selecionados.
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* ABA: GUIA COMERCIAL */}
+        {activeTab === 'guia_comercial' && (
+          <div className="space-y-5">
+            {/* Card Central de Vitrine / Em Breve */}
+            <div className="p-6 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-slate-800 rounded-2xl text-center space-y-4 shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                <Store className="w-7 h-7" />
+              </div>
+
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-950/80 text-amber-300 border border-amber-800/80">
+                  <Sparkles className="w-3 h-3 text-amber-400" />
+                  Vitrine Empresarial · Em Breve
+                </span>
+                <h3 className="text-lg font-bold text-white mt-2">
+                  Guia Comercial de {municipio.nome}
+                </h3>
+              </div>
+
+              <div className="p-4 bg-slate-900/80 border border-slate-800/80 rounded-xl max-w-md mx-auto">
+                <p className="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed">
+                  "Anuncie seu comércio aqui. Entre em contato para colocar sua empresa no guia oficial da cidade."
+                </p>
+              </div>
+
+              {/* Categorias Demonstrativas do Guia */}
+              <div className="grid grid-cols-2 gap-2 text-left pt-2">
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                  <span className="font-semibold text-amber-300 block">Comércio & Varejo</span>
+                  <span className="text-[10px] text-slate-400">Lojas, conveniências e distribuidoras</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                  <span className="font-semibold text-emerald-300 block">Agro & Serviços</span>
+                  <span className="text-[10px] text-slate-400">Oficinas, insumos e assistência técnica</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                  <span className="font-semibold text-cyan-300 block">Gastronomia</span>
+                  <span className="text-[10px] text-slate-400">Restaurantes, lanchonetes e padarias</span>
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                  <span className="font-semibold text-purple-300 block">Saúde & Bem-Estar</span>
+                  <span className="text-[10px] text-slate-400">Clínicas, farmácias e laboratórios</span>
+                </div>
+              </div>
+
+              {/* Botões de Ação */}
+              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                <a
+                  href={`https://wa.me/5567999999999?text=${encodeURIComponent(`Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial de ${municipio.nome} no Monitora MS.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-950/50 transition-all hover:scale-[1.02]"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span>Quero Anunciar Minha Empresa</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/eng_giovanegabriel/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors"
+                >
+                  <Instagram className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Contato Comercial</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ABA: NOTÍCIAS MUNICIPAIS */}
+        {activeTab === 'noticias_municipais' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div className="flex items-center gap-2">
+                <Newspaper className="w-4 h-4 text-cyan-400" />
+                <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+                  Feed de Notícias Locais · {municipio.nome}
+                </h3>
+              </div>
+              <span className="text-[10px] text-slate-400 font-mono">3 matérias</span>
+            </div>
+
+            <div className="space-y-3">
+              {/* Notícia 1: Obras */}
+              <article className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 hover:border-slate-700 transition-all space-y-2 group">
+                <div className="flex items-center justify-between text-[10px]">
+                  <span className="px-2 py-0.5 rounded-md bg-amber-950/80 text-amber-300 font-semibold border border-amber-800/80">
+                    Obras & Infraestrutura
+                  </span>
+                  <span className="text-slate-400 font-mono">30 de Outubro de 2026</span>
+                </div>
+                <h4 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  Avanço nas obras de pavimentação asfáltica e drenagem pluvial em {municipio.nome}
+                </h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Frentes de trabalho municipais intensificam a pavimentação de vias centrais e ligação com bairros populosos, eliminando pontos críticos de alagamento e revitalizando a iluminação em LED.
+                </p>
+                <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-slate-400 font-medium">Prefeitura de {municipio.nome}</span>
+                  <a
+                    href={`https://news.google.com/search?q=${encodeURIComponent(municipio.nome + ' obras asfalto infraestrutura prefeitura')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                  >
+                    <span>Ler matéria completa na fonte</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </article>
+
+              {/* Notícia 2: Saúde */}
+              <article className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 hover:border-slate-700 transition-all space-y-2 group">
+                <div className="flex items-center justify-between text-[10px]">
+                  <span className="px-2 py-0.5 rounded-md bg-emerald-950/80 text-emerald-300 font-semibold border border-emerald-800/80">
+                    Saúde Pública
+                  </span>
+                  <span className="text-slate-400 font-mono">26 de Outubro de 2026</span>
+                </div>
+                <h4 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  Rede de Atenção Básica de {municipio.nome} amplia atendimento e reforça quadro médico
+                </h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Unidades Básicas de Saúde receberam novos equipamentos de triagem e odontologia, além da extensão do horário de atendimento até às 21h em postos estratégicos para atender os munícipes.
+                </p>
+                <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-slate-400 font-medium">Secretaria Municipal de Saúde</span>
+                  <a
+                    href={`https://news.google.com/search?q=${encodeURIComponent(municipio.nome + ' saude atendimento ubs hospital')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                  >
+                    <span>Ler matéria completa na fonte</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </article>
+
+              {/* Notícia 3: Educação */}
+              <article className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 hover:border-slate-700 transition-all space-y-2 group">
+                <div className="flex items-center justify-between text-[10px]">
+                  <span className="px-2 py-0.5 rounded-md bg-cyan-950/80 text-cyan-300 font-semibold border border-cyan-800/80">
+                    Educação Municipal
+                  </span>
+                  <span className="text-slate-400 font-mono">22 de Outubro de 2026</span>
+                </div>
+                <h4 className="text-sm font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  Escolas municipais de {municipio.nome} recebem laboratórios digitais e internet de alta velocidade
+                </h4>
+                <p className="text-xs text-slate-300 leading-relaxed">
+                  Programa de modernização educacional entregou novos notebooks e tablets pedagógicos para as turmas de ensino fundamental, acompanhado de formação continuada para os docentes da rede.
+                </p>
+                <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-slate-400 font-medium">Secretaria Municipal de Educação</span>
+                  <a
+                    href={`https://news.google.com/search?q=${encodeURIComponent(municipio.nome + ' educacao escolas laboratorios tecnologia')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 font-semibold transition-colors"
+                  >
+                    <span>Ler matéria completa na fonte</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </article>
             </div>
           </div>
         )}

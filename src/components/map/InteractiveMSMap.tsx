@@ -10,6 +10,8 @@ import { MunicipioMS, MUNICIPIOS_DATA } from '../../data/municipiosData.ts';
 import { formatNumber } from '../../utils/formatters.ts';
 import { VisitorStats } from '../../VisitorStats.tsx';
 import { SponsorsTicker } from '../layout/SponsorsTicker.tsx';
+import { GiroMsWidget } from '../widgets/GiroMsWidget.tsx';
+import { NoticiasLicitacoesWidget } from '../widgets/NoticiasLicitacoesWidget.tsx';
 import { 
   Rotate3d, 
   Layers, 
@@ -657,6 +659,55 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     onSelectMunicipio(null);
   };
 
+  const handleGlobalSearchKeyword = useCallback((keyword: string): boolean => {
+    const lower = keyword.toLowerCase().trim();
+
+    // 1. Procurar se é nome de município no MS
+    const foundCity = MUNICIPIOS_DATA.find(m => 
+      m.nome.toLowerCase() === lower || 
+      m.nome.toLowerCase().includes(lower) ||
+      lower.includes(m.nome.toLowerCase())
+    );
+    if (foundCity) {
+      handleSelectCity(foundCity);
+      return true;
+    }
+
+    // 2. Termos fiscais / TCE
+    if (lower.includes('dívida') || lower.includes('divida') || lower.includes('tce') || lower.includes('gasto')) {
+      if (onOpenTce) {
+        onOpenTce();
+        return true;
+      }
+    }
+
+    // 3. Governo / LRF / Orçamento
+    if (lower.includes('governo') || lower.includes('lrf') || lower.includes('orçamento') || lower.includes('orcamento')) {
+      if (onOpenGoverno) {
+        onOpenGoverno();
+        return true;
+      }
+    }
+
+    // 4. Legislativo / ALEMS / Deputados
+    if (lower.includes('deputad') || lower.includes('alems') || lower.includes('assembleia')) {
+      if (onOpenLegislativo) {
+        onOpenLegislativo();
+        return true;
+      }
+    }
+
+    // 5. Eleições 2026 / Senadores
+    if (lower.includes('eleiç') || lower.includes('eleic') || lower.includes('2026') || lower.includes('senador')) {
+      if (onOpenEleicoes) {
+        onOpenEleicoes();
+        return true;
+      }
+    }
+
+    return false;
+  }, [handleSelectCity, onOpenTce, onOpenGoverno, onOpenLegislativo, onOpenEleicoes]);
+
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
@@ -888,12 +939,20 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
                 </button>
               )}
             </div>
+
+            {/* TAREFA 3: Novo Widget Flutuante Radar MS (Notícias Estaduais & Licitações Abertas) */}
+            <div className="hidden md:block mt-1">
+              <NoticiasLicitacoesWidget />
+            </div>
           </div>
         </div>
 
-        {/* BOTTOM LEFT: LATERAL ESQUERDA (EXCLUSIVO PARA PC - Carrossel em cima da legenda das regiões) */}
-        <div className="hidden sm:flex absolute bottom-6 left-4 flex-col gap-3 pointer-events-none z-20">
+        {/* BOTTOM LEFT: LATERAL ESQUERDA (EXCLUSIVO PARA PC - Giro MS + SponsorsTicker + Legenda 10 Regiões) */}
+        <div className="hidden sm:flex absolute bottom-6 left-4 flex-col gap-2.5 pointer-events-none z-20">
           
+          {/* TAREFA 2: Novo Widget Flutuante Giro MS (Hora Oficial MS UTC-4, Dólar, Diesel MS e Busca Global) */}
+          <GiroMsWidget onSearchKeyword={handleGlobalSearchKeyword} />
+
           <div className="pointer-events-auto">
             <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={false} />
           </div>
