@@ -33,7 +33,7 @@ export const Header: React.FC<HeaderProps> = ({
         className="text-sm font-bold tracking-tight text-white whitespace-nowrap shrink-0 hover:text-cyan-400 transition-colors flex items-center gap-2"
       >
         <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
-        <span>MS Transparência Cívica</span>
+        <span>Monitora MS</span>
       </button>
 
       {/* Zone 2: Navigation Links */}

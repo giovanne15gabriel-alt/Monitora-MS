@@ -24968,8 +24968,8 @@ export const MS_GEOJSON = {
         "dividaConsolidada": 4300000,
         "receitaPrevista": 82000000,
         "gastoLegislativoTotal": 1549520,
-        "prefeito": "Helio Peluffo Filho",
-        "partido": "PSDB",
+        "prefeito": "Heliomar Klabunde",
+        "partido": "MDB",
         "lat": -23.892,
         "lng": -55.431
       },
@@ -31270,7 +31270,7 @@ export const MS_GEOJSON = {
         "dividaConsolidada": 4400000,
         "receitaPrevista": 80000000,
         "gastoLegislativoTotal": 1253360,
-        "prefeito": "Erondi",
+        "prefeito": "Erlon Fernando Possa Daneluz",
         "partido": "PSDB",
         "lat": -23.955,
         "lng": -55.035

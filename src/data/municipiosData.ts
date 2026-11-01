@@ -87,7 +87,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dr. Gabriel",
       "partido": "PSB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Corumbá"
+      "vice": "Bia Cavassa (PSDB)"
     },
     "financas": {
       "dividaAtiva": 165400000,
@@ -560,7 +560,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Munir",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Ladário"
+      "vice": "Dr. Juliano Silva (MDB)"
     },
     "financas": {
       "dividaAtiva": 18000000,
@@ -917,7 +917,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Fábio Florença",
       "partido": "PDT",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Miranda"
+      "vice": "Elange Ribeiro (PSD)"
     },
     "financas": {
       "dividaAtiva": 20100000,
@@ -1274,7 +1274,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Mauro do Atlântico",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Aquidauana"
+      "vice": "Dr. Murilo (MDB)"
     },
     "financas": {
       "dividaAtiva": 48700000,
@@ -1689,7 +1689,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Cido Hudari",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Anastácio"
+      "vice": "Maria Vital (PP)"
     },
     "financas": {
       "dividaAtiva": 21000000,
@@ -2046,7 +2046,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Clarice Ewerling",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Sonora"
+      "vice": "Jansen Peixoto (PSDB)"
     },
     "financas": {
       "dividaAtiva": 15200000,
@@ -2345,7 +2345,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Delegado Murilo",
       "partido": "PL",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Pedro Gomes"
+      "vice": "Edy Rezende (PL)"
     },
     "financas": {
       "dividaAtiva": 7100000,
@@ -2644,7 +2644,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Edilson Magro",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Coxim"
+      "vice": "Flávio Dias (PSDB)"
     },
     "financas": {
       "dividaAtiva": 28500000,
@@ -3059,7 +3059,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Weliton Guimarães",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Alcinópolis"
+      "vice": "Waldemar Barbosa (Pezão) (PP)"
     },
     "financas": {
       "dividaAtiva": 4800000,
@@ -3358,7 +3358,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Delegado Cleverson",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Costa Rica"
+      "vice": "Roni Cota (PSDB)"
     },
     "financas": {
       "dividaAtiva": 32100000,
@@ -3715,7 +3715,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Réus Fornari",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Rio Verde de Mato Grosso"
+      "vice": "Jorge Luiz (Jorginho) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 20300000,
@@ -4072,7 +4072,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Juvenal Consolaro",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Figueirão"
+      "vice": "Jorge Roberto (Jorge Enfermeiro) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 4200000,
@@ -4371,7 +4371,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Leocir Montagna",
       "partido": "PSD",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de São Gabriel do Oeste"
+      "vice": "Rogério Rohr (PSD)"
     },
     "financas": {
       "dividaAtiva": 29500000,
@@ -4728,7 +4728,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Manoel Nery",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Camapuã"
+      "vice": "Aloizio Targino (PSDB)"
     },
     "financas": {
       "dividaAtiva": 14200000,
@@ -5027,7 +5027,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Ivan da Cruz",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Paraíso das Águas"
+      "vice": "Roberto Carlos da Silva (PP)"
     },
     "financas": {
       "dividaAtiva": 6900000,
@@ -5326,7 +5326,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Gustavo Sprotte",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Bandeirantes"
+      "vice": "Marinho Serpa (PL)"
     },
     "financas": {
       "dividaAtiva": 7900000,
@@ -5625,7 +5625,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Walter Schlatter",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Chapadão do Sul"
+      "vice": "Ernany Machado (Defensor Ernany) (PL)"
     },
     "financas": {
       "dividaAtiva": 38600000,
@@ -5982,7 +5982,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Valdecy Costa",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Cassilândia"
+      "vice": "Sumara Leal (PP)"
     },
     "financas": {
       "dividaAtiva": 22400000,
@@ -6339,7 +6339,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Toninho da Cofapi",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Inocência"
+      "vice": "Henrique Cesar (PSDB)"
     },
     "financas": {
       "dividaAtiva": 14800000,
@@ -6638,7 +6638,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Maycol Queiroz",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Paranaíba"
+      "vice": "José Barbosa (Barbosinha) (PP)"
     },
     "financas": {
       "dividaAtiva": 39500000,
@@ -7053,7 +7053,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Gerolina Alves",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Água Clara"
+      "vice": "Sebastião Ottoni (PSD)"
     },
     "financas": {
       "dividaAtiva": 18400000,
@@ -7352,7 +7352,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "José Natan",
       "partido": "PODE",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Aparecida do Taboado"
+      "vice": "Tenente Ávila (PSDB)"
     },
     "financas": {
       "dividaAtiva": 29300000,
@@ -7709,7 +7709,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Jaime Soares Ferreira",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Selvíria"
+      "vice": "Antonio Francisco (Tonhão) (União)"
     },
     "financas": {
       "dividaAtiva": 11000000,
@@ -8008,7 +8008,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dr. Cassiano Maia",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Três Lagoas"
+      "vice": "Vera Helena (PP)"
     },
     "financas": {
       "dividaAtiva": 220000000,
@@ -8539,7 +8539,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Márcia Amaral",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Brasilândia"
+      "vice": "Fabio Toledo (PP)"
     },
     "financas": {
       "dividaAtiva": 13500000,
@@ -8838,7 +8838,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dr. Lúcio Costa",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Santa Rita do Pardo"
+      "vice": "Cleudenide (Nide) (Podemos)"
     },
     "financas": {
       "dividaAtiva": 8400000,
@@ -9137,7 +9137,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Wanderleia Caravina",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Bataguassu"
+      "vice": "Cleyton Silva (PP)"
     },
     "financas": {
       "dividaAtiva": 26400000,
@@ -9494,7 +9494,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Professor Rafael",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Anaurilândia"
+      "vice": "Guilherme Gomes Zandonadi (Podemos)"
     },
     "financas": {
       "dividaAtiva": 8900000,
@@ -9793,7 +9793,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Henrique",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Rio Negro"
+      "vice": "Edson Muniz (Nenê) (PSD)"
     },
     "financas": {
       "dividaAtiva": 5600000,
@@ -10092,7 +10092,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Barrinha",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Corguinho"
+      "vice": "Jeffer Aparecido (PP)"
     },
     "financas": {
       "dividaAtiva": 5800000,
@@ -10391,7 +10391,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Juninho de Paula",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Rochedo"
+      "vice": "Thomaz Jonhson (PSD)"
     },
     "financas": {
       "dividaAtiva": 5500000,
@@ -10690,7 +10690,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Edson Rodrigues",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Jaraguari"
+      "vice": "Davi Gomes Barbosa (PSD)"
     },
     "financas": {
       "dividaAtiva": 6800000,
@@ -10989,7 +10989,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Henrique Budke",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Terenos"
+      "vice": "Dr. Arlindo Landolfi (Republicanos)"
     },
     "financas": {
       "dividaAtiva": 17500000,
@@ -11346,7 +11346,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Japão",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Dois Irmãos do Buriti"
+      "vice": "Esiel Tagliafero (Kalango) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 10900000,
@@ -11645,7 +11645,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Adriane Lopes",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Campo Grande"
+      "vice": "Dra. Camilla (Avante)"
     },
     "financas": {
       "dividaAtiva": 1850000000,
@@ -12524,7 +12524,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Roberson Moureira",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Ribas do Rio Pardo"
+      "vice": "Paulo Leocádio (Paulinho) (PP)"
     },
     "financas": {
       "dividaAtiva": 45200000,
@@ -12881,7 +12881,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Rodrigo Basso",
       "partido": "PL",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Sidrolândia"
+      "vice": "Chris Fiuza (MDB)"
     },
     "financas": {
       "dividaAtiva": 46200000,
@@ -13354,7 +13354,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "José Paulo Paleari",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Nova Alvorada do Sul"
+      "vice": "Valdemar Rocha (PL)"
     },
     "financas": {
       "dividaAtiva": 24500000,
@@ -13711,7 +13711,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Girleide",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Bodoquena"
+      "vice": "Ermeson Luna (Garrucha) (PSD)"
     },
     "financas": {
       "dividaAtiva": 8199999.999999999,
@@ -14010,7 +14010,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Josmail Rodrigues",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Bonito"
+      "vice": "Juliane Salvadori (PSDB)"
     },
     "financas": {
       "dividaAtiva": 31200000,
@@ -14367,7 +14367,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "André Guimarães",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Nioaque"
+      "vice": "Bruno Vieira (PL)"
     },
     "financas": {
       "dividaAtiva": 12600000,
@@ -14901,7 +14901,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dr. Max",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Guia Lopes da Laguna"
+      "vice": "Carlos Antônio (Carlão) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 9100000,
@@ -15200,7 +15200,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Nelson Cintra",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Porto Murtinho"
+      "vice": "Dra. Andreara Castro (PP)"
     },
     "financas": {
       "dividaAtiva": 15600000,
@@ -15499,7 +15499,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Gabriel Bocalan",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Bela Vista"
+      "vice": "Letizia Murano (Republicanos)"
     },
     "financas": {
       "dividaAtiva": 19500000,
@@ -15856,7 +15856,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Neco Pagliosa",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Caracol"
+      "vice": "Oseias Ferreira (Preguinho) (MDB)"
     },
     "financas": {
       "dividaAtiva": 6100000,
@@ -16155,7 +16155,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Marcelo Pé",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Antônio João"
+      "vice": "Pr. Eliseu Benites (PP)"
     },
     "financas": {
       "dividaAtiva": 7400000,
@@ -16454,7 +16454,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Eduardo Campos",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Ponta Porã"
+      "vice": "Dr. Patrick Derzi (PP)"
     },
     "financas": {
       "dividaAtiva": 128000000,
@@ -16985,7 +16985,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Itamar Bilibio",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Laguna Carapã"
+      "vice": "Doreli Portella (PRD)"
     },
     "financas": {
       "dividaAtiva": 7200000,
@@ -17284,7 +17284,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dra. Elaine",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Aral Moreira"
+      "vice": "Marinês de Oliveira (Republicanos)"
     },
     "financas": {
       "dividaAtiva": 9800000,
@@ -17583,7 +17583,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Janete Córdoba",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Amambai"
+      "vice": "Jaime Vizzotto (PP)"
     },
     "financas": {
       "dividaAtiva": 34500000,
@@ -17998,7 +17998,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Niágara Kraievski",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Coronel Sapucaia"
+      "vice": "Carlos Magno (Carlão) (União)"
     },
     "financas": {
       "dividaAtiva": 12800000,
@@ -18294,10 +18294,10 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "lat": -23.892,
     "lng": -55.431,
     "prefeito": {
-      "nome": "Helio Peluffo Filho",
-      "partido": "PSDB",
+      "nome": "Heliomar Klabunde",
+      "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Paranhos"
+      "vice": "Alfredo Soares (MDB)"
     },
     "financas": {
       "dividaAtiva": 9700000,
@@ -18315,271 +18315,163 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 5379,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Paranhos+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Paranhos+ms",
+      "portalUrl": "https://www.camaraparanhos.ms.gov.br/",
+      "prefeituraUrl": "https://www.paranhos.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/paranhos/panorama"
     },
     "vereadores": [
       {
         "id": "5006358-v1",
-        "nome": "Rafael Ribeiro Costa",
-        "nomeUrna": "Rafael Ribeiro",
-        "partido": "PSD",
+        "nome": "Helio Acosta",
+        "nomeUrna": "Helio Acosta",
+        "partido": "PSDB",
         "cargo": "Presidente da Câmara",
         "salarioBase": 10700,
         "salarioLiquido": 7918,
         "verbaIndenizatoriaMedia": 3900,
         "gastosGabineteAno": 46800,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 17784
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 13104
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 9360
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 6552
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 17784 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 13104 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 9360 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 6552 }
         ]
       },
       {
         "id": "5006358-v2",
-        "nome": "José Gomes Ferreira",
-        "nomeUrna": "José do Paranhos",
-        "partido": "PSD",
+        "nome": "Alex Ramos da Silva",
+        "nomeUrna": "Alex Enfermeiro",
+        "partido": "PP",
         "cargo": "1º Secretário",
         "salarioBase": 7700,
         "salarioLiquido": 5698,
         "verbaIndenizatoriaMedia": 6580,
         "gastosGabineteAno": 78960,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 30005
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 22109
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 15792
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 11054
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 30005 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 22109 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 15792 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 11054 }
         ]
       },
       {
         "id": "5006358-v3",
-        "nome": "Roberto Freitas Martins",
-        "nomeUrna": "Roberto Freitas",
-        "partido": "PDT",
+        "nome": "Elizabeth Brites Benites",
+        "nomeUrna": "Profª Beth",
+        "partido": "PSDB",
         "cargo": "Vereador",
         "salarioBase": 7900,
         "salarioLiquido": 5846,
         "verbaIndenizatoriaMedia": 6500,
         "gastosGabineteAno": 78000,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 29640
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 21840
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 15600
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 10920
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 29640 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 21840 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 15600 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 10920 }
         ]
       },
       {
         "id": "5006358-v4",
-        "nome": "Edson Sanches Souza",
-        "nomeUrna": "Edson Sanches",
-        "partido": "PP",
+        "nome": "Milton Silva",
+        "nomeUrna": "Milton Mecânico",
+        "partido": "PSDB",
         "cargo": "Vereador",
         "salarioBase": 7900,
         "salarioLiquido": 5846,
         "verbaIndenizatoriaMedia": 4720,
         "gastosGabineteAno": 56640,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 21523
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 15859
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 11328
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 7930
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 21523 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 15859 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 11328 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 7930 }
         ]
       },
       {
         "id": "5006358-v5",
-        "nome": "Renata Lima Costa",
-        "nomeUrna": "Renata do Paranhos",
-        "partido": "PODE",
+        "nome": "Claudenir Costa de Oliveira",
+        "nomeUrna": "Chacal",
+        "partido": "PP",
         "cargo": "Vereador",
         "salarioBase": 7200,
         "salarioLiquido": 5328,
         "verbaIndenizatoriaMedia": 6130,
         "gastosGabineteAno": 73560,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 27953
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 20597
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 14712
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 10298
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 27953 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 20597 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 14712 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 10298 }
         ]
       },
       {
         "id": "5006358-v6",
-        "nome": "Márcio Carvalho Rocha",
-        "nomeUrna": "Márcio do Paranhos",
-        "partido": "REPUBLICANOS",
+        "nome": "Ubaldo Arévalo",
+        "nomeUrna": "Capitão Ubaldo",
+        "partido": "PSDB",
         "cargo": "Vereador",
         "salarioBase": 7400,
         "salarioLiquido": 5476,
         "verbaIndenizatoriaMedia": 5050,
         "gastosGabineteAno": 60600,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 23028
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 16968
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 12120
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 8484
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 23028 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 16968 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 12120 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 8484 }
         ]
       },
       {
         "id": "5006358-v7",
-        "nome": "Ana Miranda Sanches",
-        "nomeUrna": "Ana do Paranhos",
-        "partido": "PSB",
+        "nome": "Cleber Valiente",
+        "nomeUrna": "Cleber Valiente",
+        "partido": "MDB",
         "cargo": "Vereador",
         "salarioBase": 7500,
         "salarioLiquido": 5550,
         "verbaIndenizatoriaMedia": 5190,
         "gastosGabineteAno": 62280,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 23666
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 17438
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 12456
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 8719
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 23666 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 17438 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 12456 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 8719 }
         ]
       },
       {
         "id": "5006358-v8",
-        "nome": "Marcos Nogueira Lima",
-        "nomeUrna": "Marcos Nogueira",
-        "partido": "PP",
+        "nome": "Michel Fernandes",
+        "nomeUrna": "Michel Fernandes",
+        "partido": "MDB",
         "cargo": "Vereador",
         "salarioBase": 7600,
         "salarioLiquido": 5624,
         "verbaIndenizatoriaMedia": 4910,
         "gastosGabineteAno": 58920,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 22390
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 16498
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 11784
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 8249
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 22390 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 16498 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 11784 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 8249 }
         ]
       },
       {
         "id": "5006358-v9",
-        "nome": "Silvio Pacheco Miranda",
-        "nomeUrna": "Silvio do Paranhos",
-        "partido": "PSD",
+        "nome": "Robson Drews",
+        "nomeUrna": "Robson Drews",
+        "partido": "PRD",
         "cargo": "Vereador",
         "salarioBase": 7700,
         "salarioLiquido": 5698,
         "verbaIndenizatoriaMedia": 6790,
         "gastosGabineteAno": 81480,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 30962
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 22814
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 16296
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 11407
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 30962 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 22814 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 16296 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 11407 }
         ]
       }
     ]
@@ -18596,7 +18488,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Rogério Torquetti",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Tacuru"
+      "vice": "José Antonio (PSDB)"
     },
     "financas": {
       "dividaAtiva": 9400000,
@@ -18892,10 +18784,10 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "lat": -23.955,
     "lng": -55.035,
     "prefeito": {
-      "nome": "Erondi",
+      "nome": "Erlon Fernando Possa Daneluz",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Sete Quedas"
+      "vice": "Roani Tuneira (PL)"
     },
     "financas": {
       "dividaAtiva": 9900000,
@@ -18913,74 +18805,50 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2694,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Sete%20Quedas+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Sete%20Quedas+ms",
+      "portalUrl": "https://www.camarasetequedas.ms.gov.br/",
+      "prefeituraUrl": "https://www.setequedas.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/sete-quedas/panorama"
     },
     "vereadores": [
       {
         "id": "5007703-v1",
-        "nome": "Lucas Pacheco Lima",
-        "nomeUrna": "Lucas Pacheco",
-        "partido": "PT",
+        "nome": "Daiane Barolo",
+        "nomeUrna": "Daiane Barolo",
+        "partido": "PL",
         "cargo": "Presidente da Câmara",
         "salarioBase": 10300,
         "salarioLiquido": 7622,
         "verbaIndenizatoriaMedia": 3190,
         "gastosGabineteAno": 38280,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 14546
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 10718
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 7656
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 5359
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 14546 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 10718 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 7656 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 5359 }
         ]
       },
       {
         "id": "5007703-v2",
-        "nome": "Carlos Miranda Albuquerque",
-        "nomeUrna": "Carlos do Sete",
-        "partido": "MDB",
+        "nome": "Donizete Santa Luzia",
+        "nomeUrna": "Donizete Santa Luzia",
+        "partido": "PRD",
         "cargo": "1º Secretário",
         "salarioBase": 7900,
         "salarioLiquido": 5846,
         "verbaIndenizatoriaMedia": 3460,
         "gastosGabineteAno": 41520,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 15778
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 11626
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 8304
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 5813
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 15778 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 11626 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 8304 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 5813 }
         ]
       },
       {
         "id": "5007703-v3",
-        "nome": "Marcos Martins Lima",
-        "nomeUrna": "Marcos do Sete",
+        "nome": "Ronaldo Neves",
+        "nomeUrna": "Ronaldo Neves",
         "partido": "PP",
         "cargo": "Vereador",
         "salarioBase": 7100,
@@ -18988,196 +18856,112 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
         "verbaIndenizatoriaMedia": 2000,
         "gastosGabineteAno": 24000,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 9120
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 6720
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 4800
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 3360
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 9120 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 6720 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 4800 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 3360 }
         ]
       },
       {
         "id": "5007703-v4",
-        "nome": "João Freitas Moreira",
-        "nomeUrna": "João Freitas",
-        "partido": "REPUBLICANOS",
+        "nome": "Saulo Fernandes da Silva",
+        "nomeUrna": "Saulinho Moto Táxi",
+        "partido": "PSDB",
         "cargo": "Vereador",
         "salarioBase": 7500,
         "salarioLiquido": 5550,
         "verbaIndenizatoriaMedia": 2540,
         "gastosGabineteAno": 30480,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 11582
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 8534
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 6096
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 4267
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 11582 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 8534 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 6096 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 4267 }
         ]
       },
       {
         "id": "5007703-v5",
-        "nome": "Márcio Ribeiro Ferreira",
-        "nomeUrna": "Márcio do Sete",
-        "partido": "REPUBLICANOS",
+        "nome": "Welton Ferreira",
+        "nomeUrna": "Professor Welton",
+        "partido": "UNIÃO",
         "cargo": "Vereador",
         "salarioBase": 7400,
         "salarioLiquido": 5476,
         "verbaIndenizatoriaMedia": 3330,
         "gastosGabineteAno": 39960,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 15185
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 11189
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 7992
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 5594
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 15185 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 11189 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 7992 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 5594 }
         ]
       },
       {
         "id": "5007703-v6",
-        "nome": "Camila Sanches Carvalho",
-        "nomeUrna": "Camila do Sete",
-        "partido": "PSD",
+        "nome": "Paulo Chagas",
+        "nomeUrna": "Paulo Chagas",
+        "partido": "PSDB",
         "cargo": "Vereador",
         "salarioBase": 7400,
         "salarioLiquido": 5476,
         "verbaIndenizatoriaMedia": 2560,
         "gastosGabineteAno": 30720,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 11674
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 8602
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 6144
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 4301
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 11674 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 8602 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 6144 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 4301 }
         ]
       },
       {
         "id": "5007703-v7",
-        "nome": "Camila Pereira Souza",
-        "nomeUrna": "Camila do Sete",
-        "partido": "PODE",
+        "nome": "Valmir da Silva",
+        "nomeUrna": "Miro do Carioca",
+        "partido": "PP",
         "cargo": "Vereador",
         "salarioBase": 8000,
         "salarioLiquido": 5920,
         "verbaIndenizatoriaMedia": 2620,
         "gastosGabineteAno": 31440,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 11947
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 8803
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 6288
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 4402
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 11947 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 8803 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 6288 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 4402 }
         ]
       },
       {
         "id": "5007703-v8",
-        "nome": "Marcelo Oliveira Moreira",
-        "nomeUrna": "Marcelo Oliveira",
-        "partido": "PODE",
+        "nome": "Paolo Marcato",
+        "nomeUrna": "Paolo Marcato",
+        "partido": "PL",
         "cargo": "Vereador",
         "salarioBase": 8000,
         "salarioLiquido": 5920,
         "verbaIndenizatoriaMedia": 2400,
         "gastosGabineteAno": 28800,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 10944
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 8064
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 5760
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 4032
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 10944 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 8064 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 5760 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 4032 }
         ]
       },
       {
         "id": "5007703-v9",
-        "nome": "Marcos Freitas Guedes",
-        "nomeUrna": "Marcos Freitas",
-        "partido": "REPUBLICANOS",
+        "nome": "Jonhn Paulo",
+        "nomeUrna": "Jonhn da Farmácia",
+        "partido": "PSB",
         "cargo": "Vereador",
         "salarioBase": 8000,
         "salarioLiquido": 5920,
         "verbaIndenizatoriaMedia": 2990,
         "gastosGabineteAno": 35880,
         "principaisGastos": [
-          {
-            "categoria": "Combustíveis e Lubrificantes",
-            "valor": 13634
-          },
-          {
-            "categoria": "Divulgação da Atividade Parlamentar",
-            "valor": 10046
-          },
-          {
-            "categoria": "Consultoria e Assessoria Técnica",
-            "valor": 7176
-          },
-          {
-            "categoria": "Telefonia, Correios e Locação",
-            "valor": 5023
-          }
+          { "categoria": "Combustíveis e Lubrificantes", "valor": 13634 },
+          { "categoria": "Divulgação da Atividade Parlamentar", "valor": 10046 },
+          { "categoria": "Consultoria e Assessoria Técnica", "valor": 7176 },
+          { "categoria": "Telefonia, Correios e Locação", "valor": 5023 }
         ]
       }
     ]
@@ -19194,7 +18978,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Marcos Calderan",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Maracaju"
+      "vice": "Mauro Christianini (Maurão) (PP)"
     },
     "financas": {
       "dividaAtiva": 52400000,
@@ -19609,7 +19393,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Lucas Foroni",
       "partido": "MDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Rio Brilhante"
+      "vice": "Dr. Leonardo (PSDB)"
     },
     "financas": {
       "dividaAtiva": 36800000,
@@ -20024,7 +19808,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Tiago Carbonaro",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Itaporã"
+      "vice": "Edilson Bigatão (PL)"
     },
     "financas": {
       "dividaAtiva": 21300000,
@@ -20381,7 +20165,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Marçal Filho",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Dourados"
+      "vice": "Gianni Nogueira (PL)"
     },
     "financas": {
       "dividaAtiva": 340500000,
@@ -21028,7 +20812,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Mário",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Douradina"
+      "vice": "Alceu Marques (MDB)"
     },
     "financas": {
       "dividaAtiva": 5400000,
@@ -21327,7 +21111,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Wagner da Garagem",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Fátima do Sul"
+      "vice": "Silvana Vasconcelos (Podemos)"
     },
     "financas": {
       "dividaAtiva": 18200000,
@@ -21684,7 +21468,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Cleber",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Vicentina"
+      "vice": "Eduardo Costa (Oncinha) (Republicanos)"
     },
     "financas": {
       "dividaAtiva": 6200000,
@@ -21983,7 +21767,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Professor Pontinha",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Caarapó"
+      "vice": "Jéssica Valério (PL)"
     },
     "financas": {
       "dividaAtiva": 27800000,
@@ -22340,7 +22124,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Júlio Buguelo",
       "partido": "PSD",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Glória de Dourados"
+      "vice": "Delma Ponciano (Podemos)"
     },
     "financas": {
       "dividaAtiva": 9600000,
@@ -22639,7 +22423,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Jean da Saúde",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Deodápolis"
+      "vice": "Marcio de Paula (Marcinho) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 13200000,
@@ -22938,7 +22722,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Edinho Cassuci",
       "partido": "PDT",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Angélica"
+      "vice": "Paulo Conconi (PP)"
     },
     "financas": {
       "dividaAtiva": 12100000,
@@ -23237,7 +23021,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Juliano Ferro",
       "partido": "PL",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Ivinhema"
+      "vice": "Profª. Angela Casarotti (PP)"
     },
     "financas": {
       "dividaAtiva": 26500000,
@@ -23594,7 +23378,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dr. Leandro",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Nova Andradina"
+      "vice": "Arion Aislan (PL)"
     },
     "financas": {
       "dividaAtiva": 54000000,
@@ -24009,7 +23793,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Aldo",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Novo Horizonte do Sul"
+      "vice": "Giovane Donato (Gil) (PSD)"
     },
     "financas": {
       "dividaAtiva": 5200000,
@@ -24308,7 +24092,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Germino Roz",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Batayporã"
+      "vice": "Cacildo Paião (PP)"
     },
     "financas": {
       "dividaAtiva": 11200000,
@@ -24607,7 +24391,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Clovis do Banco",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Taquarussu"
+      "vice": "João Clovis (João do Bruno) (PP)"
     },
     "financas": {
       "dividaAtiva": 4300000,
@@ -24906,7 +24690,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Gilson Cruz",
       "partido": "PSD",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Juti"
+      "vice": "Elício Rocha (Mano) (PSD)"
     },
     "financas": {
       "dividaAtiva": 6400000,
@@ -25205,7 +24989,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Rodrigo Sakuno",
       "partido": "PL",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Naviraí"
+      "vice": "Telma Minari (União)"
     },
     "financas": {
       "dividaAtiva": 49000000,
@@ -25498,7 +25282,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Cileide Cabral",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Jateí"
+      "vice": "Francisco Alves (Tiquinho) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 4500000,
@@ -25797,7 +25581,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Thalles Tomazelli",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Itaquiraí"
+      "vice": "Dr. Bruno (PP)"
     },
     "financas": {
       "dividaAtiva": 19800000,
@@ -26154,7 +25938,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Dr. Lidio",
       "partido": "PP",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Iguatemi"
+      "vice": "Dra. Patricia (PP)"
     },
     "financas": {
       "dividaAtiva": 13000000,
@@ -26453,7 +26237,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Léo",
       "partido": "PL",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Eldorado"
+      "vice": "Simoni Palonis (PP)"
     },
     "financas": {
       "dividaAtiva": 11400000,
@@ -26752,7 +26536,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Rosária",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Mundo Novo"
+      "vice": "Evaldo Carlos (PSD)"
     },
     "financas": {
       "dividaAtiva": 19100000,
@@ -27109,7 +26893,7 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
       "nome": "Vitor da Farmácia",
       "partido": "PSDB",
       "mandato": "2025–2028 (Em exercício)",
-      "vice": "Vice-Prefeito(a) de Japorã"
+      "vice": "Ana Cristina (Aninha) (PSDB)"
     },
     "financas": {
       "dividaAtiva": 7000000,
