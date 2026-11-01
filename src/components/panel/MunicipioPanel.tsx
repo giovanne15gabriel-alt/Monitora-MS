@@ -46,6 +46,7 @@ import {
 
 interface MunicipioPanelProps {
   municipio: MunicipioMS | null;
+  initialTab?: TabType | null;
   onClose: () => void;
 }
 
@@ -67,12 +68,20 @@ const getSebraeMetrics = (m: MunicipioMS) => {
   };
 };
 
-export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClose }) => {
-  const [activeTab, setActiveTab] = useState<TabType>('noticias_municipais');
+export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, initialTab, onClose }) => {
+  const [activeTab, setActiveTab] = useState<TabType>(initialTab || 'noticias_municipais');
   const [vereadorSearch, setVereadorSearch] = useState('');
   const [selectedParty, setSelectedParty] = useState<string>('todos');
   const [sortBy, setSortBy] = useState<'salario' | 'verba' | 'nome'>('salario');
   const [expandedVereadorId, setExpandedVereadorId] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    } else if (municipio) {
+      setActiveTab('noticias_municipais');
+    }
+  }, [initialTab, municipio?.ibge]);
 
   if (!municipio) return null;
 
@@ -817,8 +826,8 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                           </div>
 
                           <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px]">
-                            <span className="text-slate-400 font-mono">
-                              {empresa.instagramHandle || `${empresa.cidadeNome} - MS`}
+                            <span className="text-slate-400 font-medium">
+                              {empresa.cidadeNome} - MS
                             </span>
 
                             <div className="flex items-center gap-2">
@@ -870,19 +879,16 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
                   </div>
                 )}
 
-                {/* Botões de Ação para Anunciar com WhatsApp Oficial 67 9 3300-1147 */}
+                {/* Botões de Ação para Anunciar */}
                 <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-2.5">
                   <a
                     href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent(`Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial de ${municipio.nome} no Monitora MS.`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-950/50 transition-all hover:scale-[1.02]"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs shadow-md transition-all hover:scale-[1.02]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Quero Anunciar Minha Empresa</span>
-                    <span className="text-[10px] font-mono text-slate-900 bg-amber-400/90 px-1.5 py-0.5 rounded ml-1">
-                      {CONTATO_COMERCIAL_WHATSAPP_DISPLAY}
-                    </span>
                   </a>
                   <a
                     href="https://www.instagram.com/eng_giovanegabriel/"

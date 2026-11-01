@@ -69,16 +69,10 @@ interface SponsorsTickerProps {
 export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipio, isMobile = false }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // Sempre mantém os patrocinadores de nível estadual no carrossel geral
   const activeSponsors = React.useMemo(() => {
-    if (!selectedMunicipio) {
-      return SPONSORS_DATA.filter(s => !s.cidadeIbge);
-    }
-    const citySponsors = SPONSORS_DATA.filter(s => s.cidadeIbge === selectedMunicipio.ibge);
-    if (citySponsors.length === 0) {
-      return SPONSORS_DATA.filter(s => !s.cidadeIbge);
-    }
-    return citySponsors;
-  }, [selectedMunicipio]);
+    return SPONSORS_DATA.filter(s => !s.cidadeIbge);
+  }, []);
 
   useEffect(() => {
     if (activeSponsors.length <= 1) return;
@@ -116,7 +110,7 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
           </div>
           <div className="min-w-0 flex flex-col">
             <span className="text-[10px] text-cyan-400 font-bold uppercase truncate">{currentSponsor.logoText}</span>
-            <span className="text-[9px] text-slate-400 truncate">{selectedMunicipio ? `Patrocinador · ${selectedMunicipio.nome}` : currentSponsor.category}</span>
+            <span className="text-[9px] text-slate-400 truncate">{currentSponsor.category}</span>
           </div>
         </div>
 
@@ -153,7 +147,7 @@ export const SponsorsTicker: React.FC<SponsorsTickerProps> = ({ selectedMunicipi
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
           <span className="text-[11px] font-bold text-white tracking-wide">
-            {selectedMunicipio ? `Patrocinadores · ${selectedMunicipio.nome}` : 'Parceiros & Governo'}
+            Parceiros Oficiais & Governo (MS)
           </span>
         </div>
         <div className="flex items-center gap-1">

@@ -105,8 +105,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 15,
       "gastoMedioMensalGabinete": 5314,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Corumb%C3%A1+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Corumb%C3%A1+ms",
+      "portalUrl": "https://corumba.ms.leg.br/",
+      "prefeituraUrl": "https://corumba.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/corumba/panorama"
     },
@@ -578,8 +578,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 7345,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Lad%C3%A1rio+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Lad%C3%A1rio+ms",
+      "portalUrl": "https://www.camaraladario.ms.gov.br/",
+      "prefeituraUrl": "https://ladario.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/ladario/panorama"
     },
@@ -935,8 +935,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 7215,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Miranda+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Miranda+ms",
+      "portalUrl": "https://www.camaramiranda.ms.gov.br/",
+      "prefeituraUrl": "https://miranda.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/miranda/panorama"
     },
@@ -1292,8 +1292,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 5832,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Aquidauana+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Aquidauana+ms",
+      "portalUrl": "https://www.aquidauana.ms.leg.br/",
+      "prefeituraUrl": "https://aquidauana.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/aquidauana/panorama"
     },
@@ -1707,8 +1707,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4657,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Anast%C3%A1cio+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Anast%C3%A1cio+ms",
+      "portalUrl": "https://www.camaraanastacio.ms.gov.br/",
+      "prefeituraUrl": "https://anastacio.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/anastacio/panorama"
     },
@@ -2064,8 +2064,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2651,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Sonora+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Sonora+ms",
+      "portalUrl": "https://www.camarasonora.ms.gov.br/",
+      "prefeituraUrl": "https://sonora.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/sonora/panorama"
     },
@@ -2363,8 +2363,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2377,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Pedro%20Gomes+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Pedro%20Gomes+ms",
+      "portalUrl": "https://www.camarapedrogomes.ms.gov.br/",
+      "prefeituraUrl": "https://pedrogomes.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/pedro-gomes/panorama"
     },
@@ -2662,8 +2662,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 6739,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Coxim+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Coxim+ms",
+      "portalUrl": "https://www.camaracoxim.ms.gov.br/",
+      "prefeituraUrl": "https://coxim.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/coxim/panorama"
     },
@@ -3077,8 +3077,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4527,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Alcin%C3%B3polis+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Alcin%C3%B3polis+ms",
+      "portalUrl": "https://www.camaraalcinopolis.ms.gov.br/",
+      "prefeituraUrl": "https://alcinopolis.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/alcinopolis/panorama"
     },
@@ -3376,8 +3376,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 5958,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Costa%20Rica+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Costa%20Rica+ms",
+      "portalUrl": "https://www.cmcostarica.ms.gov.br/",
+      "prefeituraUrl": "https://costarica.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/costa-rica/panorama"
     },
@@ -3733,8 +3733,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4405,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Rio%20Verde%20de%20Mato%20Grosso+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Rio%20Verde%20de%20Mato%20Grosso+ms",
+      "portalUrl": "https://www.camararioverdedematogrosso.ms.gov.br/",
+      "prefeituraUrl": "https://rioverdedematogrosso.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/rio-verde-de-mato-grosso/panorama"
     },
@@ -4090,8 +4090,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4827,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Figueir%C3%A3o+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Figueir%C3%A3o+ms",
+      "portalUrl": "https://www.camarafigueirao.ms.gov.br/",
+      "prefeituraUrl": "https://figueirao.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/figueirao/panorama"
     },
@@ -4389,8 +4389,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 6448,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+S%C3%A3o%20Gabriel%20do%20Oeste+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+S%C3%A3o%20Gabriel%20do%20Oeste+ms",
+      "portalUrl": "https://camarasgo.ms.gov.br/",
+      "prefeituraUrl": "https://saogabriel.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/sao-gabriel-do-oeste/panorama"
     },
@@ -4746,8 +4746,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3215,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Camapu%C3%A3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Camapu%C3%A3+ms",
+      "portalUrl": "https://www.camaracamapua.ms.gov.br/",
+      "prefeituraUrl": "https://camapua.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/camapua/panorama"
     },
@@ -5045,8 +5045,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4352,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Para%C3%ADso%20das%20%C3%81guas+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Para%C3%ADso%20das%20%C3%81guas+ms",
+      "portalUrl": "https://www.camaraparaisodasaguas.ms.gov.br/",
+      "prefeituraUrl": "https://paraisodasaguas.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/paraiso-das-aguas/panorama"
     },
@@ -5344,8 +5344,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2942,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Bandeirantes+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Bandeirantes+ms",
+      "portalUrl": "https://www.camarabandeirantes.ms.gov.br/",
+      "prefeituraUrl": "https://bandeirantes.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/bandeirantes/panorama"
     },
@@ -5643,8 +5643,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4911,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Chapad%C3%A3o%20do%20Sul+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Chapad%C3%A3o%20do%20Sul+ms",
+      "portalUrl": "https://www.camarachapadaodosul.ms.gov.br/",
+      "prefeituraUrl": "https://chapadaodosul.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/chapadao-do-sul/panorama"
     },
@@ -6000,8 +6000,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 5257,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Cassil%C3%A2ndia+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Cassil%C3%A2ndia+ms",
+      "portalUrl": "https://www.camaracassilandia.ms.gov.br/",
+      "prefeituraUrl": "https://cassilandia.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/cassilandia/panorama"
     },
@@ -6357,8 +6357,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3778,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Inoc%C3%AAncia+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Inoc%C3%AAncia+ms",
+      "portalUrl": "https://www.camarainocencia.ms.gov.br/",
+      "prefeituraUrl": "https://inocencia.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/inocencia/panorama"
     },
@@ -6656,8 +6656,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 5223,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Parana%C3%ADba+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Parana%C3%ADba+ms",
+      "portalUrl": "https://www.camaraparanaiba.ms.gov.br/",
+      "prefeituraUrl": "https://paranaiba.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/paranaiba/panorama"
     },
@@ -7071,8 +7071,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 5165,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+%C3%81gua%20Clara+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+%C3%81gua%20Clara+ms",
+      "portalUrl": "https://www.camaraaguaclara.ms.gov.br/",
+      "prefeituraUrl": "https://aguaclara.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/agua-clara/panorama"
     },
@@ -7370,8 +7370,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4221,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Aparecida%20do%20Taboado+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Aparecida%20do%20Taboado+ms",
+      "portalUrl": "https://www.camaraaparecidadotaboado.ms.gov.br/",
+      "prefeituraUrl": "https://aparecidadotaboado.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/aparecida-do-taboado/panorama"
     },
@@ -7727,8 +7727,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2285,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Selv%C3%ADria+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Selv%C3%ADria+ms",
+      "portalUrl": "https://www.camaraselviria.ms.gov.br/",
+      "prefeituraUrl": "https://selviria.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/selviria/panorama"
     },
@@ -8026,8 +8026,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 17,
       "gastoMedioMensalGabinete": 6001,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Tr%C3%AAs%20Lagoas+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Tr%C3%AAs%20Lagoas+ms",
+      "portalUrl": "https://www.cmtls.ms.gov.br/",
+      "prefeituraUrl": "https://www.treslagoas.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/tres-lagoas/panorama"
     },
@@ -8557,8 +8557,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2690,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Brasil%C3%A2ndia+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Brasil%C3%A2ndia+ms",
+      "portalUrl": "https://www.camarabrasilandia.ms.gov.br/",
+      "prefeituraUrl": "https://brasilandia.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/brasilandia/panorama"
     },
@@ -8856,8 +8856,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3727,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Santa%20Rita%20do%20Pardo+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Santa%20Rita%20do%20Pardo+ms",
+      "portalUrl": "https://www.camarasantaritadopardo.ms.gov.br/",
+      "prefeituraUrl": "https://santaritadopardo.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/santa-rita-do-pardo/panorama"
     },
@@ -9155,8 +9155,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 5225,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Bataguassu+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Bataguassu+ms",
+      "portalUrl": "https://www.camarabataguassu.ms.gov.br/",
+      "prefeituraUrl": "https://bataguassu.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/bataguassu/panorama"
     },
@@ -9512,8 +9512,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3347,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Anauril%C3%A2ndia+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Anauril%C3%A2ndia+ms",
+      "portalUrl": "https://www.camaraanaurilandia.ms.gov.br/",
+      "prefeituraUrl": "https://anaurilandia.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/anaurilandia/panorama"
     },
@@ -9811,8 +9811,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3892,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Rio%20Negro+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Rio%20Negro+ms",
+      "portalUrl": "https://www.camararionegro.ms.gov.br/",
+      "prefeituraUrl": "https://rionegro.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/rio-negro/panorama"
     },
@@ -10110,8 +10110,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3803,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Corguinho+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Corguinho+ms",
+      "portalUrl": "https://www.camaracorguinho.ms.gov.br/",
+      "prefeituraUrl": "https://corguinho.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/corguinho/panorama"
     },
@@ -10409,8 +10409,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3004,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Rochedo+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Rochedo+ms",
+      "portalUrl": "https://www.camararochedo.ms.gov.br/",
+      "prefeituraUrl": "https://rochedo.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/rochedo/panorama"
     },
@@ -10708,8 +10708,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4125,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Jaraguari+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Jaraguari+ms",
+      "portalUrl": "https://www.camarajaraguari.ms.gov.br/",
+      "prefeituraUrl": "https://jaraguari.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/jaraguari/panorama"
     },
@@ -11007,8 +11007,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4764,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Terenos+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Terenos+ms",
+      "portalUrl": "https://www.camaraterenos.ms.gov.br/",
+      "prefeituraUrl": "https://terenos.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/terenos/panorama"
     },
@@ -11364,8 +11364,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2672,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Dois%20Irm%C3%A3os%20do%20Buriti+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Dois%20Irm%C3%A3os%20do%20Buriti+ms",
+      "portalUrl": "https://www.camaradoisirmaosdoburiti.ms.gov.br/",
+      "prefeituraUrl": "https://doisirmaosdoburiti.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/dois-irmaos-do-buriti/panorama"
     },
@@ -11663,8 +11663,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 29,
       "gastoMedioMensalGabinete": 17600,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Campo%20Grande+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Campo%20Grande+ms",
+      "portalUrl": "https://camara.ms.gov.br/",
+      "prefeituraUrl": "https://www.campogrande.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/campo-grande/panorama"
     },
@@ -12542,8 +12542,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 6519,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Ribas%20do%20Rio%20Pardo+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Ribas%20do%20Rio%20Pardo+ms",
+      "portalUrl": "https://www.camararibasdoriopardo.ms.gov.br/",
+      "prefeituraUrl": "https://ribasdoriopardo.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/ribas-do-rio-pardo/panorama"
     },
@@ -12899,8 +12899,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 15,
       "gastoMedioMensalGabinete": 4635,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Sidrol%C3%A2ndia+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Sidrol%C3%A2ndia+ms",
+      "portalUrl": "https://www.camarasidrolandia.ms.gov.br/",
+      "prefeituraUrl": "https://sidrolandia.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/sidrolandia/panorama"
     },
@@ -13372,8 +13372,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4517,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Nova%20Alvorada%20do%20Sul+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Nova%20Alvorada%20do%20Sul+ms",
+      "portalUrl": "https://www.camaranovaalvoradadosul.ms.gov.br/",
+      "prefeituraUrl": "https://novaalvoradadosul.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/nova-alvorada-do-sul/panorama"
     },
@@ -13729,8 +13729,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2762,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Bodoquena+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Bodoquena+ms",
+      "portalUrl": "https://www.camarabodoquena.ms.gov.br/",
+      "prefeituraUrl": "https://bodoquena.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/bodoquena/panorama"
     },
@@ -14028,8 +14028,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 4944,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Bonito+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Bonito+ms",
+      "portalUrl": "https://www.camarabonito.ms.gov.br/",
+      "prefeituraUrl": "https://bonito.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/bonito/panorama"
     },
@@ -14385,8 +14385,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4475,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Nioaque+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Nioaque+ms",
+      "portalUrl": "https://www.camaranioaque.ms.gov.br/",
+      "prefeituraUrl": "https://nioaque.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/nioaque/panorama"
     },
@@ -14919,8 +14919,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3189,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Guia%20Lopes%20da%20Laguna+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Guia%20Lopes%20da%20Laguna+ms",
+      "portalUrl": "https://www.camaraguialopesdalaguna.ms.gov.br/",
+      "prefeituraUrl": "https://guialopesdalaguna.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/guia-lopes-da-laguna/panorama"
     },
@@ -15218,8 +15218,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3041,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Porto%20Murtinho+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Porto%20Murtinho+ms",
+      "portalUrl": "https://www.camaraportomurtinho.ms.gov.br/",
+      "prefeituraUrl": "https://portomurtinho.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/porto-murtinho/panorama"
     },
@@ -15517,8 +15517,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 6865,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Bela%20Vista+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Bela%20Vista+ms",
+      "portalUrl": "https://www.camarabelavista.ms.gov.br/",
+      "prefeituraUrl": "https://belavista.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/bela-vista/panorama"
     },
@@ -15874,8 +15874,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4426,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Caracol+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Caracol+ms",
+      "portalUrl": "https://www.camaracaracol.ms.gov.br/",
+      "prefeituraUrl": "https://caracol.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/caracol/panorama"
     },
@@ -16173,8 +16173,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2629,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Ant%C3%B4nio%20Jo%C3%A3o+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Ant%C3%B4nio%20Jo%C3%A3o+ms",
+      "portalUrl": "https://www.camaraantoniojoao.ms.gov.br/",
+      "prefeituraUrl": "https://antoniojoao.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/antonio-joao/panorama"
     },
@@ -16472,8 +16472,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 17,
       "gastoMedioMensalGabinete": 5509,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Ponta%20Por%C3%A3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Ponta%20Por%C3%A3+ms",
+      "portalUrl": "https://www.camarapontapora.ms.gov.br/",
+      "prefeituraUrl": "https://pontapora.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/ponta-pora/panorama"
     },
@@ -17003,8 +17003,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4809,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Laguna%20Carap%C3%A3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Laguna%20Carap%C3%A3+ms",
+      "portalUrl": "https://www.camaralagunacarapa.ms.gov.br/",
+      "prefeituraUrl": "https://lagunacarapa.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/laguna-carapa/panorama"
     },
@@ -17302,8 +17302,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 5165,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Aral%20Moreira+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Aral%20Moreira+ms",
+      "portalUrl": "https://www.camaraaralmoreira.ms.gov.br/",
+      "prefeituraUrl": "https://aralmoreira.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/aral-moreira/panorama"
     },
@@ -17601,8 +17601,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 3962,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Amambai+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Amambai+ms",
+      "portalUrl": "https://www.camaraamambai.ms.gov.br/",
+      "prefeituraUrl": "https://amambai.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/amambai/panorama"
     },
@@ -18016,8 +18016,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 5287,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Coronel%20Sapucaia+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Coronel%20Sapucaia+ms",
+      "portalUrl": "https://www.camaracoronelsapucaia.ms.gov.br/",
+      "prefeituraUrl": "https://coronelsapucaia.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/coronel-sapucaia/panorama"
     },
@@ -18506,8 +18506,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4618,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Tacuru+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Tacuru+ms",
+      "portalUrl": "https://www.camaratacuru.ms.gov.br/",
+      "prefeituraUrl": "https://tacuru.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/tacuru/panorama"
     },
@@ -18996,8 +18996,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 7002,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Maracaju+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Maracaju+ms",
+      "portalUrl": "https://www.camaramaracaju.ms.gov.br/",
+      "prefeituraUrl": "https://maracaju.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/maracaju/panorama"
     },
@@ -19411,8 +19411,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 4561,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Rio%20Brilhante+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Rio%20Brilhante+ms",
+      "portalUrl": "https://www.camarariobrilhante.ms.gov.br/",
+      "prefeituraUrl": "https://riobrilhante.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/rio-brilhante/panorama"
     },
@@ -19826,8 +19826,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 7057,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Itapor%C3%A3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Itapor%C3%A3+ms",
+      "portalUrl": "https://www.camaraitapora.ms.gov.br/",
+      "prefeituraUrl": "https://itapora.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/itapora/panorama"
     },
@@ -20183,8 +20183,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 21,
       "gastoMedioMensalGabinete": 9889,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Dourados+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Dourados+ms",
+      "portalUrl": "https://www.camaradourados.ms.gov.br/",
+      "prefeituraUrl": "https://www.dourados.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/dourados/panorama"
     },
@@ -20830,8 +20830,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4359,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Douradina+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Douradina+ms",
+      "portalUrl": "https://www.camaradouradina.ms.gov.br/",
+      "prefeituraUrl": "https://douradina.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/douradina/panorama"
     },
@@ -21129,8 +21129,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 3368,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+F%C3%A1tima%20do%20Sul+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+F%C3%A1tima%20do%20Sul+ms",
+      "portalUrl": "https://www.camarafatimadosul.ms.gov.br/",
+      "prefeituraUrl": "https://fatimadosul.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/fatima-do-sul/panorama"
     },
@@ -21486,8 +21486,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3419,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Vicentina+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Vicentina+ms",
+      "portalUrl": "https://www.camaravicentina.ms.gov.br/",
+      "prefeituraUrl": "https://vicentina.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/vicentina/panorama"
     },
@@ -21785,8 +21785,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 3957,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Caarap%C3%B3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Caarap%C3%B3+ms",
+      "portalUrl": "https://www.camaracaarapo.ms.gov.br/",
+      "prefeituraUrl": "https://caarapo.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/caarapo/panorama"
     },
@@ -22142,8 +22142,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 5590,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Gl%C3%B3ria%20de%20Dourados+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Gl%C3%B3ria%20de%20Dourados+ms",
+      "portalUrl": "https://www.camaragloriadedourados.ms.gov.br/",
+      "prefeituraUrl": "https://gloriadedourados.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/gloria-de-dourados/panorama"
     },
@@ -22441,8 +22441,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2957,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Deod%C3%A1polis+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Deod%C3%A1polis+ms",
+      "portalUrl": "https://www.camaradeodapolis.ms.gov.br/",
+      "prefeituraUrl": "https://deodapolis.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/deodapolis/panorama"
     },
@@ -22740,8 +22740,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2715,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Ang%C3%A9lica+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Ang%C3%A9lica+ms",
+      "portalUrl": "https://www.camaraangelica.ms.gov.br/",
+      "prefeituraUrl": "https://angelica.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/angelica/panorama"
     },
@@ -23039,8 +23039,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 6775,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Ivinhema+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Ivinhema+ms",
+      "portalUrl": "https://www.camaraivinhema.ms.gov.br/",
+      "prefeituraUrl": "https://ivinhema.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/ivinhema/panorama"
     },
@@ -23396,8 +23396,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 13,
       "gastoMedioMensalGabinete": 5903,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Nova%20Andradina+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Nova%20Andradina+ms",
+      "portalUrl": "https://www.cmnovaandradina.ms.gov.br/",
+      "prefeituraUrl": "https://pmna.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/nova-andradina/panorama"
     },
@@ -23811,8 +23811,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4843,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Novo%20Horizonte%20do%20Sul+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Novo%20Horizonte%20do%20Sul+ms",
+      "portalUrl": "https://www.camaranovohorizontedosul.ms.gov.br/",
+      "prefeituraUrl": "https://novohorizontedosul.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/novo-horizonte-do-sul/panorama"
     },
@@ -24110,8 +24110,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2743,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Bataypor%C3%A3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Bataypor%C3%A3+ms",
+      "portalUrl": "https://www.camarabataypora.ms.gov.br/",
+      "prefeituraUrl": "https://bataypora.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/bataypora/panorama"
     },
@@ -24409,8 +24409,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4783,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Taquarussu+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Taquarussu+ms",
+      "portalUrl": "https://www.camarataquarussu.ms.gov.br/",
+      "prefeituraUrl": "https://taquarussu.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/taquarussu/panorama"
     },
@@ -24708,8 +24708,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 2483,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Juti+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Juti+ms",
+      "portalUrl": "https://www.camarajuti.ms.gov.br/",
+      "prefeituraUrl": "https://juti.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/juti/panorama"
     },
@@ -25300,8 +25300,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3302,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Jate%C3%AD+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Jate%C3%AD+ms",
+      "portalUrl": "https://www.camarajatei.ms.gov.br/",
+      "prefeituraUrl": "https://jatei.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/jatei/panorama"
     },
@@ -25599,8 +25599,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 3163,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Itaquira%C3%AD+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Itaquira%C3%AD+ms",
+      "portalUrl": "https://www.camaraitaquirai.ms.gov.br/",
+      "prefeituraUrl": "https://itaquirai.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/itaquirai/panorama"
     },
@@ -25956,8 +25956,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 3445,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Iguatemi+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Iguatemi+ms",
+      "portalUrl": "https://www.camaraiguatemi.ms.gov.br/",
+      "prefeituraUrl": "https://iguatemi.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/iguatemi/panorama"
     },
@@ -26255,8 +26255,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4820,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Eldorado+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Eldorado+ms",
+      "portalUrl": "https://www.camaraeldorado.ms.gov.br/",
+      "prefeituraUrl": "https://eldorado.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/eldorado/panorama"
     },
@@ -26554,8 +26554,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 11,
       "gastoMedioMensalGabinete": 3300,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Mundo%20Novo+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Mundo%20Novo+ms",
+      "portalUrl": "https://www.camaramundonovo.ms.gov.br/",
+      "prefeituraUrl": "https://mundonovo.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/mundo-novo/panorama"
     },
@@ -26911,8 +26911,8 @@ export const MUNICIPIOS_DATA: MunicipioMS[] = [
     "camara": {
       "totalCadeiras": 9,
       "gastoMedioMensalGabinete": 4524,
-      "portalUrl": "https://www.google.com/search?q=portal+transparencia+camara+municipal+de+Japor%C3%A3+ms",
-      "prefeituraUrl": "https://www.google.com/search?q=portal+transparencia+prefeitura+de+Japor%C3%A3+ms",
+      "portalUrl": "https://www.camarajapora.ms.gov.br/",
+      "prefeituraUrl": "https://japora.ms.gov.br/",
       "tceUrl": "https://www.tce.ms.gov.br/portal-cidadao/",
       "ibgeUrl": "https://cidades.ibge.gov.br/brasil/ms/japora/panorama"
     },

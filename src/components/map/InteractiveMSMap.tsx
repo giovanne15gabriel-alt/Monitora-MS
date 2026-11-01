@@ -12,6 +12,7 @@ import { VisitorStats } from '../../VisitorStats.tsx';
 import { SponsorsTicker } from '../layout/SponsorsTicker.tsx';
 import { GiroMsWidget } from '../widgets/GiroMsWidget.tsx';
 import { NoticiasLicitacoesWidget } from '../widgets/NoticiasLicitacoesWidget.tsx';
+import { MsSearchActions, TabType } from '../../utils/msSearchEngine.ts';
 import { 
   Rotate3d, 
   Layers, 
@@ -37,6 +38,7 @@ export type ViewPreset = 'perspective' | 'top' | 'isometric';
 interface InteractiveMSMapProps {
   selectedMunicipio: MunicipioMS | null;
   onSelectMunicipio: (municipio: MunicipioMS | null) => void;
+  onSelectMunicipioWithTab?: (municipio: MunicipioMS | null, tab: TabType) => void;
   onOpenTce?: () => void;
   onOpenGoverno?: () => void;
   onOpenLegislativo?: () => void;
@@ -106,6 +108,7 @@ function createTextSprite(text: string, color: string = '#64748b') {
 export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   selectedMunicipio,
   onSelectMunicipio,
+  onSelectMunicipioWithTab,
   onOpenTce,
   onOpenGoverno,
   onOpenLegislativo,
@@ -308,10 +311,26 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
     }
   }, []);
 
-  const handleSelectCity = useCallback((municipio: MunicipioMS) => {
-    onSelectMunicipio(municipio);
+  const handleSelectCityWithTab = useCallback((municipio: MunicipioMS, tab?: TabType) => {
+    if (onSelectMunicipioWithTab) {
+      onSelectMunicipioWithTab(municipio, tab || 'noticias_municipais');
+    } else {
+      onSelectMunicipio(municipio);
+    }
     focusOnMunicipio(municipio);
-  }, [onSelectMunicipio, focusOnMunicipio]);
+  }, [onSelectMunicipioWithTab, onSelectMunicipio, focusOnMunicipio]);
+
+  const handleSelectCity = useCallback((municipio: MunicipioMS) => {
+    handleSelectCityWithTab(municipio, 'noticias_municipais');
+  }, [handleSelectCityWithTab]);
+
+  const searchActions = useMemo<MsSearchActions>(() => ({
+    selectMunicipio: (m, tab) => handleSelectCityWithTab(m, tab),
+    openTce: onOpenTce,
+    openGoverno: onOpenGoverno,
+    openLegislativo: onOpenLegislativo,
+    openEleicoes: onOpenEleicoes,
+  }), [handleSelectCityWithTab, onOpenTce, onOpenGoverno, onOpenLegislativo, onOpenEleicoes]);
 
   useEffect(() => {
     const container = mountRef.current;
@@ -982,7 +1001,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
         <div className="hidden sm:flex absolute bottom-6 left-4 flex-col gap-2.5 pointer-events-none z-20">
           
           {/* TAREFA 2: Novo Widget Flutuante Giro MS (Hora Oficial MS UTC-4, Dólar, Diesel MS e Busca Global) */}
-          <GiroMsWidget onSearchKeyword={handleGlobalSearchKeyword} />
+          <GiroMsWidget onSearchActions={searchActions} onSearchKeyword={handleGlobalSearchKeyword} />
 
           <div className="pointer-events-auto">
             <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={false} />

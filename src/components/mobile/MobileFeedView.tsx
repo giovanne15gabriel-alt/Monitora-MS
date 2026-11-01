@@ -18,6 +18,7 @@ import {
 import { formatCurrency, formatCompactCurrency, formatNumber } from '../../utils/formatters.ts';
 import { GiroMsWidget } from '../widgets/GiroMsWidget.tsx';
 import { VisitorStats } from '../../VisitorStats.tsx';
+import { MsSearchActions, TabType } from '../../utils/msSearchEngine.ts';
 import { 
   Scale, 
   Building2, 
@@ -37,14 +38,18 @@ import {
 interface MobileFeedViewProps {
   selectedMunicipio: MunicipioMS | null;
   onSelectMunicipio: (m: MunicipioMS | null) => void;
+  onSelectMunicipioWithTab?: (m: MunicipioMS | null, tab: TabType) => void;
   onOpenQuickList: () => void;
+  onSearchActions?: MsSearchActions;
   onSearchKeyword?: (kw: string) => boolean;
 }
 
 export const MobileFeedView: React.FC<MobileFeedViewProps> = ({
   selectedMunicipio,
   onSelectMunicipio,
+  onSelectMunicipioWithTab,
   onOpenQuickList,
+  onSearchActions,
   onSearchKeyword
 }) => {
   // Estados para expansão/colapso das seções no feed mobile
@@ -65,7 +70,7 @@ export const MobileFeedView: React.FC<MobileFeedViewProps> = ({
       
       {/* 1. INDICADORES & BUSCA (GIRO MS MOBILE) */}
       <section className="w-full">
-        <GiroMsWidget onSearchKeyword={onSearchKeyword} />
+        <GiroMsWidget onSearchActions={onSearchActions} onSearchKeyword={onSearchKeyword} />
       </section>
 
       {/* 2. AVISO / DESTAQUE DE MUNICÍPIO SELECIONADO NO MAPA */}
@@ -398,128 +403,204 @@ export const MobileFeedView: React.FC<MobileFeedViewProps> = ({
       </section>
 
       {/* 7. VITRINE DE ANÚNCIOS & GUIA COMERCIAL */}
-      <section className="w-full rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/30 overflow-hidden shadow-xl">
-        <div className="px-4 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
-              <Store className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="text-xs font-bold text-white uppercase tracking-wider">
-                {selectedMunicipio && getEmpresasByIbge(selectedMunicipio.ibge).length > 0
-                  ? `Guia Comercial de ${selectedMunicipio.nome}`
-                  : 'Guia Comercial Oficial & Vitrine MS'}
-              </h3>
-              <p className="text-[10px] text-amber-300/90">Espaço Empresarial e Parceiros Oficiais</p>
-            </div>
-          </div>
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
-            Oficial
-          </span>
-        </div>
+      {(() => {
+        const empresasCidade = selectedMunicipio ? getEmpresasByIbge(selectedMunicipio.ibge) : [];
+        const hasCidade = !!selectedMunicipio;
+        const hasEmpresas = empresasCidade.length > 0;
 
-        <div className="p-4 space-y-3.5 text-xs">
-          {/* Card dos Parceiros Oficiais com Imagem/Logo */}
-          <div className="space-y-2">
-            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-              <Sparkles className="w-3 h-3" />
-              {selectedMunicipio && getEmpresasByIbge(selectedMunicipio.ibge).length > 0
-                ? `Empresas Cadastradas em ${selectedMunicipio.nome}:`
-                : 'Parceiros Oficiais Cadastrados (Naviraí - MS):'}
-            </span>
+        return (
+          <section className="w-full rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-amber-500/30 overflow-hidden shadow-xl">
+            <div className="px-4 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <Store className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="text-xs font-bold text-white uppercase tracking-wider">
+                    {hasCidade ? `Guia Comercial de ${selectedMunicipio.nome}` : 'Patrocinadores & Apoio Institucional · MS'}
+                  </h3>
+                  <p className="text-[10px] text-amber-300/90">
+                    {hasCidade ? 'Espaço Empresarial e Parceiros Oficiais' : 'Apoiadores Estaduais e Nacionais'}
+                  </p>
+                </div>
+              </div>
+              <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                {hasCidade ? (hasEmpresas ? 'Oficial' : 'Em Breve') : 'Estadual'}
+              </span>
+            </div>
 
-            <div className="grid grid-cols-1 gap-2.5 text-left">
-              {(selectedMunicipio && getEmpresasByIbge(selectedMunicipio.ibge).length > 0
-                ? getEmpresasByIbge(selectedMunicipio.ibge)
-                : EMPRESAS_GUIA_COMERCIAL
-              ).map((empresa) => (
-                <div
-                  key={empresa.id}
-                  className="p-3 rounded-xl bg-slate-900/95 border border-slate-700/80 hover:border-amber-500/50 transition-all flex items-start gap-3 shadow-md"
-                >
-                  {/* Logo / Imagem da Empresa */}
-                  <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center p-1 shrink-0 overflow-hidden shadow-inner">
-                    {empresa.imagemUrl ? (
-                      <img
-                        src={empresa.imagemUrl}
-                        alt={empresa.nome}
-                        className="w-full h-full object-contain filter drop-shadow"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <Store className="w-5 h-5 text-amber-400" />
-                    )}
+            <div className="p-4 space-y-3.5 text-xs">
+              {/* Se NENHUMA cidade selecionada: roda APENAS patrocinadores estaduais/nacionais */}
+              {!hasCidade ? (
+                <div className="space-y-2.5">
+                  <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1">
+                    <Building2 className="w-3 h-3" />
+                    Patrocinadores Oficiais do Estado de MS:
+                  </span>
+                  
+                  <div className="grid grid-cols-1 gap-2 text-left">
+                    <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase block">Governo Federal</span>
+                        <span className="text-xs font-bold text-white block">Governo Federal · Brasil</span>
+                      </div>
+                      <span className="text-[10px] text-cyan-400 font-mono">Institucional</span>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase block">Instituição Financeira</span>
+                        <span className="text-xs font-bold text-white block">Banco do Brasil</span>
+                      </div>
+                      <span className="text-[10px] text-cyan-400 font-mono">Oficial</span>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase block">Energia & Infraestrutura</span>
+                        <span className="text-xs font-bold text-white block">Energisa Mato Grosso do Sul</span>
+                      </div>
+                      <span className="text-[10px] text-emerald-400 font-mono">Concessão</span>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase block">Desenvolvimento & Negócios</span>
+                        <span className="text-xs font-bold text-white block">Sebrae MS</span>
+                      </div>
+                      <span className="text-[10px] text-amber-400 font-mono">Estratégico</span>
+                    </div>
+
+                    <div className="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between">
+                      <div>
+                        <span className="text-[9px] font-bold text-slate-400 uppercase block">Indústria & Inovação</span>
+                        <span className="text-xs font-bold text-white block">Sistema FIEEMS</span>
+                      </div>
+                      <span className="text-[10px] text-cyan-400 font-mono">Indústria</span>
+                    </div>
                   </div>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-1 flex-wrap">
-                      <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-800/80">
-                        {empresa.categoria}
-                      </span>
-                      {empresa.verificado && (
-                        <span className="text-[9px] text-emerald-400 font-mono flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verificado
-                        </span>
-                      )}
-                    </div>
+                  <p className="text-[11px] text-slate-400 text-center pt-1 italic">
+                    Toque em uma cidade no mapa acima para consultar o comércio e os parceiros municipais.
+                  </p>
+                </div>
+              ) : hasEmpresas ? (
+                /* Cidade selecionada COM empresas (ex: Naviraí) */
+                <div className="space-y-2">
+                  <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    Empresas & Parceiros Oficiais de {selectedMunicipio.nome}:
+                  </span>
 
-                    <h4 className="text-xs font-bold text-white mt-1 leading-snug">
-                      {empresa.nome}
-                    </h4>
-                    <p className="text-[10px] text-slate-300 mt-0.5 leading-relaxed">
-                      {empresa.descricao}
-                    </p>
-
-                    <div className="mt-2 flex items-center gap-3 text-[10px]">
-                      {empresa.instagramUrl && (
-                        <a
-                          href={empresa.instagramUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-medium"
-                        >
-                          <Instagram className="w-3 h-3" />
-                          <span>Instagram</span>
-                        </a>
-                      )}
-                      <a
-                        href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent(`Olá! Vi a empresa ${empresa.nome} no Guia Comercial do Monitora MS.`)}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-medium"
+                  <div className="grid grid-cols-1 gap-2.5 text-left">
+                    {empresasCidade.map((empresa) => (
+                      <div
+                        key={empresa.id}
+                        className="p-3 rounded-xl bg-slate-900/95 border border-slate-700/80 hover:border-amber-500/50 transition-all flex items-start gap-3 shadow-md"
                       >
-                        <MessageCircle className="w-3 h-3" />
-                        <span>Contato</span>
-                      </a>
-                    </div>
+                        <div className="w-12 h-12 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center p-1 shrink-0 overflow-hidden shadow-inner">
+                          {empresa.imagemUrl ? (
+                            <img
+                              src={empresa.imagemUrl}
+                              alt={empresa.nome}
+                              className="w-full h-full object-contain filter drop-shadow"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          ) : (
+                            <Store className="w-5 h-5 text-amber-400" />
+                          )}
+                        </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1 flex-wrap">
+                            <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-800/80">
+                              {empresa.categoria}
+                            </span>
+                            {empresa.verificado && (
+                              <span className="text-[9px] text-emerald-400 font-mono flex items-center gap-1">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Verificado
+                              </span>
+                            )}
+                          </div>
+
+                          <h4 className="text-xs font-bold text-white mt-1 leading-snug">
+                            {empresa.nome}
+                          </h4>
+                          <p className="text-[10px] text-slate-300 mt-0.5 leading-relaxed">
+                            {empresa.descricao}
+                          </p>
+
+                          <div className="mt-2 flex items-center justify-between text-[10px] pt-1.5 border-t border-slate-800/80">
+                            <span className="text-slate-400 font-medium">
+                              {empresa.cidadeNome} - MS
+                            </span>
+
+                            <div className="flex items-center gap-2">
+                              {empresa.instagramUrl && (
+                                <a
+                                  href={empresa.instagramUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-medium"
+                                >
+                                  <Instagram className="w-3 h-3" />
+                                  <span>Instagram</span>
+                                </a>
+                              )}
+                              <a
+                                href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent(`Olá! Vi a empresa ${empresa.nome} no Guia Comercial do Monitora MS.`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-medium"
+                              >
+                                <MessageCircle className="w-3 h-3" />
+                                <span>Contato</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
+              ) : (
+                /* Cidade selecionada SEM empresas cadastradas ainda */
+                <div className="p-4 bg-slate-950/90 border border-slate-800 rounded-xl text-center space-y-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-950/80 text-amber-300 border border-amber-800/80 mb-1">
+                    <Sparkles className="w-3 h-3 text-amber-400" />
+                    Vitrine Empresarial · Em Breve
+                  </span>
+                  <p className="text-xs text-slate-300 leading-relaxed">
+                    Nenhuma empresa cadastrada no momento em {selectedMunicipio.nome}. Seja a primeira a destacar sua marca no guia oficial!
+                  </p>
+                </div>
+              )}
 
-          {/* Chamada para anúncio com WhatsApp 67 9 3300-1147 */}
-          <div className="p-3.5 rounded-xl bg-slate-950 border border-amber-500/20 text-center space-y-2">
-            <p className="text-xs text-slate-200 font-medium">
-              "Anuncie seu comércio aqui. Entre em contato para colocar sua empresa no guia oficial da cidade."
-            </p>
-            <a
-              href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent('Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial do Monitora MS.')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs shadow-md transition-all w-full"
-            >
-              <MessageCircle className="w-4 h-4 shrink-0" />
-              <span>Quero Anunciar no Guia Oficial</span>
-              <span className="text-[10px] font-mono text-slate-900 bg-amber-400/90 px-1.5 py-0.5 rounded ml-1">
-                {CONTATO_COMERCIAL_WHATSAPP_DISPLAY}
-              </span>
-            </a>
-          </div>
-        </div>
-      </section>
+              {/* Chamada para anúncio com botão harmônico e ícone do WhatsApp */}
+              <div className="p-3.5 rounded-xl bg-slate-950 border border-amber-500/20 text-center space-y-2.5">
+                <p className="text-xs text-slate-200 font-medium">
+                  "Anuncie seu comércio aqui. Entre em contato para colocar sua empresa no guia oficial da cidade."
+                </p>
+                <a
+                  href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent(
+                    hasCidade
+                      ? `Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial de ${selectedMunicipio.nome} no Monitora MS.`
+                      : 'Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial do Monitora MS.'
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs shadow-md transition-all w-full max-w-xs mx-auto"
+                >
+                  <MessageCircle className="w-4 h-4 shrink-0" />
+                  <span>Quero Anunciar no Guia Oficial</span>
+                </a>
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {/* 8. CONTADOR DE VISITANTES & CRÉDITO DO DESENVOLVEDOR */}
       <footer className="w-full pt-4 border-t border-slate-800/80 space-y-3">

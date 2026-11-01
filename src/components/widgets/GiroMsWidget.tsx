@@ -3,17 +3,21 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useEffect } from 'react';
-import { Clock, DollarSign, Fuel, Search, ArrowUpRight, Compass, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Clock, DollarSign, Fuel, Search, ArrowUpRight, Compass, Sparkles, X, CheckCircle2 } from 'lucide-react';
+import { queryMsPlatform, MsSearchActions, MsSearchResult } from '../../utils/msSearchEngine.ts';
 
 interface GiroMsWidgetProps {
-  onSearchKeyword?: (keyword: string) => boolean; // return true if handled internally
+  onSearchActions?: MsSearchActions;
+  onSearchKeyword?: (keyword: string) => boolean; // backwards compatible
 }
 
-export const GiroMsWidget: React.FC<GiroMsWidgetProps> = ({ onSearchKeyword }) => {
+export const GiroMsWidget: React.FC<GiroMsWidgetProps> = ({ onSearchActions, onSearchKeyword }) => {
   const [horaMs, setHoraMs] = useState<string>('');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [inlineAnswer, setInlineAnswer] = useState<MsSearchResult | null>(null);
+  const dismissTimerRef = useRef<number | null>(null);
 
   // Fuso horário oficial de Mato Grosso do Sul (Campo Grande - UTC-4)
   useEffect(() => {
@@ -40,7 +44,7 @@ export const GiroMsWidget: React.FC<GiroMsWidgetProps> = ({ onSearchKeyword }) =
     return () => clearInterval(interval);
   }, []);
 
-  // Lógica da Barra de Pesquisa Global do MS
+  // Lógica da Barra de Pesquisa Global do MS com resposta instantânea e limpeza de histórico
   const handleGlobalSearch = (e?: React.FormEvent) => {
     if (e) e.preventDefault();
     const trimmed = searchQuery.trim();
@@ -48,37 +52,29 @@ export const GiroMsWidget: React.FC<GiroMsWidgetProps> = ({ onSearchKeyword }) =
 
     setIsSearching(true);
 
-    // Banco de palavras-chave locais e temas monitorados no MS
-    const internalKeywords = [
-      'dívida', 'divida', 'orçamento', 'orcamento', 'tce', 'gastos',
-      'população', 'populacao', 'habitantes', 'censo',
-      'pib', 'sebrae', 'empresas', 'negocios', 'negócios',
-      'deputados', 'deputado', 'alems', 'assembleia',
-      'prefeito', 'prefeitos', 'vereadores', 'vereador', 'camara',
-      'eleições', 'eleicao', 'eleicoes', '2026', 'senador', 'governador',
-      'navirai', 'naviraí', 'dourados', 'campo grande', 'corumba', 'corumbá',
-      'tres lagoas', 'três lagoas', 'ponta pora', 'ponta porã'
-    ];
+    // Limpa imediatamente o input ("já apaga o histórico de conversa")
+    setSearchQuery('');
 
-    const lower = trimmed.toLowerCase();
-    const isInternalMatch = internalKeywords.some(kw => lower.includes(kw));
-
-    let handled = false;
-    if (isInternalMatch && onSearchKeyword) {
-      handled = onSearchKeyword(trimmed);
+    // Cancela timer anterior se houver
+    if (dismissTimerRef.current) {
+      window.clearTimeout(dismissTimerRef.current);
     }
 
-    // Se não encontrar nada correspondente internamente (ou se a busca não foi absorvida),
-    // redireciona para a pesquisa externa no Google com contexto de Mato Grosso do Sul
-    if (!handled) {
-      const googleUrl = 'https://www.google.com/search?q=' + encodeURIComponent(trimmed + ' Mato Grosso do Sul');
-      window.open(googleUrl, '_blank', 'noopener,noreferrer');
+    // Executa pesquisa inteligente
+    const result = queryMsPlatform(trimmed, onSearchActions);
+
+    // Se houver callback legado e não tínhamos onSearchActions
+    if (!onSearchActions && onSearchKeyword) {
+      onSearchKeyword(trimmed);
     }
 
-    setTimeout(() => {
-      setIsSearching(false);
-      setSearchQuery('');
-    }, 400);
+    setInlineAnswer(result);
+    setIsSearching(false);
+
+    // Auto-dismiss da resposta inline após 10 segundos
+    dismissTimerRef.current = window.setTimeout(() => {
+      setInlineAnswer(null);
+    }, 10000);
   };
 
   return (
@@ -165,10 +161,50 @@ export const GiroMsWidget: React.FC<GiroMsWidgetProps> = ({ onSearchKeyword }) =
             <Search className="w-3.5 h-3.5" />
           </button>
         </div>
+
+        {/* Resposta Instantânea Inline (já apaga a pergunta do input e exibe o resultado ali mesmo) */}
+        {inlineAnswer && (
+          <div className="mt-2 p-2.5 rounded-xl bg-slate-900/98 border border-cyan-500/40 shadow-xl text-left space-y-1.5 transition-all">
+            <div className="flex items-start justify-between gap-1.5 border-b border-slate-800 pb-1">
+              <div className="flex items-center gap-1.5 min-w-0">
+                {inlineAnswer.handled ? (
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0 animate-pulse" />
+                ) : (
+                  <ArrowUpRight className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                )}
+                <span className="text-[10px] font-bold text-white truncate">
+                  {inlineAnswer.title}
+                </span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setInlineAnswer(null)}
+                className="p-0.5 text-slate-400 hover:text-white rounded shrink-0"
+                title="Fechar resposta"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+
+            <p className="text-[10px] text-slate-300 leading-relaxed">
+              {inlineAnswer.answer}
+            </p>
+
+            {inlineAnswer.tabOpened && (
+              <div className="pt-0.5 flex items-center justify-between text-[8.5px] text-cyan-300 font-mono">
+                <span>Aba: {inlineAnswer.tabOpened}</span>
+                <span className="text-emerald-400 font-semibold flex items-center gap-0.5">
+                  <CheckCircle2 className="w-2.5 h-2.5" /> Ativo no mapa
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
         <p className="text-[8px] text-slate-400 mt-1 flex items-center justify-between px-1">
           <span className="flex items-center gap-1">
             <Compass className="w-2.5 h-2.5 text-cyan-400/80 shrink-0" />
-            <span>Busca interna ou Google</span>
+            <span>Busca inteligente ou Google</span>
           </span>
           <span className="text-cyan-400/80 font-mono">79 Municípios</span>
         </p>

@@ -16,9 +16,11 @@ import { Eleicoes2026Modal } from './components/modals/Eleicoes2026Modal.tsx';
 import { SponsorsTicker } from './components/layout/SponsorsTicker.tsx';
 import { MobileFeedView } from './components/mobile/MobileFeedView.tsx';
 import { MunicipioMS } from './data/municipiosData.ts';
+import { TabType, MsSearchActions } from './utils/msSearchEngine.ts';
 
 export default function App() {
   const [selectedMunicipio, setSelectedMunicipio] = useState<MunicipioMS | null>(null);
+  const [panelInitialTab, setPanelInitialTab] = useState<TabType | null>(null);
   const [isFontesOpen, setIsFontesOpen] = useState(false);
   const [isQuickListOpen, setIsQuickListOpen] = useState(false);
   const [isTceOpen, setIsTceOpen] = useState(false);
@@ -26,12 +28,28 @@ export default function App() {
   const [isLegislativoOpen, setIsLegislativoOpen] = useState(false);
   const [isEleicoesOpen, setIsEleicoesOpen] = useState(false);
 
+  const handleSelectMunicipioWithTab = (municipio: MunicipioMS | null, tab?: TabType) => {
+    setPanelInitialTab(tab || 'noticias_municipais');
+    setSelectedMunicipio(municipio);
+  };
+
+  const mobileSearchActions: MsSearchActions = {
+    selectMunicipio: (m, tab) => handleSelectMunicipioWithTab(m, tab),
+    openTce: () => setIsTceOpen(true),
+    openGoverno: () => setIsGovernoOpen(true),
+    openLegislativo: () => setIsLegislativoOpen(true),
+    openEleicoes: () => setIsEleicoesOpen(true),
+  };
+
   return (
     <div className="relative w-screen min-h-screen md:h-screen bg-slate-950 text-slate-100 flex flex-col overflow-y-auto md:overflow-hidden font-sans">
       {/* Top Header */}
       <Header
         onOpenFontes={() => setIsFontesOpen(true)}
-        onResetView={() => setSelectedMunicipio(null)}
+        onResetView={() => {
+          setSelectedMunicipio(null);
+          setPanelInitialTab(null);
+        }}
         onOpenQuickList={() => setIsQuickListOpen(true)}
         onOpenTce={() => setIsTceOpen(true)}
         onOpenGoverno={() => setIsGovernoOpen(true)}
@@ -51,7 +69,8 @@ export default function App() {
         <div className="w-full h-[52vh] min-h-[380px] max-h-[500px] md:h-full md:max-h-none md:flex-1 relative shrink-0">
           <InteractiveMSMap
             selectedMunicipio={selectedMunicipio}
-            onSelectMunicipio={setSelectedMunicipio}
+            onSelectMunicipio={(m) => handleSelectMunicipioWithTab(m, 'noticias_municipais')}
+            onSelectMunicipioWithTab={handleSelectMunicipioWithTab}
             onOpenTce={() => setIsTceOpen(true)}
             onOpenGoverno={() => setIsGovernoOpen(true)}
             onOpenLegislativo={() => setIsLegislativoOpen(true)}
@@ -63,35 +82,21 @@ export default function App() {
         <div className="block md:hidden w-full">
           <MobileFeedView
             selectedMunicipio={selectedMunicipio}
-            onSelectMunicipio={setSelectedMunicipio}
+            onSelectMunicipio={(m) => handleSelectMunicipioWithTab(m, 'noticias_municipais')}
+            onSelectMunicipioWithTab={handleSelectMunicipioWithTab}
             onOpenQuickList={() => setIsQuickListOpen(true)}
-            onSearchKeyword={(kw) => {
-              const lower = kw.toLowerCase().trim();
-              if (lower.includes('tce') || lower.includes('divida') || lower.includes('dívida')) {
-                setIsTceOpen(true);
-                return true;
-              }
-              if (lower.includes('governo') || lower.includes('lrf') || lower.includes('orcamento') || lower.includes('orçamento')) {
-                setIsGovernoOpen(true);
-                return true;
-              }
-              if (lower.includes('alems') || lower.includes('deputad') || lower.includes('assembleia')) {
-                setIsLegislativoOpen(true);
-                return true;
-              }
-              if (lower.includes('eleiç') || lower.includes('eleic') || lower.includes('2026') || lower.includes('senador')) {
-                setIsEleicoesOpen(true);
-                return true;
-              }
-              return false;
-            }}
+            onSearchActions={mobileSearchActions}
           />
         </div>
 
         {/* Slide-in Side Panel for Selected Municipality */}
         <MunicipioPanel
           municipio={selectedMunicipio}
-          onClose={() => setSelectedMunicipio(null)}
+          initialTab={panelInitialTab}
+          onClose={() => {
+            setSelectedMunicipio(null);
+            setPanelInitialTab(null);
+          }}
         />
       </main>
 
