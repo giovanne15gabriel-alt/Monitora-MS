@@ -660,15 +660,9 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   return (
     <div className="relative w-full h-full flex flex-col overflow-hidden select-none bg-slate-950 font-sans">
       
-      {/* BARRA SUPERIOR (Sem carrossel no PC, apenas logo, busca e menu de regiões no mobile) */}
-      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-3 py-2 flex items-center justify-between gap-2 z-30 shadow-lg shrink-0">
+      {/* BARRA SUPERIOR (Sem carrossel no PC, apenas busca e menu de regiões no mobile) */}
+      <div className="w-full bg-slate-900/90 backdrop-blur-xl border-b border-slate-800 px-3 py-2 flex items-center justify-between gap-3 z-30 shadow-lg shrink-0">
         
-        {/* LOGO / TÍTULO "MONITORA MS" */}
-        <div className="flex items-center gap-2">
-          <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
-          <span className="text-xs sm:text-sm font-black tracking-wider text-white uppercase">MONITORA MS</span>
-        </div>
-
         {/* Quick Search Bar */}
         <div className="relative flex-1 max-w-xs sm:w-80 shadow-xl">
           <div className="relative">
@@ -972,28 +966,29 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
             </button>
           </div>
 
-          <div className="flex flex-col items-end gap-2">
-            <div className="hidden sm:block">
-              <VisitorStats />
-            </div>
-
-            <div className="pointer-events-auto bg-slate-950/90 backdrop-blur-md border border-slate-800/80 rounded-xl px-2.5 py-1.5 shadow-2xl flex items-center gap-2">
-              <a
-                href="https://www.instagram.com/eng_giovanegabriel/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-1.5 text-xs text-slate-300 hover:text-cyan-400 transition-colors"
-              >
-                <div className="w-5 h-5 rounded-md bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 flex items-center justify-center text-white shadow-sm shrink-0">
-                  <Instagram className="w-3 h-3" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold text-slate-100 group-hover:text-cyan-300">Giovane Gabriel</div>
-                  <div className="text-[9px] text-slate-400 font-mono">@eng_giovanegabriel</div>
-                </div>
-              </a>
-            </div>
+          <div className="hidden sm:block">
+            <VisitorStats />
           </div>
+
+          <a
+            href="https://www.instagram.com/eng_giovanegabriel/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Instagram: @eng_giovanegabriel (Dev, Giovane Gabriel Só)"
+            className="pointer-events-auto bg-slate-900/95 hover:bg-slate-850 backdrop-blur-xl border border-slate-700/80 hover:border-cyan-400/60 rounded-xl px-3 py-2 shadow-2xl transition-all duration-200 group flex items-center gap-2.5"
+          >
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 via-teal-400 to-blue-500 flex items-center justify-center text-slate-950 shadow-md shadow-cyan-500/30 shrink-0 group-hover:scale-105 group-hover:shadow-[0_0_12px_rgba(6,182,212,0.6)] transition-all">
+              <Instagram className="w-4 h-4 text-slate-950 stroke-[2.2]" />
+            </div>
+            <div className="flex flex-col text-left leading-tight">
+              <span className="text-[11px] font-bold text-slate-100 group-hover:text-cyan-300 transition-colors whitespace-nowrap">
+                Dev, Giovane Gabriel Só
+              </span>
+              <span className="text-[10px] text-cyan-400 font-mono font-medium">
+                @eng_giovanegabriel
+              </span>
+            </div>
+          </a>
 
         </div>
 

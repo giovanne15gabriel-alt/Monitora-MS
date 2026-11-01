@@ -804,24 +804,25 @@ export const Map3D: React.FC<Map3DProps> = ({
 
       {/* Creator Attribution Card (Requested by User) */}
       <div className="absolute bottom-5 right-5 z-20 flex flex-col items-end pointer-events-auto">
-        <div className="flex items-center gap-3 px-3.5 py-2.5 bg-slate-900/95 backdrop-blur-xl border border-slate-800/90 rounded-xl shadow-2xl text-xs text-slate-200">
-          <div className="flex flex-col">
-            <span className="text-[10px] text-slate-400 font-medium">Idealização & Engenharia:</span>
-            <span className="font-bold text-white tracking-tight">Giovane Gabriel</span>
-            <span className="text-[11px] text-cyan-400">Engenheiro Civil</span>
+        <a
+          href="https://www.instagram.com/eng_giovanegabriel/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram: @eng_giovanegabriel (Dev, Giovane Gabriel Só)"
+          className="flex items-center gap-2.5 px-3 py-2 bg-slate-900/95 hover:bg-slate-850 backdrop-blur-xl border border-slate-700/80 hover:border-cyan-400/60 rounded-xl shadow-2xl transition-all duration-200 group"
+        >
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 via-teal-400 to-blue-500 flex items-center justify-center text-slate-950 shadow-md shadow-cyan-500/30 shrink-0 group-hover:scale-105 group-hover:shadow-[0_0_12px_rgba(6,182,212,0.6)] transition-all">
+            <Instagram className="w-4 h-4 text-slate-950 stroke-[2.2]" />
           </div>
-
-          <a
-            href="https://www.instagram.com/eng_giovanegabriel/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-2.5 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white rounded-lg transition-all font-medium text-[11px] shadow-sm hover:scale-105"
-            title="Visitar Instagram do Criador"
-          >
-            <Instagram className="w-3.5 h-3.5" />
-            <span>@eng_giovanegabriel</span>
-          </a>
-        </div>
+          <div className="flex flex-col text-left leading-tight">
+            <span className="text-[11px] font-bold text-slate-100 group-hover:text-cyan-300 transition-colors whitespace-nowrap">
+              Dev, Giovane Gabriel Só
+            </span>
+            <span className="text-[10px] text-cyan-400 font-mono font-medium">
+              @eng_giovanegabriel
+            </span>
+          </div>
+        </a>
       </div>
 
       {/* Hover Floating Tooltip */}
