@@ -113,7 +113,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [metricMode, setMetricMode] = useState<MetricMode>('regioes');
-  const [viewPreset, setViewPreset] = useState<ViewPreset>('perspective');
+  const [viewPreset, setViewPreset] = useState<ViewPreset>(typeof window !== 'undefined' && window.innerWidth < 768 ? 'top' : 'perspective');
   const [hoveredMunicipio, setHoveredMunicipio] = useState<MunicipioMS | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRegiao, setSelectedRegiao] = useState<string>('todas');
@@ -259,12 +259,14 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
   const applyViewPreset = useCallback((preset: ViewPreset) => {
     setViewPreset(preset);
-    if (preset === 'top') {
-      sphericalRef.current.radius = 110;
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (preset === 'top' || isMobile) {
+      const topRadius = isMobile ? 128 : 110;
+      sphericalRef.current.radius = topRadius;
       sphericalRef.current.theta = 0;
       sphericalRef.current.phi = 0.05;
       targetLookAt.current.set(0, 0, 0);
-      targetCameraPos.current.set(0, 110, 0.5);
+      targetCameraPos.current.set(0, topRadius, 0.5);
     } else if (preset === 'isometric') {
       sphericalRef.current.radius = 125;
       sphericalRef.current.theta = Math.PI / 4;
@@ -281,20 +283,29 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   }, []);
 
   const focusOnMunicipio = useCallback((municipio: MunicipioMS) => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const rawX = (municipio.lng - CENTER_LNG) * SCALE;
     const rawZ = -(municipio.lat - CENTER_LAT) * SCALE;
     const targetX = rawX * 0.65;
     const targetZ = rawZ * 0.65;
 
     targetLookAt.current.set(targetX, 0.8, targetZ);
-    sphericalRef.current.radius = 95;
-    const r = sphericalRef.current.radius;
-    const theta = sphericalRef.current.theta;
-    const phi = sphericalRef.current.phi;
+    if (isMobile) {
+      // No mobile: foco na cidade mantendo visão superior calibrada para toque fácil
+      sphericalRef.current.radius = 105;
+      sphericalRef.current.theta = 0;
+      sphericalRef.current.phi = 0.05;
+      targetCameraPos.current.set(targetX, 105, targetZ + 0.5);
+    } else {
+      sphericalRef.current.radius = 95;
+      const r = sphericalRef.current.radius;
+      const theta = sphericalRef.current.theta;
+      const phi = sphericalRef.current.phi;
 
-    targetCameraPos.current.x = targetLookAt.current.x + r * Math.sin(phi) * Math.sin(theta);
-    targetCameraPos.current.y = targetLookAt.current.y + r * Math.cos(phi);
-    targetCameraPos.current.z = targetLookAt.current.z + r * Math.sin(phi) * Math.cos(theta);
+      targetCameraPos.current.x = targetLookAt.current.x + r * Math.sin(phi) * Math.sin(theta);
+      targetCameraPos.current.y = targetLookAt.current.y + r * Math.cos(phi);
+      targetCameraPos.current.z = targetLookAt.current.z + r * Math.sin(phi) * Math.cos(theta);
+    }
   }, []);
 
   const handleSelectCity = useCallback((municipio: MunicipioMS) => {
@@ -310,6 +321,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
     const width = container.clientWidth;
     const height = container.clientHeight;
+    const isMobile = width < 768;
 
     const scene = new THREE.Scene();
     sceneRef.current = scene;
@@ -318,8 +330,19 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
     cameraRef.current = camera;
-    camera.position.set(0, 85, 80);
-    camera.lookAt(0, 0, 0);
+    if (isMobile) {
+      // Mobile: carrega travado estritamente na visão superior calibrada (top view)
+      sphericalRef.current.radius = 128;
+      sphericalRef.current.theta = 0;
+      sphericalRef.current.phi = 0.05;
+      targetLookAt.current.set(0, 0, 0);
+      targetCameraPos.current.set(0, 128, 0.5);
+      camera.position.set(0, 128, 0.5);
+      camera.lookAt(0, 0, 0);
+    } else {
+      camera.position.set(0, 85, 80);
+      camera.lookAt(0, 0, 0);
+    }
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
     rendererRef.current = renderer;
@@ -561,6 +584,17 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
       previousMousePosRef.current = { x: e.clientX, y: e.clientY };
 
       if (dragButtonRef.current === 0) {
+        const isMobile = window.innerWidth < 768;
+        if (isMobile) {
+          // No mobile: trava estritamente na visão superior 2D, permitindo apenas toque e pan sem rotação 3D
+          const panSpeed = 0.16;
+          targetLookAt.current.x -= deltaX * panSpeed;
+          targetLookAt.current.z -= deltaY * panSpeed;
+          targetCameraPos.current.x = targetLookAt.current.x;
+          targetCameraPos.current.z = targetLookAt.current.z + 0.5;
+          return;
+        }
+
         sphericalRef.current.theta -= deltaX * 0.008;
         sphericalRef.current.phi = Math.max(0.08, Math.min(Math.PI / 2.1, sphericalRef.current.phi + deltaY * 0.008));
 
@@ -653,7 +687,8 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
   };
 
   const resetCamera = () => {
-    applyViewPreset('perspective');
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    applyViewPreset(isMobile ? 'top' : 'perspective');
     setSelectedRegiao('todas');
     setSearchQuery('');
     onSelectMunicipio(null);
@@ -807,10 +842,6 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
 
       </div>
 
-      {/* CARROSSEL AUTOMÁTICO NO TOPO EXCLUSIVO PARA MOBILE (Na tela inicial do mapa) */}
-      <div className="block sm:hidden w-full z-25 px-2 pt-1.5">
-        <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={true} />
-      </div>
 
       {/* MENU RETRÁTIL MOBILE (Legenda das 10 Regiões) */}
       {mobileMenuOpen && (
@@ -901,7 +932,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
             {onOpenEleicoes && (
               <button
                 onClick={onOpenEleicoes}
-                className="flex items-center gap-1.5 px-2.5 py-1 text-[11px] sm:text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl shadow-lg border border-cyan-400/40 transition-all"
+                className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 text-[11px] sm:text-xs font-semibold bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white rounded-xl shadow-lg border border-cyan-400/40 transition-all"
               >
                 <Vote className="w-3.5 h-3.5" />
                 <span>Eleições 2026</span>
@@ -1034,7 +1065,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             title="Instagram: @eng_giovanegabriel (Dev. Giovane Gabriel)"
-            className="pointer-events-auto bg-slate-900/95 hover:bg-slate-850 backdrop-blur-xl border border-slate-700/80 hover:border-cyan-400/60 rounded-xl px-3 py-2 shadow-2xl transition-all duration-200 group flex items-center gap-2.5"
+            className="hidden sm:flex pointer-events-auto bg-slate-900/95 hover:bg-slate-850 backdrop-blur-xl border border-slate-700/80 hover:border-cyan-400/60 rounded-xl px-3 py-2 shadow-2xl transition-all duration-200 group items-center gap-2.5"
           >
             <div className="w-7 h-7 rounded-lg bg-gradient-to-tr from-cyan-500 via-teal-400 to-blue-500 flex items-center justify-center text-slate-950 shadow-md shadow-cyan-500/30 shrink-0 group-hover:scale-105 group-hover:shadow-[0_0_12px_rgba(6,182,212,0.6)] transition-all">
               <Instagram className="w-4 h-4 text-slate-950 stroke-[2.2]" />

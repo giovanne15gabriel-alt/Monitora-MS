@@ -7,6 +7,12 @@ import React, { useState } from 'react';
 import { MunicipioMS, Vereador } from '../../data/municipiosData.ts';
 import { SponsorsTicker } from '../layout/SponsorsTicker.tsx';
 import { 
+  getEmpresasByIbge, 
+  CONTATO_COMERCIAL_WHATSAPP, 
+  CONTATO_COMERCIAL_WHATSAPP_DISPLAY,
+  EmpresaGuia 
+} from '../../data/guiaComercialData.ts';
+import { 
   formatCurrency, 
   formatCompactCurrency, 
   formatNumber 
@@ -62,7 +68,7 @@ const getSebraeMetrics = (m: MunicipioMS) => {
 };
 
 export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClose }) => {
-  const [activeTab, setActiveTab] = useState<TabType>('resumo');
+  const [activeTab, setActiveTab] = useState<TabType>('noticias_municipais');
   const [vereadorSearch, setVereadorSearch] = useState('');
   const [selectedParty, setSelectedParty] = useState<string>('todos');
   const [sortBy, setSortBy] = useState<'salario' | 'verba' | 'nome'>('salario');
@@ -131,61 +137,27 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
         <SponsorsTicker selectedMunicipio={municipio} isMobile={true} />
       </div>
 
-      {/* Segmented Tab Navigation (6 Abas em Grid Responsivo) */}
+      {/* Segmented Tab Navigation (Ordenação Oficial Solicitada) */}
       <nav className="grid grid-cols-2 sm:grid-cols-3 gap-2 px-6 py-3 border-b border-slate-800/80 bg-slate-950/30 shrink-0">
+        {/* 1. Notícias Municipais (Primeira aba padrão) */}
         <button
-          onClick={() => setActiveTab('resumo')}
+          onClick={() => setActiveTab('noticias_municipais')}
           className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
-            activeTab === 'resumo' 
-              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
+            activeTab === 'noticias_municipais' 
+              ? 'bg-slate-800 text-cyan-300 border-cyan-500/80 shadow-sm font-semibold' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
-          <User className="w-3.5 h-3.5 shrink-0"/>
-          <span className="truncate">Prefeito & Gestão</span>
+          <Newspaper className="w-3.5 h-3.5 shrink-0 text-cyan-400"/>
+          <span className="truncate">Notícias Municipais</span>
         </button>
 
-        <button
-          onClick={() => setActiveTab('financas')}
-          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
-            activeTab === 'financas' 
-              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
-              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
-          }`}
-        >
-          <TrendingUp className="w-3.5 h-3.5 shrink-0"/>
-          <span className="truncate">Dívida & Orçamento</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('sebrae')}
-          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
-            activeTab === 'sebrae' 
-              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
-              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
-          }`}
-        >
-          <Building2 className="w-3.5 h-3.5 shrink-0"/>
-          <span className="truncate">DataSebrae</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('vereadores')}
-          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
-            activeTab === 'vereadores' 
-              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm' 
-              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
-          }`}
-        >
-          <Users className="w-3.5 h-3.5 shrink-0"/>
-          <span className="truncate">Câmara ({vereadores.length})</span>
-        </button>
-
+        {/* 2. Guia Comercial */}
         <button
           onClick={() => setActiveTab('guia_comercial')}
           className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
             activeTab === 'guia_comercial' 
-              ? 'bg-slate-800 text-amber-300 border-amber-600/80 shadow-sm' 
+              ? 'bg-slate-800 text-amber-300 border-amber-500/80 shadow-sm font-semibold' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
@@ -193,16 +165,56 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
           <span className="truncate">Guia Comercial</span>
         </button>
 
+        {/* 3. Prefeito & Gestão */}
         <button
-          onClick={() => setActiveTab('noticias_municipais')}
+          onClick={() => setActiveTab('resumo')}
           className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
-            activeTab === 'noticias_municipais' 
-              ? 'bg-slate-800 text-cyan-300 border-cyan-600/80 shadow-sm' 
+            activeTab === 'resumo' 
+              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm font-semibold' 
               : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
           }`}
         >
-          <Newspaper className="w-3.5 h-3.5 shrink-0 text-cyan-400"/>
-          <span className="truncate">Notícias Locais</span>
+          <User className="w-3.5 h-3.5 shrink-0 text-blue-400"/>
+          <span className="truncate">Prefeito & Gestão</span>
+        </button>
+
+        {/* 4. Câmara Municipal */}
+        <button
+          onClick={() => setActiveTab('vereadores')}
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
+            activeTab === 'vereadores' 
+              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm font-semibold' 
+              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
+          }`}
+        >
+          <Users className="w-3.5 h-3.5 shrink-0 text-pink-400"/>
+          <span className="truncate">Câmara Municipal ({vereadores.length})</span>
+        </button>
+
+        {/* 5. Dívida & Orçamento */}
+        <button
+          onClick={() => setActiveTab('financas')}
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
+            activeTab === 'financas' 
+              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm font-semibold' 
+              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
+          }`}
+        >
+          <TrendingUp className="w-3.5 h-3.5 shrink-0 text-emerald-400"/>
+          <span className="truncate">Dívida & Orçamento</span>
+        </button>
+
+        {/* 6. DataSebrae & Negócios */}
+        <button
+          onClick={() => setActiveTab('sebrae')}
+          className={`flex items-center justify-center gap-1.5 px-2.5 py-2 text-xs font-medium rounded-lg transition-all border ${
+            activeTab === 'sebrae' 
+              ? 'bg-slate-800 text-cyan-300 border-slate-600 shadow-sm font-semibold' 
+              : 'bg-slate-950/50 text-slate-400 border-slate-800 hover:text-slate-200 hover:bg-slate-900'
+          }`}
+        >
+          <Building2 className="w-3.5 h-3.5 shrink-0 text-purple-400"/>
+          <span className="truncate">DataSebrae & Negócios</span>
         </button>
       </nav>
 
@@ -713,76 +725,179 @@ export const MunicipioPanel: React.FC<MunicipioPanelProps> = ({ municipio, onClo
         )}
 
         {/* ABA: GUIA COMERCIAL */}
-        {activeTab === 'guia_comercial' && (
-          <div className="space-y-5">
-            {/* Card Central de Vitrine / Em Breve */}
-            <div className="p-6 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-slate-800 rounded-2xl text-center space-y-4 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
-              
-              <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
-                <Store className="w-7 h-7" />
-              </div>
+        {activeTab === 'guia_comercial' && (() => {
+          const empresasMunicipio = getEmpresasByIbge(municipio.ibge);
+          const hasEmpresas = empresasMunicipio.length > 0;
 
-              <div>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-950/80 text-amber-300 border border-amber-800/80">
-                  <Sparkles className="w-3 h-3 text-amber-400" />
-                  Vitrine Empresarial · Em Breve
-                </span>
-                <h3 className="text-lg font-bold text-white mt-2">
-                  Guia Comercial de {municipio.nome}
-                </h3>
-              </div>
+          return (
+            <div className="space-y-5">
+              {/* Card Central do Guia Comercial */}
+              <div className="p-6 bg-gradient-to-b from-slate-900/90 to-slate-950/95 border border-slate-800 rounded-2xl text-center space-y-4 shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 transform translate-x-4 -translate-y-4 w-28 h-28 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
+                
+                <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                  <Store className="w-7 h-7" />
+                </div>
 
-              <div className="p-4 bg-slate-900/80 border border-slate-800/80 rounded-xl max-w-md mx-auto">
-                <p className="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed">
-                  "Anuncie seu comércio aqui. Entre em contato para colocar sua empresa no guia oficial da cidade."
-                </p>
-              </div>
+                <div>
+                  {/* "Vitrine Empresarial · Em Breve" só aparece se NÃO houver empresas cadastradas */}
+                  {!hasEmpresas && (
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-950/80 text-amber-300 border border-amber-800/80 mb-2">
+                      <Sparkles className="w-3 h-3 text-amber-400" />
+                      Vitrine Empresarial · Em Breve
+                    </span>
+                  )}
+                  <h3 className="text-xl font-bold text-white tracking-tight">
+                    Guia Comercial de {municipio.nome}
+                  </h3>
+                </div>
 
-              {/* Categorias Demonstrativas do Guia */}
-              <div className="grid grid-cols-2 gap-2 text-left pt-2">
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
-                  <span className="font-semibold text-amber-300 block">Comércio & Varejo</span>
-                  <span className="text-[10px] text-slate-400">Lojas, conveniências e distribuidoras</span>
+                <div className="p-4 bg-slate-900/80 border border-slate-800/80 rounded-xl max-w-md mx-auto">
+                  <p className="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed">
+                    "Anuncie seu comércio aqui. Entre em contato para colocar sua empresa no guia oficial da cidade."
+                  </p>
                 </div>
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
-                  <span className="font-semibold text-emerald-300 block">Agro & Serviços</span>
-                  <span className="text-[10px] text-slate-400">Oficinas, insumos e assistência técnica</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
-                  <span className="font-semibold text-cyan-300 block">Gastronomia</span>
-                  <span className="text-[10px] text-slate-400">Restaurantes, lanchonetes e padarias</span>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
-                  <span className="font-semibold text-purple-300 block">Saúde & Bem-Estar</span>
-                  <span className="text-[10px] text-slate-400">Clínicas, farmácias e laboratórios</span>
-                </div>
-              </div>
 
-              {/* Botões de Ação */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
-                <a
-                  href={`https://wa.me/5567999999999?text=${encodeURIComponent(`Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial de ${municipio.nome} no Monitora MS.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-950/50 transition-all hover:scale-[1.02]"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>Quero Anunciar Minha Empresa</span>
-                </a>
-                <a
-                  href="https://www.instagram.com/eng_giovanegabriel/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors"
-                >
-                  <Instagram className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Contato Comercial</span>
-                </a>
+                {/* Exibição das Empresas Oficiais Cadastradas (com Logo/Imagem) */}
+                {hasEmpresas ? (
+                  <div className="space-y-3 pt-1 text-left">
+                    <div className="flex items-center justify-between text-xs border-b border-slate-800 pb-1.5 px-0.5">
+                      <span className="font-bold text-amber-400 flex items-center gap-1.5 uppercase tracking-wide text-[11px]">
+                        <Sparkles className="w-3.5 h-3.5" />
+                        Empresas & Parceiros Oficiais de {municipio.nome}
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-mono">
+                        {empresasMunicipio.length} {empresasMunicipio.length === 1 ? 'cadastrada' : 'cadastrados'}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {empresasMunicipio.map((empresa) => (
+                        <div
+                          key={empresa.id}
+                          className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-amber-500/50 transition-all flex flex-col justify-between gap-3 group shadow-md"
+                        >
+                          <div className="flex items-start gap-3">
+                            {/* Imagem / Logo da Empresa */}
+                            <div className="w-14 h-14 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center p-1 shrink-0 overflow-hidden shadow-inner group-hover:border-amber-500/40 transition-colors">
+                              {empresa.imagemUrl ? (
+                                <img
+                                  src={empresa.imagemUrl}
+                                  alt={empresa.nome}
+                                  className="w-full h-full object-contain filter drop-shadow"
+                                  onError={(e) => {
+                                    // Se falhar, esconde a tag img
+                                    e.currentTarget.style.display = 'none';
+                                  }}
+                                />
+                              ) : (
+                                <Store className="w-6 h-6 text-amber-400" />
+                              )}
+                            </div>
+
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center justify-between gap-1 flex-wrap">
+                                <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-300 border border-amber-800/80 truncate">
+                                  {empresa.categoria}
+                                </span>
+                                {empresa.verificado && (
+                                  <span className="text-[9px] text-emerald-400 font-mono flex items-center gap-1 shrink-0">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Verificado
+                                  </span>
+                                )}
+                              </div>
+
+                              <h4 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors mt-1.5 leading-snug">
+                                {empresa.nome}
+                              </h4>
+                              <p className="text-[10px] text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                                {empresa.descricao}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px]">
+                            <span className="text-slate-400 font-mono">
+                              {empresa.instagramHandle || `${empresa.cidadeNome} - MS`}
+                            </span>
+
+                            <div className="flex items-center gap-2">
+                              {empresa.instagramUrl && (
+                                <a
+                                  href={empresa.instagramUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+                                >
+                                  <Instagram className="w-3 h-3" />
+                                  <span>Instagram</span>
+                                </a>
+                              )}
+                              <a
+                                href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent(`Olá! Vi a empresa ${empresa.nome} no Guia Comercial do Monitora MS.`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 font-medium transition-colors"
+                              >
+                                <MessageCircle className="w-3 h-3" />
+                                <span>Contato</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  /* Categorias Demonstrativas para outros municípios que ainda não possuem empresas */
+                  <div className="grid grid-cols-2 gap-2 text-left pt-2">
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                      <span className="font-semibold text-amber-300 block">Comércio & Varejo</span>
+                      <span className="text-[10px] text-slate-400">Lojas, conveniências e distribuidoras</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                      <span className="font-semibold text-emerald-300 block">Agro & Serviços</span>
+                      <span className="text-[10px] text-slate-400">Oficinas, insumos e assistência técnica</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                      <span className="font-semibold text-cyan-300 block">Gastronomia</span>
+                      <span className="text-[10px] text-slate-400">Restaurantes, lanchonetes e padarias</span>
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs">
+                      <span className="font-semibold text-purple-300 block">Saúde & Bem-Estar</span>
+                      <span className="text-[10px] text-slate-400">Clínicas, farmácias e laboratórios</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Botões de Ação para Anunciar com WhatsApp Oficial 67 9 3300-1147 */}
+                <div className="pt-3 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                  <a
+                    href={`https://wa.me/${CONTATO_COMERCIAL_WHATSAPP}?text=${encodeURIComponent(`Olá! Tenho interesse em cadastrar minha empresa no Guia Comercial de ${municipio.nome} no Monitora MS.`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg shadow-amber-950/50 transition-all hover:scale-[1.02]"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>Quero Anunciar Minha Empresa</span>
+                    <span className="text-[10px] font-mono text-slate-900 bg-amber-400/90 px-1.5 py-0.5 rounded ml-1">
+                      {CONTATO_COMERCIAL_WHATSAPP_DISPLAY}
+                    </span>
+                  </a>
+                  <a
+                    href="https://www.instagram.com/eng_giovanegabriel/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 transition-colors"
+                  >
+                    <Instagram className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Contato Comercial</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* ABA: NOTÍCIAS MUNICIPAIS */}
         {activeTab === 'noticias_municipais' && (

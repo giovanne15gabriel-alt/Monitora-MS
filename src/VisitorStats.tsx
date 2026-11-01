@@ -65,11 +65,43 @@ function useVisitorStats() {
   return stats;
 }
 
-export const VisitorStats: React.FC = () => {
+interface VisitorStatsProps {
+  className?: string;
+  isMobile?: boolean;
+}
+
+export const VisitorStats: React.FC<VisitorStatsProps> = ({ className, isMobile = false }) => {
   const { online, last30Days, total } = useVisitorStats();
 
+  if (isMobile) {
+    return (
+      <div className={`w-full grid grid-cols-3 gap-2 bg-[#0f172a] border border-slate-800 rounded-xl p-3 shadow-lg font-sans select-none text-center ${className || ''}`}>
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex items-center gap-1.5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <p className="text-[9px] text-slate-400 font-semibold tracking-wide uppercase">ONLINE</p>
+          </div>
+          <p className="text-emerald-400 font-bold text-sm leading-tight mt-1">{online > 0 ? online : 1}</p>
+        </div>
+
+        <div className="flex flex-col items-center justify-center border-x border-slate-800 px-2">
+          <p className="text-[9px] text-slate-400 font-semibold tracking-wide uppercase">30 DIAS</p>
+          <p className="text-cyan-400 font-bold text-sm leading-tight mt-1">{last30Days.toLocaleString('pt-BR')}</p>
+        </div>
+
+        <div className="flex flex-col items-center justify-center">
+          <p className="text-[9px] text-slate-400 font-semibold tracking-wide uppercase">TOTAL</p>
+          <p className="text-white font-bold text-sm leading-tight mt-1">{total.toLocaleString('pt-BR')}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="fixed bottom-3 right-72 z-50 flex items-center bg-[#0f172a] border border-slate-800 rounded-2xl px-2 py-3 shadow-lg font-sans select-none w-max">
+    <div className={`hidden sm:flex fixed bottom-3 right-72 z-40 items-center bg-[#0f172a] border border-slate-800 rounded-2xl px-2 py-3 shadow-lg font-sans select-none w-max ${className || ''}`}>
       
       {/* 1. Indicador Online (Tempo Real) */}
       <div className="flex flex-col px-5 min-w-[110px]">
