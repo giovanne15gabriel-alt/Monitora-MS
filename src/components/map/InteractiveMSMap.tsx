@@ -1004,7 +1004,7 @@ export const InteractiveMSMap: React.FC<InteractiveMSMapProps> = ({
           <GiroMsWidget onSearchActions={searchActions} onSearchKeyword={handleGlobalSearchKeyword} />
 
           <div className="pointer-events-auto">
-            <SponsorsTicker selectedMunicipio={selectedMunicipio} isMobile={false} />
+            <SponsorsTicker selectedMunicipio={selectedMunicipio} forceStateOnly={true} isMobile={false} />
           </div>
 
           <div className="pointer-events-auto bg-slate-950/92 backdrop-blur-xl border border-slate-800 rounded-2xl p-3 shadow-2xl space-y-2.5 max-w-xs">
